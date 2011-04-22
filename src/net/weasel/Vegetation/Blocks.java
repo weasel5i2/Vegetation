@@ -239,7 +239,7 @@ public class Blocks
     {
     	Block retVal = null;
     	int Range = Vegetation.growthRange;
-    	int MaxCycle = 50;
+    	int MaxCycle = 150;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
@@ -249,8 +249,8 @@ public class Blocks
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-       		tX = pX + Vegetation.generator.nextInt(Range) - Vegetation.generator.nextInt(Range);
-    		tZ = pZ + Vegetation.generator.nextInt(Range) - Vegetation.generator.nextInt(Range);
+       		tX = pX + GetRandomRangeValue( I, Range );
+    		tZ = pZ + GetRandomRangeValue( I, Range );
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ );
     		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) )
@@ -266,7 +266,7 @@ public class Blocks
 	public static Block getRandomBlock( Location BaseBlock, Material material, int Range )
     {
     	Block retVal = null;
-    	int MaxCycle = 50;
+    	int MaxCycle = 150;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
@@ -276,8 +276,8 @@ public class Blocks
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-       		tX = pX + Vegetation.generator.nextInt(Range) - Vegetation.generator.nextInt(Range);
-    		tZ = pZ + Vegetation.generator.nextInt(Range) - Vegetation.generator.nextInt(Range);
+       		tX = pX + GetRandomRangeValue( I, Range );
+    		tZ = pZ + GetRandomRangeValue( I, Range );
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ );
     		if( currentBlock != null && currentBlock.getType() == material )
@@ -293,7 +293,7 @@ public class Blocks
 	public static Block getRandomBlock( Location BaseBlock, Material material, int MinRange, int MaxRange )
     {
     	Block retVal = null;
-    	int MaxCycle = 50;
+    	int MaxCycle = 150;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
@@ -303,8 +303,8 @@ public class Blocks
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-       		tX = pX + Vegetation.generator.nextInt(MaxRange) - Vegetation.generator.nextInt(MaxRange);
-    		tZ = pZ + Vegetation.generator.nextInt(MaxRange) - Vegetation.generator.nextInt(MaxRange);
+       		tX = pX + GetRandomRangeValue( I, MaxRange );
+    		tZ = pZ + GetRandomRangeValue( I, MaxRange );
 
     		//Cacti destroy each other if they are too close togehter
     		if( (tX - pX >= MinRange ) && (tZ - pZ) >= MinRange )
@@ -366,5 +366,45 @@ public class Blocks
     	}
 
 		return range;
+    }
+    
+    public static boolean IsAdjacentBlockofType( Block B, Material M )
+    {
+    	if( B.getRelative(BlockFace.NORTH).getType() == M )
+    	{
+    		return true;
+    	}
+    	else if( B.getRelative(BlockFace.EAST).getType() == M )
+    	{
+    		return true;
+    	}
+    	else if( B.getRelative(BlockFace.SOUTH).getType() == M )
+    	{
+    		return true;
+    	}
+    	else if( B.getRelative(BlockFace.WEST).getType() == M )
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    public static int GetRandomRangeValue(int V, int MaxRange)
+    {
+    	if( V%3 == 1 )
+    	{
+    		return ( Vegetation.generator.nextInt(MaxRange) - Vegetation.generator.nextInt(MaxRange) ) / 2;
+    	}
+    	else if( V%3 == 2 )
+    	{
+    		return ( Vegetation.generator.nextInt(MaxRange) - Vegetation.generator.nextInt(MaxRange) ) / 3;
+    	}
+    	else
+    	{
+    		return Vegetation.generator.nextInt(MaxRange) - Vegetation.generator.nextInt(MaxRange);
+    	}
     }
 }

@@ -95,7 +95,6 @@ public class Timer implements Runnable {
 					switch( CB.getType() )
 					{
 					case GRASS:
-						//Handle Grass Grow
 						if ( Vegetation.enableGrass && ( ActiveTickCount < Vegetation.grassPercent ) )
 						{
 							Grass.growGrass( CB );
@@ -110,6 +109,10 @@ public class Timer implements Runnable {
 						break;
 						
 					case SUGAR_CANE_BLOCK:
+						if ( Vegetation.enablePlants && Vegetation.enableCanes && ( ActiveTickCount < Vegetation.grassPercent ) )
+						{
+							Cranes.GrowCranes( CB );
+						}
 						break;
 						
 					case YELLOW_FLOWER:
@@ -122,7 +125,7 @@ public class Timer implements Runnable {
 					case RED_ROSE:
 						if ( Vegetation.enablePlants && Vegetation.enableFlowers && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
-							Plants.growPlant( CB , Material.YELLOW_FLOWER );
+							Plants.growPlant( CB , Material.RED_ROSE );
 						}
 						break;
 					
@@ -141,6 +144,10 @@ public class Timer implements Runnable {
 						break;
 					
 					case PUMPKIN:
+						if ( Vegetation.enablePlants && Vegetation.enablePumpkins && ( ActiveTickCount < Vegetation.grassPercent ) )
+						{
+							Plants.growPlant( CB , Material.PUMPKIN);
+						}
 						break;
 						
 					default:
