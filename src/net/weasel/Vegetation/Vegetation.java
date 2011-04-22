@@ -16,20 +16,21 @@ import java.util.logging.Logger;
 
 import org.bukkit.Server;
 import org.bukkit.World;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Type;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
+import com.nijiko.permissions.PermissionHandler;
+import com.nijikokun.bukkit.Permissions.Permissions;
+
 public class Vegetation extends JavaPlugin
 {
 	public static final Logger Log = Logger.getLogger("Minecraft");
+	public static PermissionHandler Permissions;
 	
 	// Plugin stuff..
 	public static String pluginName = "";
@@ -40,6 +41,8 @@ public class Vegetation extends JavaPlugin
 	public static Random generator = new Random();
 	public static BukkitScheduler timer;
 	public static ArrayList<String> playerList = new ArrayList<String>();
+	//prevents server crash and lag if too many players issue commands
+	public static int ActivePlayerCommands = 0;
 
 	// Timer task stuff
 	public static Integer tTask;
@@ -136,6 +139,9 @@ public class Vegetation extends JavaPlugin
 		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_LOGIN, PlayerListener, Event.Priority.Normal, plugin );
 		
+		// Register our commands
+        getCommand("grow").setExecutor(new GrowCommand(this));
+		
 		if( new File("plugins/Vegetation/").exists() == false )
 		{
 			logOutput( "Settings folder does not exist - creating it.. ");
@@ -211,6 +217,9 @@ public class Vegetation extends JavaPlugin
     	
     	tempGrassPerGrow = grassPerGrow;
     	
+    	//Enable Permissions
+    	setupPermissions();
+    	
     	/*if( ( grassPercent + plantsPercent + mossPercent + grazePercent ) > 100 )
     	{
         	logOutput( "The sum of the growth percentages is > 100. Please fix it." );
@@ -240,6 +249,24 @@ public class Vegetation extends JavaPlugin
     	timer.cancelAllTasks();
         logOutput( "Plugin disabled: "+pluginName+" version "+pluginVersion);
     }
+    
+	public static void setupPermissions()
+	{
+	      Plugin test = plugin.getServer().getPluginManager().getPlugin("Permissions");
+
+	      if(Permissions == null)
+	      {
+	          if(test != null)
+	          {
+	        	  Permissions = ((Permissions)test).getHandler();
+	        	  logOutput( "Permissions found!" );
+	          }
+	          else
+	          {
+	              logOutput( "Permission system not detected, defaulting to OP" );
+	          }
+	      }
+	}
     
     public String[] getSetting( String which, String Default )
     {
@@ -347,7 +374,7 @@ public class Vegetation extends JavaPlugin
 		return retVal;
     }
     
-	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) 
+	/*public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) 
     {
     	String pCommand = command.getName().toLowerCase();
     	
@@ -359,11 +386,67 @@ public class Vegetation extends JavaPlugin
     	
     	if( pCommand.equals( "grow" )  )
     	{
-    		sender.sendMessage( "Growing everything.." );
-    		//Grass.growGrass( (Player)sender );
-    		//Plants.growPlant( (Player)sender );
-    		Moss.growMoss( (Player)sender );
+    		//Todo: implement command queue
+    		if( ActivePlayerCommands < 20 )
+    		{
+    			ActivePlayerCommands++;
+    			sender.sendMessage( "Growing everything.." );
+    			for( int I = 0; I < 100; I++ )
+    			{
+    				Block CB = Blocks.getRandomBlock( ((Player) sender).getLocation() );
+
+    				if ( CB != null )
+    				{
+    					switch( CB.getType() )
+    					{
+    					case GRASS:
+    						if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.GRASS );
+    						Grass.growGrass( CB );
+    						break;
+
+    					case CACTUS:
+    						if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.CACTUS );
+    						Cacti.growCacti( CB );
+    						break;
+
+    					case SUGAR_CANE_BLOCK:
+    						if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.SUGAR_CANE_BLOCK );
+    						Cranes.GrowCranes( CB );
+    						break;
+
+    					case YELLOW_FLOWER:
+    						if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.YELLOW_FLOWER );
+    						Plants.growPlant( CB , Material.YELLOW_FLOWER );
+    						break;
+
+    					case RED_ROSE:
+    						if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.RED_ROSE );
+    						Plants.growPlant( CB , Material.RED_ROSE );
+    						break;
+
+    					case BROWN_MUSHROOM:
+    						if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.BROWN_MUSHROOM );
+    						Plants.growPlant( CB , Material.BROWN_MUSHROOM );
+    						break;
+
+    					case RED_MUSHROOM:
+    						if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.RED_MUSHROOM );
+    						Plants.growPlant( CB , Material.RED_MUSHROOM );
+    						break;
+
+    					case PUMPKIN:
+    						if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.PUMPKIN );
+    						Plants.growPlant( CB , Material.PUMPKIN );
+    						break;
+
+    					default:
+    						break;
+    					}
+    				}
+    			}
+    		}
     	}
+    	
     	if( pCommand.equals( "growgrass" )  )
     	{
     		if( args.length == 1 )
@@ -593,7 +676,7 @@ public class Vegetation extends JavaPlugin
 	    }
 
     	return true;
-    }
+    }*/
 	            
 	public String[] getSettingValue(String fileName, String optionName, String defaultValue, String splitValue)
     {
