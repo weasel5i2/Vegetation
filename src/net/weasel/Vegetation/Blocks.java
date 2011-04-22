@@ -29,25 +29,24 @@ public class Blocks
  	    return( retVal );
 	}
 	
-	public static boolean withinEnabledBiome( Block whichBlock )
+	public static boolean withinEnabledBiome( Block B )
     {
-    	boolean retVal = false;
-    	Biome biome = whichBlock.getBiome();
+    	Biome biome = B.getBiome();
     	
-		if( biome == Biome.FOREST && Vegetation.growForestBiome == true ) retVal = true;
-		if( biome == Biome.RAINFOREST && Vegetation.growRainforestBiome == true ) retVal = true;
-	    if( biome == Biome.PLAINS && Vegetation.growPlainsBiome == true ) retVal = true;
-	    if( biome == Biome.ICE_DESERT && Vegetation.growIceDesertBiome == true ) retVal = true;
-	    if( biome == Biome.DESERT && Vegetation.growDesertBiome == true ) retVal = true;
-	    if( biome == Biome.SWAMPLAND && Vegetation.growSwamplandBiome == true ) retVal = true;
-	    if( biome == Biome.HELL && Vegetation.growHellBiome == true ) retVal = true;
-	    if( biome == Biome.TAIGA && Vegetation.growTaigaBiome == true ) retVal = true;
-	    if( biome == Biome.TUNDRA && Vegetation.growTundraBiome == true ) retVal = true;
-	    if( biome == Biome.SAVANNA && Vegetation.growSavannahBiome == true ) retVal = true;
-	    if( biome == Biome.SHRUBLAND && Vegetation.growShrublandBiome == true ) retVal = true;
-	    if( biome == Biome.SEASONAL_FOREST && Vegetation.growSeasonalForestBiome == true ) retVal = true;
-
-	    return retVal;
+		if( biome == Biome.FOREST && Vegetation.growForestBiome == true ) return true;
+		else if( biome == Biome.RAINFOREST && Vegetation.growRainforestBiome == true ) return true;
+		else if( biome == Biome.PLAINS && Vegetation.growPlainsBiome == true ) return true;
+		else if( biome == Biome.ICE_DESERT && Vegetation.growIceDesertBiome == true ) return true;
+		else if( biome == Biome.DESERT && Vegetation.growDesertBiome == true ) return true;
+		else if( biome == Biome.SWAMPLAND && Vegetation.growSwamplandBiome == true ) return true;
+		else if( biome == Biome.HELL && Vegetation.growHellBiome == true ) return true;
+		else if( biome == Biome.TAIGA && Vegetation.growTaigaBiome == true ) return true;
+		else if( biome == Biome.TUNDRA && Vegetation.growTundraBiome == true ) return true;
+		else if( biome == Biome.SAVANNA && Vegetation.growSavannahBiome == true ) return true;
+		else if( biome == Biome.SHRUBLAND && Vegetation.growShrublandBiome == true ) return true;
+		else if( biome == Biome.SEASONAL_FOREST && Vegetation.growSeasonalForestBiome == true ) return true;
+		else return false;
+		
     }
     
     public static ArrayList<Block> getAdjacentBlocks( Block targetBlock )
