@@ -24,8 +24,8 @@ public class Cranes {
 			if( PlantBlock != null )
 			{
 				//sugar cranes can only grow near water :O
-				if( Blocks.IsAdjacentBlockofType(PlantBlock, Material.STATIONARY_WATER)
-						|| Blocks.IsAdjacentBlockofType(PlantBlock, Material.WATER) )
+				if( Blocks.IsAdjacentBlockofType1(PlantBlock, Material.STATIONARY_WATER)
+						|| Blocks.IsAdjacentBlockofType1(PlantBlock, Material.WATER) )
 				{
 					PlantBlock.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
 					if( Vegetation.debugging ) logOutput( "Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ() );

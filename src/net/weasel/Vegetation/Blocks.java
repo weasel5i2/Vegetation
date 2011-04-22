@@ -325,7 +325,7 @@ public class Blocks
 		return range;
     }
     
-    public static boolean IsAdjacentBlockofType( Block B, Material M )
+    public static boolean IsAdjacentBlockofType1( Block B, Material M )
     {
     	if( B.getRelative(BlockFace.NORTH).getType() == M )
     	{
@@ -340,6 +340,34 @@ public class Blocks
     		return true;
     	}
     	else if( B.getRelative(BlockFace.WEST).getType() == M )
+    	{
+    		return true;
+    	}
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    public static boolean IsAdjacentBlockofType2( Block B, Material M )
+    {
+    	if( B.getRelative(BlockFace.NORTH).getType() == M )
+    	{
+    		return true;
+    	}
+    	else if( B.getRelative(BlockFace.EAST).getType() == M )
+    	{
+    		return true;
+    	}
+    	else if( B.getRelative(BlockFace.SOUTH).getType() == M )
+    	{
+    		return true;
+    	}
+    	else if( B.getRelative(BlockFace.WEST).getType() == M )
+    	{
+    		return true;
+    	}
+    	else if( B.getRelative(BlockFace.UP).getType() == M )
     	{
     		return true;
     	}
