@@ -11,8 +11,7 @@ public final class Grass
 	{	
 		if( Vegetation.debugging ) logOutput( "Growing grass.." );
 
-		int V;
-
+		Integer V;
 
 		V = B.getData() + 1;
 

@@ -122,7 +122,7 @@ public class Plants
     			    			
             	if( currentBlock != null )
             	{
-        			if( isLilyPad(currentBlock) && Blocks.withinEnabledBiome(currentBlock) == true )
+        			if( isLilyPad(currentBlock) && Blocks.WithinEnabledBiome(currentBlock.getBiome()) == true )
 	    			{
             			lilyPadBlocks.add(currentBlock);
 	    			}

@@ -3,6 +3,7 @@ package net.weasel.Vegetation;
 import java.util.ArrayList;
 
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -10,7 +11,7 @@ import org.bukkit.entity.Player;
 public final class Vines 
 {
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
-	public static boolean withinEnabledBiome( Block whichBlock ) { return Blocks.withinEnabledBiome( whichBlock ); }
+	public static boolean withinEnabledBiome( Biome biome ) { return Blocks.WithinEnabledBiome( biome ); }
 	public static Block getTopTreeBlock(World world, double X, double Z ) { return Blocks.getTopTreeBlock(world, X, Z ); }
 
 	public static void growVines( Player player, int count )

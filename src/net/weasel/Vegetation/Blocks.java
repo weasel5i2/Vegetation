@@ -29,10 +29,8 @@ public class Blocks
  	    return( retVal );
 	}
 	
-	public static boolean withinEnabledBiome( Block B )
-    {
-    	Biome biome = B.getBiome();
-    	
+	public static boolean WithinEnabledBiome( Biome biome )
+    {	
 		if( biome == Biome.FOREST && Vegetation.growForestBiome == true ) return true;
 		else if( biome == Biome.RAINFOREST && Vegetation.growRainforestBiome == true ) return true;
 		else if( biome == Biome.PLAINS && Vegetation.growPlainsBiome == true ) return true;
@@ -46,7 +44,6 @@ public class Blocks
 		else if( biome == Biome.SHRUBLAND && Vegetation.growShrublandBiome == true ) return true;
 		else if( biome == Biome.SEASONAL_FOREST && Vegetation.growSeasonalForestBiome == true ) return true;
 		else return false;
-		
     }
     
     public static ArrayList<Block> getAdjacentBlocks( Block targetBlock )
@@ -131,8 +128,6 @@ public class Blocks
     				break;
     			}
     			current = W.getBlockAt((int)X, (int)Y - I,(int)Z);
-    			//logOutput("Current: " + current.getType().toString() );
-    			//logOutput( X + " " + Y + " " + Z );
     			if( current.getType() != Material.AIR )
     			{
     				retVal = current;
@@ -224,7 +219,7 @@ public class Blocks
     		tZ = pZ + Vegetation.generator.nextInt(Range) - Vegetation.generator.nextInt(Range);
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ );
-    		if( currentBlock != null )
+    		if( currentBlock != null && WithinEnabledBiome( currentBlock.getBiome() ) )
     		{
     			retVal = currentBlock;
     			if( Vegetation.debugging ) logOutput( "Found random block of material: " + currentBlock.getType().toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ() );
@@ -252,7 +247,7 @@ public class Blocks
     		tZ = pZ + GetRandomRangeValue( I, Range );
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ );
-    		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) )
+    		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( WithinEnabledBiome( currentBlock.getBiome() ) ) )
     		{
     			retVal = currentBlock;
     			if( Vegetation.debugging ) logOutput( "Found random block of material: "+ material.toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ() );
@@ -279,7 +274,7 @@ public class Blocks
     		tZ = pZ + GetRandomRangeValue( I, Range );
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ );
-    		if( currentBlock != null && currentBlock.getType() == material )
+    		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( WithinEnabledBiome( currentBlock.getBiome() ) ) )
     		{
     			retVal = currentBlock;
     			if( Vegetation.debugging ) logOutput( "Found random block of material: "+ material.toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ() );
@@ -309,7 +304,7 @@ public class Blocks
     		if( (tX - pX >= MinRange ) && (tZ - pZ) >= MinRange )
     		{
     			currentBlock = getTopBlock( BaseBlock, tX, tZ );
-    			if( currentBlock != null && currentBlock.getType() == material )
+    			if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( WithinEnabledBiome( currentBlock.getBiome() ) ) )
     			{
     				retVal = currentBlock;
     				if( Vegetation.debugging ) logOutput( "Found random block of material: "+ material.toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ() );
@@ -346,7 +341,7 @@ public class Blocks
 
 	            	if( currentBlock != null )
 	            	{
-	            		if( withinEnabledBiome(currentBlock) == true )
+	            		if( WithinEnabledBiome(currentBlock.getBiome()) == true )
 		    			{
 	            			if( currentBlock.getTypeId() != 0 ) 
 	            			{

@@ -231,14 +231,14 @@ public class Vegetation extends JavaPlugin
         	logOutput( "No vegetation is enabled. Disabling plugin." );
             this.getPluginLoader().disablePlugin(this);
         }
-        else if( !growForestBiome && !growRainforestBiome && ! growShrublandBiome &&
+        /*else if( !growForestBiome && !growRainforestBiome && ! growShrublandBiome &&
         		 !growSavannahBiome && !growPlainsBiome && !growSeasonalForestBiome &&
         		 !growIceDesertBiome && !growHellBiome && !growDesertBiome &&
         		 !growDesertBiome && !growSwamplandBiome && !growTaigaBiome && !growTundraBiome )
         {
         	logOutput( "No Biome Type is enabled. Disabling plugin." );
         	this.getPluginLoader().disablePlugin(this);
-        }
+        }*/
         else
             tTask = setupTimerTask( 10, 1 );
     }
