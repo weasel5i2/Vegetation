@@ -71,9 +71,6 @@ public class VegetationPlayerListener extends PlayerListener
 		{
 			if( !Vegetation.playerList.contains( Event.getPlayer().getName() ) )
 				Vegetation.playerList.add( Event.getPlayer().getName() );
-			/*Location temp = Event.getPlayer().getLocation();
-			logOutput("Player at: " + temp.getX() + " " + temp.getY()
-						+ " " + temp.getZ() );*/
 		}
 		catch ( Exception e )
 		{

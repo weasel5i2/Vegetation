@@ -72,43 +72,6 @@ public class Blocks
     	
     	return blockList;
     }
-
-    /*public static Block getTopBlock( World world, double X, double Z, int[] ignoreBlocks )
-    {
-    	Block retVal = null;
-    	double Y = 127;
-    	boolean exitLoop = false;
-    	Block currentBlock = null;
-    	
-    	while( Y > 0 && exitLoop == false )
-    	{
-    		try
-    		{
-    			currentBlock = world.getBlockAt((int)X,(int)Y,(int)Z);
-    		}
-    		catch( Exception e )
-    		{
-    			retVal = null;
-    			exitLoop = true;
-    			break;
-    		}
-    		
-    		if( currentBlock.getTypeId() != 0 
-    		&& currentBlock.getTypeId() != 17 
-    		&& currentBlock.getTypeId() != 18 
-    		&& currentBlock.getTypeId() != 78 )
-    		{
-    			retVal = currentBlock;
-    			exitLoop = true;
-    		}
-    		else
-    		{
-    			Y--;
-    		}
-    	}
-    	
-    	return retVal;
-    }*/
     
     public static Block getTopBlock( Location BaseBlock, double X, double Z )
     {

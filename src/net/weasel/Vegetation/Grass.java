@@ -3,7 +3,6 @@ package net.weasel.Vegetation;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 
 public final class Grass 
 {
