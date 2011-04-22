@@ -109,9 +109,6 @@ public class Vegetation extends JavaPlugin
 	public static boolean growTaigaBiome = true;
 	public static boolean growTundraBiome = true;
 	
-	//Plant type list
-	public static ArrayList<Material> EnabledPlantTypes = new ArrayList<Material>();
-	
 	public static Player overGrower = null;
 	public static boolean overGrowingPlants = false;
 	
@@ -214,38 +211,6 @@ public class Vegetation extends JavaPlugin
     	grassPerGrow = getDblSetting( "grassPerGrow", 1 );
     	
     	tempGrassPerGrow = grassPerGrow;
-    	
-    	//Compile list for enabled plant types!
-    	if ( Vegetation.enablePlants )
-    	{
-    		if ( Vegetation.enableCacti )
-    		{
-    			EnabledPlantTypes.add(Material.CACTUS);
-    		}
-    		if ( Vegetation.enableCanes )
-    		{
-    			EnabledPlantTypes.add(Material.SUGAR_CANE_BLOCK);
-    		}
-    		if ( Vegetation.enableFlowers )
-    		{
-    			EnabledPlantTypes.add(Material.YELLOW_FLOWER);
-    			EnabledPlantTypes.add(Material.RED_ROSE);
-    		}
-    		if( Vegetation.enableFungi )
-    		{
-    			EnabledPlantTypes.add(Material.BROWN_MUSHROOM);
-    			EnabledPlantTypes.add(Material.RED_MUSHROOM);
-    		}
-    		if( Vegetation.enablePumpkins )
-    		{
-    			EnabledPlantTypes.add(Material.PUMPKIN);
-    		}
-    		
-    		if( EnabledPlantTypes.size() == 0 )
-    		{
-    			Vegetation.enablePlants = false;
-    		}
-    	}
     	
     	/*if( ( grassPercent + plantsPercent + mossPercent + grazePercent ) > 100 )
     	{
@@ -396,8 +361,8 @@ public class Vegetation extends JavaPlugin
     	if( pCommand.equals( "grow" )  )
     	{
     		sender.sendMessage( "Growing everything.." );
-    		Grass.growGrass( (Player)sender );
-    		Plants.growPlant( (Player)sender );
+    		//Grass.growGrass( (Player)sender );
+    		//Plants.growPlant( (Player)sender );
     		Moss.growMoss( (Player)sender );
     	}
     	if( pCommand.equals( "growgrass" )  )
@@ -416,7 +381,7 @@ public class Vegetation extends JavaPlugin
     		
     		for( int C = 0; C < grassPerGrow; C++ )
     		{
-    			Grass.growGrass( (Player)sender );
+    			//Grass.growGrass( (Player)sender );
     		}
     	}
     	
@@ -450,7 +415,7 @@ public class Vegetation extends JavaPlugin
     	if( pCommand.equals("growplants") )
     	{
     		sender.sendMessage( "Spreading the plants.." );
-    		Plants.growPlant( (Player)sender );
+    		//Plants.growPlant( (Player)sender );
     		return true;
     	}
     	

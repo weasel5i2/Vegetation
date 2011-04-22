@@ -22,59 +22,6 @@ public class Timer implements Runnable {
 	}
 
 	@Override
-	/*public void run() 
-	{
-		long Tick = System.currentTimeMillis();
-		
-		if ( ActiveTickCount >= 100 ) ActiveTickCount = 0;
-		
-		if ( ( Tick - LastTick >= UpdateTicks ) )
-		{			
-			//logOutput( "Tick: " + Tick );
-			
-			Vegetation.getNextPlayer();
-			if( Vegetation.currentPlayer != null )
-			{
-				//logOutput( "Active!" );
-				//Location temp = Vegetation.currentPlayer.getLocation();
-				//logOutput("Player at: " + temp.getX() + " " + temp.getY() + " " + temp.getZ() );
-				
-				//Handle Grass Grow
-				if ( Vegetation.enableGrass && ( ActiveTickCount < Vegetation.grassPercent ) )
-				{
-					Grass.growGrass(Vegetation.currentPlayer);
-				}
-
-				//Handle Plant Grow
-				if ( Vegetation.enablePlants && ( ActiveTickCount < Vegetation.plantsPercent ) )
-				{
-					Plants.growPlant( Vegetation.currentPlayer );
-					if( Vegetation.enableCacti == true ) Cacti.growCacti( Vegetation.currentPlayer );
-				}
-
-				//Handle Moss Grow
-				if( Vegetation.enableMoss && ( ActiveTickCount < Vegetation.mossPercent ) )
-				{
-					Moss.growMoss( Vegetation.currentPlayer );
-				}
-
-				//Handle grazers
-				if( Vegetation.enableGrazers && ( ActiveTickCount < Vegetation.grassPercent ) )
-				{
-					Grazers.grazeAnimals();
-				}
-
-				//Todo: LiliPads
-				LastTick = Tick;
-				ActiveTickCount++;
-			}
-			else
-			{
-				ActiveTickCount = 0;
-			}
-		}
-	}*/
-	
 	public void run()
 	{
 		long Tick = System.currentTimeMillis();
@@ -146,7 +93,7 @@ public class Timer implements Runnable {
 					case PUMPKIN:
 						if ( Vegetation.enablePlants && Vegetation.enablePumpkins && ( ActiveTickCount < Vegetation.grassPercent ) )
 						{
-							Plants.growPlant( CB , Material.PUMPKIN);
+							Plants.growPlant( CB , Material.PUMPKIN );
 						}
 						break;
 						

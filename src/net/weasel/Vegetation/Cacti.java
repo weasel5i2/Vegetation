@@ -1,15 +1,12 @@
 package net.weasel.Vegetation;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
 public class Cacti 
 {
-	public static boolean withinEnabledBiome( Block whichBlock ) { return( Blocks.withinEnabledBiome( whichBlock ) ); }
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
-	public static Block getTopBlock(Location BaseBlock, double X, double Z ) { return Blocks.getTopBlock(BaseBlock, X, Z ); }
 	
 	public static void growCacti(Block B)
 	{
