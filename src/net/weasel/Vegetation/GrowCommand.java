@@ -12,11 +12,10 @@ public class GrowCommand implements CommandExecutor {
 	
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	//private final Vegetation Plugin;
 	
 	public GrowCommand( Vegetation Plugin )
 	{
-		//this.Plugin = Plugin;
+
 	}
 	
 	@Override

@@ -1,5 +1,7 @@
 package net.weasel.Vegetation;
 
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
@@ -48,33 +50,30 @@ public final class Grass
 		}
 	}
     
-    public static void mowTheGrass( Player player, int height, boolean add )
+    public static void MowGrass( Location BaseBlock , int V )
     {
-    	Integer R = Math.round( Vegetation.growthRange / 2 );
-    	double pX = player.getLocation().getX();
-    	double pZ = player.getLocation().getZ();
-    	//int[] ignoreBlocks = { 17, 18, 0 };
+    	//max grass height
+    	if( V > 10 ) V = 10;
+    	//no grass
+    	if( V < 1 ) V = 1;
+    	
+    	int R = Math.round( Vegetation.growthRange / 2 );
+    	double pX = BaseBlock.getX();
+    	double pZ = BaseBlock.getZ();
     	    	
-    	Block currentBlock = null;
+    	Block CurrentBlock = null;
     	
     	for( double X = (pX-R); X <= (pX+R); X++ )
     	{
     		for( double Z = (pZ-R); Z <= (pZ+R); Z++ )
     		{
-    			currentBlock = Blocks.getTopBlock(player.getLocation(), X, Z );
+    			CurrentBlock = Blocks.getTopBlock(BaseBlock, X, Z );
     			
-    			if( currentBlock != null )
+    			if( CurrentBlock != null )
     			{
-	    			if( currentBlock.getTypeId() == 2 ) 
+	    			if( CurrentBlock.getType() == Material.GRASS ) 
 	    			{
-	    				if( add == true )
-	    				{
-	    					int nHeight = height + currentBlock.getData();
-	    					if( nHeight > 10 ) nHeight = 10;
-	    					currentBlock.setData( (byte) nHeight );
-	    				}
-	    				else
-	    					currentBlock.setData( (byte) height );
+	    				CurrentBlock.setData( (byte)V );
 	    			}
     			}
     		}
