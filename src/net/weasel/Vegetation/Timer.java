@@ -44,6 +44,7 @@ public class Timer implements Runnable {
 					case GRASS:
 						if ( Vegetation.enableGrass && ( ActiveTickCount < Vegetation.grassPercent ) )
 						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.GRASS );
 							Grass.growGrass( CB );
 						}
 						break;
@@ -51,6 +52,7 @@ public class Timer implements Runnable {
 					case CACTUS:
 						if ( Vegetation.enablePlants && Vegetation.enableCacti && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.CACTUS );
 							Cacti.growCacti( CB );
 						}
 						break;
@@ -58,6 +60,7 @@ public class Timer implements Runnable {
 					case SUGAR_CANE_BLOCK:
 						if ( Vegetation.enablePlants && Vegetation.enableCanes && ( ActiveTickCount < Vegetation.grassPercent ) )
 						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.SUGAR_CANE_BLOCK );
 							Cranes.GrowCranes( CB );
 						}
 						break;
@@ -65,6 +68,7 @@ public class Timer implements Runnable {
 					case YELLOW_FLOWER:
 						if ( Vegetation.enablePlants && Vegetation.enableFlowers && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.YELLOW_FLOWER );
 							Plants.growPlant( CB , Material.YELLOW_FLOWER );
 						}
 						break;
@@ -72,6 +76,7 @@ public class Timer implements Runnable {
 					case RED_ROSE:
 						if ( Vegetation.enablePlants && Vegetation.enableFlowers && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.RED_ROSE );
 							Plants.growPlant( CB , Material.RED_ROSE );
 						}
 						break;
@@ -79,6 +84,7 @@ public class Timer implements Runnable {
 					case BROWN_MUSHROOM:
 						if ( Vegetation.enablePlants && Vegetation.enableFungi && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.BROWN_MUSHROOM );
 							Plants.growPlant( CB , Material.BROWN_MUSHROOM );
 						}
 						break;
@@ -86,6 +92,7 @@ public class Timer implements Runnable {
 					case RED_MUSHROOM:
 						if ( Vegetation.enablePlants && Vegetation.enableFungi && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.RED_MUSHROOM );
 							Plants.growPlant( CB , Material.RED_MUSHROOM );
 						}
 						break;
@@ -93,6 +100,7 @@ public class Timer implements Runnable {
 					case PUMPKIN:
 						if ( Vegetation.enablePlants && Vegetation.enablePumpkins && ( ActiveTickCount < Vegetation.grassPercent ) )
 						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.PUMPKIN );
 							Plants.growPlant( CB , Material.PUMPKIN );
 						}
 						break;
@@ -104,10 +112,6 @@ public class Timer implements Runnable {
 			}
 			LastTick = Tick;
 			ActiveTickCount++;
-		}
-		else
-		{
-			ActiveTickCount = 0;
 		}
 	}
 }
