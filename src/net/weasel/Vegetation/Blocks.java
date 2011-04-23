@@ -91,7 +91,8 @@ public class Blocks
     				break;
     			}
     			current = W.getBlockAt((int)X, (int)Y - I,(int)Z);
-    			if( current.getType() != Material.AIR )
+    			//we need at least two blocks of air on top of a block
+    			if( current.getType() != Material.AIR && I <= 2 )
     			{
     				retVal = current;
     				break;
@@ -103,7 +104,11 @@ public class Blocks
     		//Assume we're already on top, thus check for air
     		if ( W.getBlockAt((int)X, (int)Y + 1, (int)Z).getType() == Material.AIR )
     		{
-    			retVal = current;
+    			//we need at least two blocks of air on top of a block
+    			if ( W.getBlockAt((int)X, (int)Y + 2, (int)Z).getType() == Material.AIR )
+    			{
+    				retVal = current;
+    			}
     		}
     		else
     		{
@@ -117,8 +122,12 @@ public class Blocks
     				current = W.getBlockAt((int)X, (int)Y + I,(int)Z);
     				if( current.getType() == Material.AIR )
     				{
-    					retVal = current.getRelative(BlockFace.DOWN);
-    					break;
+    					//we need at least two blocks of air on top of a block
+    					if( current.getRelative(BlockFace.UP).getType() == Material.AIR )
+    					{
+        					retVal = current.getRelative(BlockFace.DOWN);
+        					break;
+    					}
     				}
     			}
     		}
