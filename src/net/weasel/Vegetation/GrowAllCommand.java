@@ -45,39 +45,39 @@ public class GrowAllCommand implements CommandExecutor {
 								break;
 
 							case CACTUS:
-								Cacti.growCacti( CB );
+								Cacti.spreadCacti( CB );
 								break;
 
 							case SUGAR_CANE_BLOCK:
-								Canes.GrowCanes( CB );
+								Canes.spreadCanes( CB );
 								break;
 
 							case YELLOW_FLOWER:
-								Plants.growPlant( CB, Material.YELLOW_FLOWER );
+								Plants.spreadPlant( CB, Material.YELLOW_FLOWER );
 								break;
 
 							case RED_ROSE:
-								Plants.growPlant( CB, Material.RED_ROSE );
+								Plants.spreadPlant( CB, Material.RED_ROSE );
 								break;
 
 							case BROWN_MUSHROOM:
-								Plants.growPlant( CB, Material.BROWN_MUSHROOM );
+								Plants.spreadPlant( CB, Material.BROWN_MUSHROOM );
 								break;
 
 							case RED_MUSHROOM:
-								Plants.growPlant( CB, Material.RED_MUSHROOM );
+								Plants.spreadPlant( CB, Material.RED_MUSHROOM );
 								break;
 
 							case PUMPKIN:
-								Plants.growPlant( CB, Material.PUMPKIN );
+								Plants.spreadPlant( CB, Material.PUMPKIN );
 								break;
 								
 							case COBBLESTONE:
-								Moss.GrowMoss( CB );
+								Moss.spreadMoss( CB );
 								break;
 								
 							case MOSSY_COBBLESTONE:
-								Moss.GrowMoss( CB );
+								Moss.spreadMoss( CB );
 								break;
 
 							default:
@@ -85,6 +85,7 @@ public class GrowAllCommand implements CommandExecutor {
 							}
 						}
 					}
+					Vegetation.ActivePlayerCommands--;
 					return true;
 				}
 			}
