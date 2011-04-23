@@ -141,6 +141,7 @@ public class Vegetation extends JavaPlugin
 		
 		// Register our commands
         getCommand("grow").setExecutor(new GrowCommand(this));
+        getCommand("mow").setExecutor(new MowCommand(this));
 		
 		if( new File("plugins/Vegetation/").exists() == false )
 		{
