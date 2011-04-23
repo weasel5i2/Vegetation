@@ -58,7 +58,7 @@ public class Timer implements Runnable {
 						break;
 						
 					case SUGAR_CANE_BLOCK:
-						if ( Vegetation.enablePlants && Vegetation.enableCanes && ( ActiveTickCount < Vegetation.grassPercent ) )
+						if ( Vegetation.enablePlants && Vegetation.enableCanes && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.SUGAR_CANE_BLOCK );
 							Cranes.GrowCranes( CB );
@@ -98,10 +98,26 @@ public class Timer implements Runnable {
 						break;
 					
 					case PUMPKIN:
-						if ( Vegetation.enablePlants && Vegetation.enablePumpkins && ( ActiveTickCount < Vegetation.grassPercent ) )
+						if ( Vegetation.enablePlants && Vegetation.enablePumpkins && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.PUMPKIN );
 							Plants.growPlant( CB , Material.PUMPKIN );
+						}
+						break;
+						
+					case COBBLESTONE:
+						if ( Vegetation.enableMoss && Vegetation.waterGrowsMoss && ( ActiveTickCount < Vegetation.plantsPercent ) )
+						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.COBBLESTONE );
+							Moss.GrowMoss( CB );
+						}
+						break;
+						
+					case MOSSY_COBBLESTONE:
+						if ( Vegetation.enableMoss  && ( ActiveTickCount < Vegetation.plantsPercent ) )
+						{
+							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.MOSSY_COBBLESTONE );
+							Moss.GrowMoss( CB );
 						}
 						break;
 						
