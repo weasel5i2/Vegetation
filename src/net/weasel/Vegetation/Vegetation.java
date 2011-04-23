@@ -141,6 +141,7 @@ public class Vegetation extends JavaPlugin
 		//enable permission and register commands
 		if( setupPermissions() )
 		{
+			getCommand("grow").setExecutor(new GrowCommand(this));
 	        getCommand("growall").setExecutor(new GrowAllCommand(this));
 	        getCommand("mow").setExecutor(new MowCommand(this));
 		}

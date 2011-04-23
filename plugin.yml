@@ -5,34 +5,9 @@ commands:
   mow:
     description: Mow the grass
     usage:
-  growgrass:
-    description: Grow the grass
-    usage:
   grow:
+    description: Grows the specified type of plant
+    usage: "Usage: /grow [type]  (type = grass/flower/mushroom/cactus/cane)"
+  growall:
     description: Grow everything (one cycle)
     usage:
-  growfield:
-    description: Grow a field of grass around you.
-    usage: /growfield <height> (height = 1 to 10)
-  growmoss:
-    description: Grow moss on cobblestones
-    usage:
-  growplants:
-    description: Grow the plants
-    usage:
-  overgrow:
-    description: Massive growth explosion
-    usage: "Usage: /overgrow [num]  (num = grass per cycle)"
-  grass:
-    description: Grow the targeted grass block to specified height
-    usage: "Usage: /gg <height>  (height = 1 to 10)"
-    aliases: gg
-  growcacti:
-    description: Grow the cacti
-    usage: "Usage: /growcacti"
-  growvines:
-    description: Grow the vines
-    usage: "Usage: /growvines <num> (num = number of vines)"
-  vine:
-    description: Grow a vine at the targeted block
-    usage: "Usage: /vine <height>  (height = 1 to 10)"
