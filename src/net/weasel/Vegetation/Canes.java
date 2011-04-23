@@ -4,11 +4,11 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
-public class Cranes {
+public class Canes {
 
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static void GrowCranes( Block B )
+	public static void GrowCanes( Block B )
 	{
 		if( Vegetation.debugging ) logOutput( "Spreading plants.." );
 

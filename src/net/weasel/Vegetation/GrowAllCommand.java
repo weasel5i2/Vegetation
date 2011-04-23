@@ -49,7 +49,7 @@ public class GrowAllCommand implements CommandExecutor {
 								break;
 
 							case SUGAR_CANE_BLOCK:
-								Cranes.GrowCranes( CB );
+								Canes.GrowCanes( CB );
 								break;
 
 							case YELLOW_FLOWER:

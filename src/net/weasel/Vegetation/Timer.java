@@ -61,7 +61,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enablePlants && Vegetation.enableCanes && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.SUGAR_CANE_BLOCK );
-							Cranes.GrowCranes( CB );
+							Canes.GrowCanes( CB );
 						}
 						break;
 						
