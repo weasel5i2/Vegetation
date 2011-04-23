@@ -7,13 +7,13 @@ import org.bukkit.block.Block;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-public class GrowCommand implements CommandExecutor {
+public class GrowAllCommand implements CommandExecutor {
 	
 	
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
 	
-	public GrowCommand( Vegetation Plugin )
+	public GrowAllCommand( Vegetation Plugin )
 	{
 
 	}
@@ -25,7 +25,7 @@ public class GrowCommand implements CommandExecutor {
 		{
 			Player P = (Player)sender;
 
-			if ( Vegetation.Permissions.has(P, "vegetation.grow") )
+			if ( Vegetation.Permissions.has(P, "vegetation.growall") )
 			{
 				// Todo: implement command queue
 				if ( Vegetation.ActivePlayerCommands < 20 )

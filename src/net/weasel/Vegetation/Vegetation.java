@@ -58,7 +58,6 @@ public class Vegetation extends JavaPlugin
 	public static Player currentPlayer = null;
 	public static Integer playerIndex = 0;
 	
-	public static Integer lastCycle = 0;
 	public static double overGrowTicks = 0;
 	
 	// Growth-related stuff
@@ -142,7 +141,7 @@ public class Vegetation extends JavaPlugin
 		//enable permission and register commands
 		if( setupPermissions() )
 		{
-	        getCommand("grow").setExecutor(new GrowCommand(this));
+	        getCommand("growall").setExecutor(new GrowAllCommand(this));
 	        getCommand("mow").setExecutor(new MowCommand(this));
 		}
 		
