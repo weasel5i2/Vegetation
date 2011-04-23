@@ -11,10 +11,9 @@ import org.bukkit.Material;
 
 public class Blocks 
 {
-	public static void logOutput( String text )
-	{
-		Vegetation.logOutput( text );
-	}
+	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
+	
+	public static final int MaxCycle = 150;
 	
 	public static boolean isLilyPad( Block whichBlock )
 	{
@@ -177,7 +176,6 @@ public class Blocks
     {
     	Block retVal = null;
     	int Range = Vegetation.growthRange;
-    	int MaxCycle = 50;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
@@ -205,7 +203,6 @@ public class Blocks
     {
     	Block retVal = null;
     	int Range = Vegetation.growthRange;
-    	int MaxCycle = 150;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
@@ -232,7 +229,6 @@ public class Blocks
 	public static Block getRandomBlock( Location BaseBlock, Material material, int Range )
     {
     	Block retVal = null;
-    	int MaxCycle = 150;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
@@ -259,7 +255,6 @@ public class Blocks
 	public static Block getRandomBlock( Location BaseBlock, Material material, int MinRange, int MaxRange )
     {
     	Block retVal = null;
-    	int MaxCycle = 150;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();

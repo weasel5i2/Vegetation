@@ -242,6 +242,7 @@ public class Vegetation extends JavaPlugin
         	this.getPluginLoader().disablePlugin(this);
         }*/
         else
+        	getActivePlayerList();
             tTask = setupTimerTask( 10, 1 );
     }
     
@@ -294,7 +295,6 @@ public class Vegetation extends JavaPlugin
     
     public int setupTimerTask( int interval, int period )
     {
-    	getActivePlayerList();
     	//Integer task = timer.scheduleAsyncRepeatingTask(this, new TimerTasks(this), interval, period );
     	Integer task = timer.scheduleSyncRepeatingTask(this, new Timer(this), interval, period );
         return task;
