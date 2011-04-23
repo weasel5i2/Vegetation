@@ -55,9 +55,9 @@ public class GrowCommand implements CommandExecutor{
 							if(  CB != null && CB.getType() == Material.GRASS )
 							{
 								if( I%2 == 0 )
-									Plants.growPlant( CB, Material.YELLOW_FLOWER );
+									Plants.spreadPlant( CB, Material.YELLOW_FLOWER );
 								else
-									Plants.growPlant( CB, Material.RED_ROSE );
+									Plants.spreadPlant( CB, Material.RED_ROSE );
 							}
 						}
 						return true;
@@ -71,9 +71,9 @@ public class GrowCommand implements CommandExecutor{
 							if(  CB != null && CB.getType() == Material.GRASS )
 							{
 								if( I%2 == 0 )
-									Plants.growPlant( CB, Material.RED_MUSHROOM);
+									Plants.spreadPlant( CB, Material.RED_MUSHROOM);
 								else
-									Plants.growPlant( CB, Material.BROWN_MUSHROOM );
+									Plants.spreadPlant( CB, Material.BROWN_MUSHROOM );
 							}
 						}
 						return true;
@@ -85,7 +85,7 @@ public class GrowCommand implements CommandExecutor{
 						{
 							Block CB = Blocks.getRandomBlock( PL );
 							if(  CB != null && CB.getType() == Material.GRASS )
-								Plants.growPlant( CB, Material.CACTUS );
+								Plants.spreadPlant( CB, Material.CACTUS );
 						}
 						return true;
 					}
@@ -96,7 +96,7 @@ public class GrowCommand implements CommandExecutor{
 						{
 							Block CB = Blocks.getRandomBlock( PL );
 							if(  CB != null && CB.getType() == Material.GRASS )
-								Canes.GrowCanes( CB );
+								Canes.spreadCanes( CB );
 						}
 						return true;
 					}

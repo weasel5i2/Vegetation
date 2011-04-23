@@ -28,7 +28,7 @@ public class Blocks
  	    return( retVal );
 	}
 	
-	public static boolean WithinEnabledBiome( Biome biome )
+	public static boolean withinEnabledBiome( Biome biome )
     {	
 		if( biome == Biome.FOREST && Vegetation.growForestBiome == true ) return true;
 		else if( biome == Biome.RAINFOREST && Vegetation.growRainforestBiome == true ) return true;
@@ -189,7 +189,7 @@ public class Blocks
     		tZ = pZ + Vegetation.generator.nextInt(Range) - Vegetation.generator.nextInt(Range);
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ );
-    		if( currentBlock != null && WithinEnabledBiome( currentBlock.getBiome() ) )
+    		if( currentBlock != null && withinEnabledBiome( currentBlock.getBiome() ) )
     		{
     			retVal = currentBlock;
     			if( Vegetation.debugging ) logOutput( "Found random block of material: " + currentBlock.getType().toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ() );
@@ -212,11 +212,11 @@ public class Blocks
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-       		tX = pX + GetRandomRangeValue( I, Range );
-    		tZ = pZ + GetRandomRangeValue( I, Range );
+       		tX = pX + getRandomRangeValue( I, Range );
+    		tZ = pZ + getRandomRangeValue( I, Range );
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ );
-    		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( WithinEnabledBiome( currentBlock.getBiome() ) ) )
+    		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( withinEnabledBiome( currentBlock.getBiome() ) ) )
     		{
     			retVal = currentBlock;
     			if( Vegetation.debugging ) logOutput( "Found random block of material: "+ material.toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ() );
@@ -238,11 +238,11 @@ public class Blocks
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-       		tX = pX + GetRandomRangeValue( I, Range );
-    		tZ = pZ + GetRandomRangeValue( I, Range );
+       		tX = pX + getRandomRangeValue( I, Range );
+    		tZ = pZ + getRandomRangeValue( I, Range );
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ );
-    		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( WithinEnabledBiome( currentBlock.getBiome() ) ) )
+    		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( withinEnabledBiome( currentBlock.getBiome() ) ) )
     		{
     			retVal = currentBlock;
     			if( Vegetation.debugging ) logOutput( "Found random block of material: "+ material.toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ() );
@@ -264,14 +264,14 @@ public class Blocks
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-       		tX = pX + GetRandomRangeValue( I, MaxRange );
-    		tZ = pZ + GetRandomRangeValue( I, MaxRange );
+       		tX = pX + getRandomRangeValue( I, MaxRange );
+    		tZ = pZ + getRandomRangeValue( I, MaxRange );
 
     		//Cacti destroy each other if they are too close togehter
     		if( (tX - pX >= MinRange ) && (tZ - pZ) >= MinRange )
     		{
     			currentBlock = getTopBlock( BaseBlock, tX, tZ );
-    			if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( WithinEnabledBiome( currentBlock.getBiome() ) ) )
+    			if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( withinEnabledBiome( currentBlock.getBiome() ) ) )
     			{
     				retVal = currentBlock;
     				if( Vegetation.debugging ) logOutput( "Found random block of material: "+ material.toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ() );
@@ -308,7 +308,7 @@ public class Blocks
 
 	            	if( currentBlock != null )
 	            	{
-	            		if( WithinEnabledBiome(currentBlock.getBiome()) == true )
+	            		if( withinEnabledBiome(currentBlock.getBiome()) == true )
 		    			{
 	            			if( currentBlock.getTypeId() != 0 ) 
 	            			{
@@ -329,7 +329,7 @@ public class Blocks
 		return range;
     }
     
-    public static boolean IsAdjacentBlockofType1( Block B, Material M )
+    public static boolean isAdjacentBlockofType1( Block B, Material M )
     {
     	if( B.getRelative(BlockFace.NORTH).getType() == M )
     	{
@@ -353,7 +353,7 @@ public class Blocks
     	}
     }
     
-    public static boolean IsAdjacentBlockofType2( Block B, Material M )
+    public static boolean isAdjacentBlockofType2( Block B, Material M )
     {
     	if( B.getRelative(BlockFace.NORTH).getType() == M )
     	{
@@ -381,7 +381,7 @@ public class Blocks
     	}
     }
     
-    public static boolean IsSurroundedByBlockType( Block B, Material M )
+    public static boolean isSurroundedByBlockType( Block B, Material M )
     {
     	if( ( B.getRelative(BlockFace.NORTH).getType() == M )
     			&& ( B.getRelative(BlockFace.EAST).getType() == M )
@@ -392,7 +392,7 @@ public class Blocks
     	return false;
     }
     
-    public static int GetRandomRangeValue(int V, int MaxRange)
+    public static int getRandomRangeValue(int V, int MaxRange)
     {
     	if( V%3 == 1 )
     	{

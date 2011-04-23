@@ -49,7 +49,7 @@ public final class Grass
 		}
 	}
     
-    public static void MowGrass( Location BaseBlock , int V )
+    public static void mowGrass( Location BaseBlock , int V )
     {
     	//max grass height
     	if( V > 10 ) V = 10;

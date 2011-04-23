@@ -8,7 +8,7 @@ public class Cacti
 {
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static void growCacti(Block B)
+	public static void spreadCacti(Block B)
 	{
 		if( Vegetation.debugging ) logOutput( "Spreading cacti.." );
 		
@@ -19,7 +19,7 @@ public class Cacti
 		for( int I = 0; I < 150; I++ )
 		{
 			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.SAND, 5, 15);
-			if( PlantBlock != null && Blocks.IsSurroundedByBlockType( PlantBlock, Material.AIR ) )
+			if( PlantBlock != null && Blocks.isSurroundedByBlockType( PlantBlock, Material.AIR ) )
 			{
 				PlantBlock.getRelative(BlockFace.UP).setType(Material.CACTUS);
 				if( Vegetation.debugging ) logOutput( "Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ() );

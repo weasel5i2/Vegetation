@@ -53,7 +53,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enablePlants && Vegetation.enableCacti && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.CACTUS );
-							Cacti.growCacti( CB );
+							Cacti.spreadCacti( CB );
 						}
 						break;
 						
@@ -61,7 +61,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enablePlants && Vegetation.enableCanes && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.SUGAR_CANE_BLOCK );
-							Canes.GrowCanes( CB );
+							Canes.spreadCanes( CB );
 						}
 						break;
 						
@@ -69,7 +69,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enablePlants && Vegetation.enableFlowers && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.YELLOW_FLOWER );
-							Plants.growPlant( CB , Material.YELLOW_FLOWER );
+							Plants.spreadPlant( CB , Material.YELLOW_FLOWER );
 						}
 						break;
 					
@@ -77,7 +77,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enablePlants && Vegetation.enableFlowers && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.RED_ROSE );
-							Plants.growPlant( CB , Material.RED_ROSE );
+							Plants.spreadPlant( CB , Material.RED_ROSE );
 						}
 						break;
 					
@@ -85,7 +85,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enablePlants && Vegetation.enableFungi && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.BROWN_MUSHROOM );
-							Plants.growPlant( CB , Material.BROWN_MUSHROOM );
+							Plants.spreadPlant( CB , Material.BROWN_MUSHROOM );
 						}
 						break;
 						
@@ -93,7 +93,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enablePlants && Vegetation.enableFungi && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.RED_MUSHROOM );
-							Plants.growPlant( CB , Material.RED_MUSHROOM );
+							Plants.spreadPlant( CB , Material.RED_MUSHROOM );
 						}
 						break;
 					
@@ -101,7 +101,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enablePlants && Vegetation.enablePumpkins && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.PUMPKIN );
-							Plants.growPlant( CB , Material.PUMPKIN );
+							Plants.spreadPlant( CB , Material.PUMPKIN );
 						}
 						break;
 						
@@ -109,7 +109,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enableMoss && Vegetation.waterGrowsMoss && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.COBBLESTONE );
-							Moss.GrowMoss( CB );
+							Moss.spreadMoss( CB );
 						}
 						break;
 						
@@ -117,7 +117,7 @@ public class Timer implements Runnable {
 						if ( Vegetation.enableMoss  && ( ActiveTickCount < Vegetation.plantsPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.MOSSY_COBBLESTONE );
-							Moss.GrowMoss( CB );
+							Moss.spreadMoss( CB );
 						}
 						break;
 						

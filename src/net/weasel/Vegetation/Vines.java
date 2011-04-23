@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 public final class Vines 
 {
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
-	public static boolean withinEnabledBiome( Biome biome ) { return Blocks.WithinEnabledBiome( biome ); }
+	public static boolean withinEnabledBiome( Biome biome ) { return Blocks.withinEnabledBiome( biome ); }
 	public static Block getTopTreeBlock(World world, double X, double Z ) { return Blocks.getTopTreeBlock(world, X, Z ); }
 
 	public static void growVines( Player player, int count )

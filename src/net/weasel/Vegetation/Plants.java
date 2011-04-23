@@ -12,7 +12,7 @@ public class Plants
 	public static boolean isLilyPad( Block whichBlock ) { return Blocks.isLilyPad( whichBlock ); }
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static void growPlant(Block B, Material PlantType)
+	public static void spreadPlant(Block B, Material PlantType)
 	{
 		if( Vegetation.debugging ) logOutput( "Spreading plants.." );
 
@@ -122,7 +122,7 @@ public class Plants
     			    			
             	if( currentBlock != null )
             	{
-        			if( isLilyPad(currentBlock) && Blocks.WithinEnabledBiome(currentBlock.getBiome()) == true )
+        			if( isLilyPad(currentBlock) && Blocks.withinEnabledBiome(currentBlock.getBiome()) == true )
 	    			{
             			lilyPadBlocks.add(currentBlock);
 	    			}

@@ -8,7 +8,7 @@ public class Canes {
 
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static void GrowCanes( Block B )
+	public static void spreadCanes( Block B )
 	{
 		if( Vegetation.debugging ) logOutput( "Spreading plants.." );
 
@@ -24,8 +24,8 @@ public class Canes {
 			if( PlantBlock != null )
 			{
 				//sugar cranes can only grow near water :O
-				if( Blocks.IsAdjacentBlockofType1(PlantBlock, Material.STATIONARY_WATER)
-						|| Blocks.IsAdjacentBlockofType1(PlantBlock, Material.WATER) )
+				if( Blocks.isAdjacentBlockofType1(PlantBlock, Material.STATIONARY_WATER)
+						|| Blocks.isAdjacentBlockofType1(PlantBlock, Material.WATER) )
 				{
 					PlantBlock.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
 					if( Vegetation.debugging ) logOutput( "Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ() );

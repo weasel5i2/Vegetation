@@ -13,7 +13,7 @@ public final class Moss
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
     public static ArrayList<Block> getBlockRange(World world, Integer X, Integer Y, Integer Z, Integer Xsize, Integer Ysize ) { return Blocks.getBlockRange( world,X, Y, Z, Xsize, Ysize ); }
     
-    public static void GrowMoss(Block B)
+    public static void spreadMoss(Block B)
     {
     	int MaxCycle = 150;
     	int MaxSpreadAmount = 3;
@@ -26,8 +26,8 @@ public final class Moss
 			CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.COBBLESTONE, 5 );
 			if( CurrentBlock != null )
 			{
-				if( Blocks.IsAdjacentBlockofType2( CurrentBlock  , Material.STATIONARY_WATER )
-						|| Blocks.IsAdjacentBlockofType2( CurrentBlock  , Material.WATER ) )
+				if( Blocks.isAdjacentBlockofType2( CurrentBlock  , Material.STATIONARY_WATER )
+						|| Blocks.isAdjacentBlockofType2( CurrentBlock  , Material.WATER ) )
 				{
 					CurrentBlock.setType(Material.MOSSY_COBBLESTONE);
 					MaxSpreadAmount--;
