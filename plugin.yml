@@ -9,5 +9,5 @@ commands:
     description: Grows the specified type of plant
     usage: "Usage: /grow [type]  (type = grass/flower/mushroom/cactus/cane)"
   growall:
-    description: Grow everything (one cycle)
+    description: Grow everything (100 cycles)
     usage:
