@@ -139,9 +139,12 @@ public class Vegetation extends JavaPlugin
 		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_LOGIN, PlayerListener, Event.Priority.Normal, plugin );
 		
-		// Register our commands
-        getCommand("grow").setExecutor(new GrowCommand(this));
-        getCommand("mow").setExecutor(new MowCommand(this));
+		//enable permission and register commands
+		if( setupPermissions() )
+		{
+	        getCommand("grow").setExecutor(new GrowCommand(this));
+	        getCommand("mow").setExecutor(new MowCommand(this));
+		}
 		
 		if( new File("plugins/Vegetation/").exists() == false )
 		{
@@ -218,8 +221,6 @@ public class Vegetation extends JavaPlugin
     	
     	tempGrassPerGrow = grassPerGrow;
     	
-    	//Enable Permissions
-    	setupPermissions();
     	
     	/*if( ( grassPercent + plantsPercent + mossPercent + grazePercent ) > 100 )
     	{
@@ -251,7 +252,7 @@ public class Vegetation extends JavaPlugin
         logOutput( "Plugin disabled: "+pluginName+" version "+pluginVersion);
     }
     
-	public static void setupPermissions()
+	public static boolean setupPermissions()
 	{
 	      Plugin test = plugin.getServer().getPluginManager().getPlugin("Permissions");
 
@@ -261,12 +262,15 @@ public class Vegetation extends JavaPlugin
 	          {
 	        	  Permissions = ((Permissions)test).getHandler();
 	        	  logOutput( "Permissions found!" );
+	        	  return true;
 	          }
 	          else
 	          {
 	              logOutput( "Permission system not detected, defaulting to OP" );
+	              return false;
 	          }
 	      }
+	      return false;
 	}
     
     public String[] getSetting( String which, String Default )
