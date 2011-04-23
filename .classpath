@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/workspace/CraftBukkit/craftbukkit-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="D:/workspace/CraftBukkit/Permissions_2.7.jar"/>
+	<classpathentry kind="lib" path="D:/workspace/CraftBukkit/bukkit-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
