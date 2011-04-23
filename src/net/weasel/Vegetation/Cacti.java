@@ -14,14 +14,12 @@ public class Cacti
 		
 		int MaxSpreadAmount = 1;
 
-		if( Vegetation.debugging ) logOutput( "Found cactus block: " + B.getTypeId() + " plant at " + B.getX() + "," + B.getY() + "," + B.getZ() + "." );
-
 		Block PlantBlock = null;
 		//Get surrounding block and place new plant
 		for( int I = 0; I < 150; I++ )
 		{
 			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.SAND, 5, 15);
-			if( PlantBlock != null )
+			if( PlantBlock != null && Blocks.IsSurroundedByBlockType( PlantBlock, Material.AIR ) )
 			{
 				PlantBlock.getRelative(BlockFace.UP).setType(Material.CACTUS);
 				if( Vegetation.debugging ) logOutput( "Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ() );

@@ -377,6 +377,17 @@ public class Blocks
     	}
     }
     
+    public static boolean IsSurroundedByBlockType( Block B, Material M )
+    {
+    	if( ( B.getRelative(BlockFace.NORTH).getType() == M )
+    			&& ( B.getRelative(BlockFace.EAST).getType() == M )
+    			&& ( B.getRelative(BlockFace.SOUTH).getType() == M )
+    			&& ( B.getRelative(BlockFace.WEST).getType() == M ) )
+    		return true;
+    			
+    	return false;
+    }
+    
     public static int GetRandomRangeValue(int V, int MaxRange)
     {
     	if( V%3 == 1 )
