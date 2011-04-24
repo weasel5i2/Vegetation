@@ -64,7 +64,7 @@ public class GrowCommand implements CommandExecutor{
 									}
 									else
 									{
-										if( Plants.growSinglePlant( CB, Material.YELLOW_FLOWER ) )
+										if( Plants.growSinglePlant( CB, Material.RED_ROSE ) )
 											MaxGrowAmount--;
 									}
 
