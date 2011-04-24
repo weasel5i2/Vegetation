@@ -50,6 +50,13 @@ public class Plants
 				}
 			}*/
 	}
+	
+	public static boolean growSinglePlant(Block B, Material PlantType)
+	{
+		B.getRelative(BlockFace.UP).setType(PlantType);
+		if( Vegetation.debugging ) logOutput( "Planting at: " + B.getX() + " " + B.getY() + " " + B.getZ() );
+		return true;
+	}
 
 	/*public static void growLilyPads(Player player)
 	{

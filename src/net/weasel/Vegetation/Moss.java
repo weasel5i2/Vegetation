@@ -50,6 +50,12 @@ public final class Moss
 		}
     }
     
+    public static boolean growSingleMoss(Block B)
+    {
+    	B.setType(Material.MOSSY_COBBLESTONE);
+    	return true;
+    }
+    
 	/*public static void growMoss( Player player )
 	{
 		if( player == null ) return;

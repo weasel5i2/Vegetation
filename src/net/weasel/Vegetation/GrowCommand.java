@@ -30,76 +30,149 @@ public class GrowCommand implements CommandExecutor{
 
 			if ( Vegetation.Permissions.has(P, "vegetation.grow") )
 			{
-				if( args.length == 1)
+				// Todo: implement command queue
+				if ( Vegetation.ActivePlayerCommands < 20 )
 				{
-					String Arg = args[0];
-					Location PL = ((Player) sender).getLocation();
+					Vegetation.ActivePlayerCommands++;
 					
-					if( Arg.equals("grass") )
+					if( args.length == 1)
 					{
-						sender.sendMessage( "Growing grass.." );
-						for (int I = 0; I < MaxCycle; I++)
+						String Arg = args[0];
+						int MaxGrowAmount = 0;
+						Location PL = ((Player) sender).getLocation();
+
+						if( Arg.equals("grass") )
 						{
-							Block CB = Blocks.getRandomBlock( PL );
-							if(  CB != null && CB.getType() == Material.GRASS )
-								Grass.growGrass( CB );
+							sender.sendMessage( "Growing grass.." );
+							Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
+							Grass.growGrass( CB );
+							return true;
 						}
-						return true;
-					}
-					else if( Arg.equals("flower") )
-					{
-						sender.sendMessage( "Growing flowers.." );
-						for (int I = 0; I < MaxCycle; I++)
+						else if( Arg.equals("flower") )
 						{
-							Block CB = Blocks.getRandomBlock( PL );
-							if(  CB != null && CB.getType() == Material.GRASS )
+							sender.sendMessage( "Growing flowers.." );
+							MaxGrowAmount = 3;
+							for (int I = 0; I < MaxCycle; I++)
 							{
-								if( I%2 == 0 )
-									Plants.spreadPlant( CB, Material.YELLOW_FLOWER );
-								else
-									Plants.spreadPlant( CB, Material.RED_ROSE );
+								Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
+								if( CB != null )
+								{
+									if( I%2 == 0 )
+									{
+										if( Plants.growSinglePlant( CB, Material.YELLOW_FLOWER ) )
+											MaxGrowAmount--;
+									}
+									else
+									{
+										if( Plants.growSinglePlant( CB, Material.YELLOW_FLOWER ) )
+											MaxGrowAmount--;
+									}
+
+									if( MaxGrowAmount <= 0 ) break;
+								}
 							}
+							return true;
 						}
-						return true;
-					}
-					else if( Arg.equals("mushroom") )
-					{
-						sender.sendMessage( "Growing mushrooms.." );
-						for (int I = 0; I < MaxCycle; I++)
+						else if( Arg.equals("mushroom") )
 						{
-							Block CB = Blocks.getRandomBlock( PL );
-							if(  CB != null && CB.getType() == Material.GRASS )
+							sender.sendMessage( "Growing mushrooms.." );
+							MaxGrowAmount = 3;
+							for (int I = 0; I < MaxCycle; I++)
 							{
-								if( I%2 == 0 )
-									Plants.spreadPlant( CB, Material.RED_MUSHROOM);
-								else
-									Plants.spreadPlant( CB, Material.BROWN_MUSHROOM );
+								Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
+								if( CB != null )
+								{
+									if( I%2 == 0 )
+									{
+										if( Plants.growSinglePlant( CB, Material.BROWN_MUSHROOM ) )
+											MaxGrowAmount--;
+									}
+									else
+									{
+										if( Plants.growSinglePlant( CB, Material.RED_MUSHROOM ) )
+											MaxGrowAmount--;
+									}
+								}
+
+								if( MaxGrowAmount <= 0 ) break;
 							}
+							return true;
 						}
-						return true;
-					}
-					else if( Arg.equals("cactus") )
-					{
-						sender.sendMessage( "Growing cacti.." );
-						for (int I = 0; I < MaxCycle; I++)
+						else if( Arg.equals("cactus") )
 						{
-							Block CB = Blocks.getRandomBlock( PL );
-							if(  CB != null && CB.getType() == Material.GRASS )
-								Plants.spreadPlant( CB, Material.CACTUS );
+							sender.sendMessage( "Growing cacti.." );
+							MaxGrowAmount = 2;
+							for (int I = 0; I < MaxCycle; I++)
+							{
+								Block CB = Blocks.getRandomBlock( PL, Material.SAND, Material.AIR );
+								if( CB != null )
+								{
+									if( Cacti.growSingleCacti( CB ) )
+										MaxGrowAmount--;
+								}
+
+								if( MaxGrowAmount <= 0 ) break;
+							}
+							return true;
 						}
-						return true;
-					}
-					else if( Arg.equals("sugar_cane") )
-					{
-						sender.sendMessage( "Growing sugar canes.." );
-						for (int I = 0; I < MaxCycle; I++)
+						else if( Arg.equals("sugar_cane") )
 						{
-							Block CB = Blocks.getRandomBlock( PL );
-							if(  CB != null && CB.getType() == Material.GRASS )
-								Canes.spreadCanes( CB );
+							sender.sendMessage( "Growing sugar canes.." );
+							MaxGrowAmount = 3;
+							for (int I = 0; I < MaxCycle; I++)
+							{
+								Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
+								if( CB != null )
+								{
+									if( Canes.growSingleCane( CB ) )
+										MaxGrowAmount--;
+								}
+
+								if( MaxGrowAmount <= 0 ) break;
+							}
+							return true;
 						}
-						return true;
+						else if( Arg.equals("moss") )
+						{
+							sender.sendMessage( "Growing moss.." );
+							MaxGrowAmount = 3;
+							for (int I = 0; I < MaxCycle; I++)
+							{
+								Block CB = Blocks.getRandomBlock( PL, Material.COBBLESTONE, Material.STATIONARY_WATER );
+								if( CB != null )
+								{
+									if( Moss.growSingleMoss( CB ))
+										MaxGrowAmount--;
+								}
+								else
+								{
+									CB = Blocks.getRandomBlock( PL, Material.COBBLESTONE, Material.WATER );
+									if( CB != null )
+									{
+										if( Moss.growSingleMoss( CB ))
+											MaxGrowAmount--;
+									}
+									else
+									{
+										CB = Blocks.getRandomBlock( PL, Material.COBBLESTONE, Material.AIR );
+										if( CB != null )
+										{
+											if( Blocks.isAdjacentBlockofType2( CB  , Material.STATIONARY_WATER )
+													|| Blocks.isAdjacentBlockofType2( CB  , Material.WATER ) )
+											{
+												if( Moss.growSingleMoss( CB ))
+													MaxGrowAmount--;
+											}
+										}
+									}
+								}
+
+								if( MaxGrowAmount <= 0 ) break;
+							}
+							return true;
+						}
 					}
+					Vegetation.ActivePlayerCommands--;
 				}
 			}
 		}

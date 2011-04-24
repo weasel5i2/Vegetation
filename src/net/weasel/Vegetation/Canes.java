@@ -36,4 +36,16 @@ public class Canes {
 			if( MaxSpreadAmount <= 0 ) break;
 		}
 	}
+	
+	public static boolean growSingleCane(Block B)
+	{
+		if( Blocks.isAdjacentBlockofType1(B, Material.STATIONARY_WATER)
+				|| Blocks.isAdjacentBlockofType1(B, Material.WATER) )
+		{
+			B.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
+			if( Vegetation.debugging ) logOutput( "Planting at: " + B.getX() + " " + B.getY() + " " + B.getZ() );
+			return true;
+		}
+		return false;
+	}
 }
