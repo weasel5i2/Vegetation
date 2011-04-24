@@ -8,7 +8,7 @@ public class Cacti
 {
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static void spreadCacti(Block B)
+	public static void growCacti(Block B)
 	{
 		if( Vegetation.debugging ) logOutput( "Spreading cacti.." );
 		

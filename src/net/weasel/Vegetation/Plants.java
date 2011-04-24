@@ -12,7 +12,7 @@ public class Plants
 	public static boolean isLilyPad( Block whichBlock ) { return Blocks.isLilyPad( whichBlock ); }
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static void spreadPlant(Block B, Material PlantType)
+	public static void growPlant(Block B, Material PlantType)
 	{
 		if( Vegetation.debugging ) logOutput( "Spreading plants.." );
 
@@ -49,23 +49,6 @@ public class Plants
 					RB.setType(currentBlock.getType() );
 				}
 			}*/
-	}
-	
-	public static void growPlant(Block B, Material PlantType)
-	{
-		Block CurrentBlock = null;
-		int MaxGrowAmount = 3;
-		for( int I = 0; I < 150; I++ )
-		{
-			CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS, Material.AIR );
-			if( CurrentBlock != null )
-			{
-				CurrentBlock.getRelative(BlockFace.UP).setType(PlantType);
-				MaxGrowAmount--;
-			}
-			
-			if( MaxGrowAmount <= 0 ) break;
-		}
 	}
 
 	/*public static void growLilyPads(Player player)

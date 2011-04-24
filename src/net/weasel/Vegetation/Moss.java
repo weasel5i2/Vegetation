@@ -13,7 +13,7 @@ public final class Moss
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
     public static ArrayList<Block> getBlockRange(World world, Integer X, Integer Y, Integer Z, Integer Xsize, Integer Ysize ) { return Blocks.getBlockRange( world,X, Y, Z, Xsize, Ysize ); }
     
-    public static void spreadMoss(Block B)
+    public static void growMoss(Block B)
     {
     	int MaxCycle = 150;
     	int MaxSpreadAmount = 3;
@@ -23,14 +23,26 @@ public final class Moss
     	
 		for(int I = 0; I < MaxCycle; I++ )
 		{
-			CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.COBBLESTONE, null, 5 );
-			if( CurrentBlock != null )
+			if( MaxCycle%2 == 0 )
 			{
-				if( Blocks.isAdjacentBlockofType2( CurrentBlock  , Material.STATIONARY_WATER )
-						|| Blocks.isAdjacentBlockofType2( CurrentBlock  , Material.WATER ) )
+				CurrentBlock = Blocks.getRandomBlock( B.getLocation() ,Material.COBBLESTONE, Material.STATIONARY_WATER );
+				if( CurrentBlock != null )
 				{
 					CurrentBlock.setType(Material.MOSSY_COBBLESTONE);
 					MaxSpreadAmount--;
+				}
+			}
+			else
+			{
+				CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.COBBLESTONE, Material.AIR, 5 );
+				if( CurrentBlock != null )
+				{
+					if( Blocks.isAdjacentBlockofType2( CurrentBlock  , Material.STATIONARY_WATER )
+							|| Blocks.isAdjacentBlockofType2( CurrentBlock  , Material.WATER ) )
+					{
+						CurrentBlock.setType(Material.MOSSY_COBBLESTONE);
+						MaxSpreadAmount--;
+					}
 				}
 			}
 			
@@ -74,25 +86,6 @@ public final class Moss
 			}
 		}
 	}*/
-    
-    public static void growMoss(Block B)
-    {
-    	int MaxCycle = 150;
-    	int MaxSpreadAmount = 3;
-    	Block CurrentBlock = null;
-    	
-		for(int I = 0; I < MaxCycle; I++ )
-		{
-			CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.STATIONARY_WATER );
-			if( CurrentBlock != null )
-			{
-				CurrentBlock.setType(Material.MOSSY_COBBLESTONE);
-				MaxSpreadAmount--;
-			}
-			
-			if( MaxSpreadAmount <= 0 ) break;
-		}
-    }
 
     public static Block getMossyStoneBlock( Player player )
     {

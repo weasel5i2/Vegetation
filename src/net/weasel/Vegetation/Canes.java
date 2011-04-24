@@ -8,7 +8,7 @@ public class Canes {
 
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static void spreadCanes( Block B )
+	public static void growCanes( Block B )
 	{
 		if( Vegetation.debugging ) logOutput( "Spreading plants.." );
 
@@ -36,5 +36,4 @@ public class Canes {
 			if( MaxSpreadAmount <= 0 ) break;
 		}
 	}
-	
 }
