@@ -1,7 +1,5 @@
 package net.weasel.Vegetation;
 
-import java.util.ArrayList;
-
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
@@ -43,33 +41,6 @@ public class Blocks
 		else if( biome == Biome.SHRUBLAND && Vegetation.growShrublandBiome == true ) return true;
 		else if( biome == Biome.SEASONAL_FOREST && Vegetation.growSeasonalForestBiome == true ) return true;
 		else return false;
-    }
-    
-    public static ArrayList<Block> getAdjacentBlocks( Block targetBlock )
-    { 	
-    	ArrayList<Block> blockList = new ArrayList<Block>();
-    	
-    	int tX = targetBlock.getX();
-    	int tY = targetBlock.getY();
-    	int tZ = targetBlock.getZ();
-    	
-    	int minX = tX - 1, maxX = tX + 1;
-    	int minY = tY - 1, maxY = tY + 1;
-    	int minZ = tZ - 1, maxZ = tZ + 1;
-    	
-    	for( int X = minX; X <= maxX; X++ )
-    	{
-    		for( int Y = minY; Y <= maxY; Y++ )
-    		{
-    			for( int Z = minZ; Z <= maxZ; Z++ )
-    			{
-    				if( X != tX && Y != tY && Z != tZ )
-    					blockList.add( targetBlock.getWorld().getBlockAt(X,Y,Z) );
-    			}
-    		}
-    	}
-    	
-    	return blockList;
     }
     
     public static Block getTopBlock( Location BaseBlock, double X, double Z, Material Surface )
@@ -282,53 +253,6 @@ public class Blocks
     	return retVal;
     }
 
-    public static ArrayList<Block> getBlockRange(World world, Integer X, Integer Y, Integer Z, Integer Xsize, Integer Ysize )
-    {
-    	Block currentBlock = null;
-    	ArrayList<Block> range = new ArrayList<Block>();
-    	
-    	double minX = X - (Xsize / 2);
-    	double minY = Y - (Ysize / 2);
-    	double minZ = Z - (Xsize / 2);
-    	double maxX = X + (Xsize / 2);
-    	double maxY = Y + (Ysize / 2);
-    	double maxZ = Z + (Xsize / 2);
-    	
-    	int chkX = (int)minX;
-    	int chkY = (int)minY;
-    	int chkZ = (int)minZ;
-    	
-    	while( chkX <= maxX )
-    	{
-    		while( chkY <= maxY )
-    		{
-    	    	while( chkZ <= maxZ )
-    	    	{
-    				currentBlock = world.getBlockAt(chkX,chkY,chkZ);
-
-	            	if( currentBlock != null )
-	            	{
-	            		if( withinEnabledBiome(currentBlock.getBiome()) == true )
-		    			{
-	            			if( currentBlock.getTypeId() != 0 ) 
-	            			{
-	            				range.add(currentBlock);
-	            			}
-		    			}
-	            	}
-	            	
-	            	chkZ++;
-    	    	}
-    	    	chkZ = (int)minZ;
-    	    	chkY++;
-    		}
-    		chkY = (int)minY;
-    		chkX++;
-    	}
-
-		return range;
-    }
-    
     public static boolean isAdjacentBlockofType1( Block B, Material M )
     {
     	if( B.getRelative(BlockFace.NORTH).getType() == M )

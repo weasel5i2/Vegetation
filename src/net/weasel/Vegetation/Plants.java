@@ -34,21 +34,6 @@ public class Plants
 
 			if( MaxSpreadAmount <= 0 ) break;
 		}
-
-		/*Block RB = Blocks.getAdjacentBlockForPlant( currentBlock, plantOnBlock );
-
-			if( RB != null )
-			{
-				Block blockAbove = getTopBlock(player.getLocation(), (double)RB.getX(), 
-								   (double)RB.getZ() ).getRelative(BlockFace.UP);
-
-				if( blockAbove.getTypeId() == 0 )
-				{
-					if( Vegetation.debugging ) logOutput( "Spreading " + currentBlock.getTypeId() + " plant at " + RB.getX() + "," + RB.getY() + "," + RB.getZ() + "." );
-
-					RB.setType(currentBlock.getType() );
-				}
-			}*/
 	}
 	
 	public static boolean growSinglePlant(Block B, Material PlantType)
