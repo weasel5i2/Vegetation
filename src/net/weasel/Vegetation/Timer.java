@@ -34,7 +34,7 @@ public class Timer implements Runnable {
 			
 			if( Vegetation.currentPlayer != null )
 			{
-				Block CB = Blocks.getRandomBlock( Vegetation.currentPlayer.getLocation() );
+				Block CB = Blocks.getRandomBlock( Vegetation.currentPlayer.getLocation(), Material.AIR );
 				
 				//Todo: Implement delegates instead of switch case
 				if ( CB != null )

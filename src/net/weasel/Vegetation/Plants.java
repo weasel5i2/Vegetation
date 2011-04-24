@@ -24,7 +24,7 @@ public class Plants
 		//Get surrounding block and place new plant
 		for( int I = 0; I < 150; I++ )
 		{
-			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS, 5);
+			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS, Material.AIR, 5);
 			if( PlantBlock != null )
 			{
 				PlantBlock.getRelative(BlockFace.UP).setType(PlantType);
@@ -57,7 +57,7 @@ public class Plants
 		int MaxGrowAmount = 3;
 		for( int I = 0; I < 150; I++ )
 		{
-			CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS );
+			CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS, Material.AIR );
 			if( CurrentBlock != null )
 			{
 				CurrentBlock.getRelative(BlockFace.UP).setType(PlantType);
@@ -135,7 +135,7 @@ public class Plants
     	{
     		for( Integer Z = minZ; Z <= maxZ; Z++ )
     		{
-    			currentBlock = Blocks.getTopBlock(player.getLocation(), X, Z );
+    			currentBlock = Blocks.getTopBlock(player.getLocation(), X, Z, null );
     			    			
             	if( currentBlock != null )
             	{

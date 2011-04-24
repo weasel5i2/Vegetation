@@ -66,7 +66,7 @@ public final class Grass
     	{
     		for( double Z = (pZ-R); Z <= (pZ+R); Z++ )
     		{
-    			CurrentBlock = Blocks.getTopBlock(BaseBlock, X, Z );
+    			CurrentBlock = Blocks.getTopBlock(BaseBlock, X, Z, Material.AIR );
     			
     			if( CurrentBlock != null )
     			{

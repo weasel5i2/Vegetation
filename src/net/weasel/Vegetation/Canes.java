@@ -20,7 +20,7 @@ public class Canes {
 		//Get surrounding block and place new plant
 		for( int I = 0; I < 150; I++ )
 		{
-			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS, 5);
+			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS, Material.AIR, 5);
 			if( PlantBlock != null )
 			{
 				//sugar cranes can only grow near water :O

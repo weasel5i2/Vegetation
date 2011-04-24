@@ -34,7 +34,7 @@ public class GrowAllCommand implements CommandExecutor {
 					sender.sendMessage( "Growing everything.." );
 					for (int I = 0; I < 100; I++)
 					{
-						Block CB = Blocks.getRandomBlock(((Player) sender).getLocation());
+						Block CB = Blocks.getRandomBlock(((Player) sender).getLocation(), Material.AIR);
 
 						if ( CB != null )
 						{

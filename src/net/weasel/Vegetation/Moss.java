@@ -23,7 +23,7 @@ public final class Moss
     	
 		for(int I = 0; I < MaxCycle; I++ )
 		{
-			CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.COBBLESTONE, 5 );
+			CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.COBBLESTONE, null, 5 );
 			if( CurrentBlock != null )
 			{
 				if( Blocks.isAdjacentBlockofType2( CurrentBlock  , Material.STATIONARY_WATER )
@@ -34,14 +34,11 @@ public final class Moss
 				}
 			}
 			
-			if( MaxSpreadAmount <= 0 )
-			{
-				break;
-			}
+			if( MaxSpreadAmount <= 0 ) break;
 		}
     }
     
-	public static void growMoss( Player player )
+	/*public static void growMoss( Player player )
 	{
 		if( player == null ) return;
 	
@@ -76,7 +73,26 @@ public final class Moss
 				spreadBlock.setType( Material.MOSSY_COBBLESTONE );
 			}
 		}
-	}
+	}*/
+    
+    public static void growMoss(Block B)
+    {
+    	int MaxCycle = 150;
+    	int MaxSpreadAmount = 3;
+    	Block CurrentBlock = null;
+    	
+		for(int I = 0; I < MaxCycle; I++ )
+		{
+			CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.STATIONARY_WATER );
+			if( CurrentBlock != null )
+			{
+				CurrentBlock.setType(Material.MOSSY_COBBLESTONE);
+				MaxSpreadAmount--;
+			}
+			
+			if( MaxSpreadAmount <= 0 ) break;
+		}
+    }
 
     public static Block getMossyStoneBlock( Player player )
     {

@@ -18,7 +18,7 @@ public class Cacti
 		//Get surrounding block and place new plant
 		for( int I = 0; I < 150; I++ )
 		{
-			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.SAND, 5, 15);
+			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.SAND, Material.AIR, 5, 15);
 			if( PlantBlock != null && Blocks.isSurroundedByBlockType( PlantBlock, Material.AIR ) )
 			{
 				PlantBlock.getRelative(BlockFace.UP).setType(Material.CACTUS);
