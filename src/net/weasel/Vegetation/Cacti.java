@@ -19,7 +19,7 @@ public class Cacti
 		for( int I = 0; I < 150; I++ )
 		{
 			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.SAND, Material.AIR, 5, 15);
-			if( PlantBlock != null && Blocks.isSurroundedByBlockType( B.getRelative(BlockFace.UP), Material.AIR ) )
+			if( PlantBlock != null && Blocks.isSurroundedByBlockType1( B.getRelative(BlockFace.UP), Material.AIR ) )
 			{
 				PlantBlock.getRelative(BlockFace.UP).setType(Material.CACTUS);
 				if( Vegetation.debugging ) logOutput( "Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ() );
@@ -32,7 +32,7 @@ public class Cacti
 	
 	public static boolean growSingleCacti(Block B)
 	{
-		if( Blocks.isSurroundedByBlockType( B.getRelative(BlockFace.UP), Material.AIR ) )
+		if( Blocks.isSurroundedByBlockType1( B.getRelative(BlockFace.UP), Material.AIR ) )
 		{
 			B.getRelative(BlockFace.UP).setType(Material.CACTUS);
 			if( Vegetation.debugging ) logOutput( "Planting at: " + B.getX() + " " + B.getY() + " " + B.getZ() );

@@ -305,12 +305,27 @@ public class Blocks
     	}
     }
     
-    public static boolean isSurroundedByBlockType( Block B, Material M )
+    public static boolean isSurroundedByBlockType1( Block B, Material M )
     {
     	if( ( B.getRelative(BlockFace.NORTH).getType() == M )
     			&& ( B.getRelative(BlockFace.EAST).getType() == M )
     			&& ( B.getRelative(BlockFace.SOUTH).getType() == M )
     			&& ( B.getRelative(BlockFace.WEST).getType() == M ) )
+    		return true;
+    			
+    	return false;
+    }
+    
+    public static boolean isSurroundedByBlockType2( Block B, Material M )
+    {
+    	if( ( B.getRelative(BlockFace.NORTH).getType() == M )
+    			&& ( B.getRelative(BlockFace.NORTH_EAST).getType() == M )
+    			&& ( B.getRelative(BlockFace.EAST).getType() == M )
+    			&& ( B.getRelative(BlockFace.SOUTH_EAST).getType() == M )
+    			&& ( B.getRelative(BlockFace.SOUTH).getType() == M )
+    			&& ( B.getRelative(BlockFace.SOUTH_WEST).getType() == M )
+    			&& ( B.getRelative(BlockFace.WEST).getType() == M )
+    			&& ( B.getRelative(BlockFace.NORTH_WEST).getType() == M ) )
     		return true;
     			
     	return false;
