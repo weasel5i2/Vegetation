@@ -44,7 +44,7 @@ public class Grazers
 			world = plugin.getServer().getWorlds().get(X);
 			entities = world.getEntities();
 			
-			for( int Y = 0; Y < Vegetation.MaxGrazingAnimalsCount; Y++ )
+			for( int Y = 0; Y < Vegetation.maxGrazingAnimalsCount; Y++ )
 			{
 				Integer R = Vegetation.generator.nextInt(entities.size());
 				entity = entities.get(R);

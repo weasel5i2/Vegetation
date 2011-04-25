@@ -86,11 +86,17 @@ public class Vegetation extends JavaPlugin
 	public static boolean enableLilyPads = true;
 	public static boolean enableVines = true;
 	public static boolean enableGrazers = true;
-	
 	public static boolean waterGrowsMoss = true;
+	
+	// Plant spreading amount for player commands
+	public static int spreadAmountFlowers;
+	public static int spreadAmountCacti;
+	public static int spreadAmountFungi;
+	public static int spreadAmountSugarCane;
+	public static int spreadAmountMoss;
 
 	// Grazing-related stuff..
-	public static int MaxGrazingAnimalsCount = 0;
+	public static int maxGrazingAnimalsCount = 0;
 	public static boolean grazingSheep = true;
 	public static boolean grazingCows = true;
 	public static boolean grazingPigs = true;
@@ -186,9 +192,14 @@ public class Vegetation extends JavaPlugin
     	enableLilyPads = getBooleanSetting( "enableLilyPads", true );
     	enableVines = getBooleanSetting( "enableVines", true );
     	enableGrazers = getBooleanSetting( "enableGrazers", true );
-    	MaxGrazingAnimalsCount = getIntSetting( "GrazerMaxCount", 10 ) ;
-
+    	maxGrazingAnimalsCount = getIntSetting( "grazerMaxCount", 10 ) ;
     	waterGrowsMoss = getBooleanSetting( "waterGrowsMoss", true );
+    	
+    	spreadAmountFlowers = getIntSetting( "spreadAmountFlowers", 5 );
+    	spreadAmountFungi = getIntSetting( "spreadAmountFungi", 5 );
+    	spreadAmountCacti = getIntSetting( "spreadAmountCacti", 5 );
+    	spreadAmountSugarCane = getIntSetting( "spreadAmountSugarCane", 5 );
+    	spreadAmountMoss = getIntSetting( "spreadAmountMoss", 5 );
 
     	grazingSheep = getBooleanSetting( "grazingSheep", true );
     	grazingCows = getBooleanSetting( "grazingCows", true );
@@ -348,6 +359,13 @@ public class Vegetation extends JavaPlugin
 			outP.println( "/* moss will grow on any cobblestones touching water" );
 			outP.println( "/* regardless if there was a moss block to spread from or not." );
 			outP.println( "waterGrowsMoss=true" );
+			outP.println( "" );
+			outP.println( "/* Player Command Settings:" );
+			outP.println( "spreadAmountFlowers=5" );
+			outP.println( "spreadAmountFungi=5" );
+			outP.println( "spreadAmountCacti=5" );
+			outP.println( "spreadAmountSugarCane=5" );
+			outP.println( "spreadAmountMoss=5" );
 			outP.println( "" );
 			outP.println( "/* ENTITIES:" );
 			outP.println( "enableGrazers=true" );

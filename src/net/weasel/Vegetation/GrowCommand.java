@@ -13,7 +13,7 @@ public class GrowCommand implements CommandExecutor{
 
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static final int MaxCycle = 100;
+	public static final int MaxCycle = 150;
 	
 	
 	public GrowCommand( Vegetation Plugin )
@@ -51,7 +51,7 @@ public class GrowCommand implements CommandExecutor{
 						else if( Arg.equals("flower") )
 						{
 							sender.sendMessage( "Growing flowers.." );
-							MaxGrowAmount = 3;
+							MaxGrowAmount = Vegetation.spreadAmountFlowers;
 							for (int I = 0; I < MaxCycle; I++)
 							{
 								Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
@@ -76,7 +76,7 @@ public class GrowCommand implements CommandExecutor{
 						else if( Arg.equals("mushroom") )
 						{
 							sender.sendMessage( "Growing mushrooms.." );
-							MaxGrowAmount = 3;
+							MaxGrowAmount = Vegetation.spreadAmountFungi;
 							for (int I = 0; I < MaxCycle; I++)
 							{
 								Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
@@ -101,7 +101,7 @@ public class GrowCommand implements CommandExecutor{
 						else if( Arg.equals("cactus") )
 						{
 							sender.sendMessage( "Growing cacti.." );
-							MaxGrowAmount = 2;
+							MaxGrowAmount = Vegetation.spreadAmountCacti;
 							for (int I = 0; I < MaxCycle; I++)
 							{
 								Block CB = Blocks.getRandomBlock( PL, Material.SAND, Material.AIR );
@@ -118,7 +118,7 @@ public class GrowCommand implements CommandExecutor{
 						else if( Arg.equals("sugar_cane") )
 						{
 							sender.sendMessage( "Growing sugar canes.." );
-							MaxGrowAmount = 3;
+							MaxGrowAmount = Vegetation.spreadAmountSugarCane;
 							for (int I = 0; I < MaxCycle; I++)
 							{
 								Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
@@ -135,7 +135,7 @@ public class GrowCommand implements CommandExecutor{
 						else if( Arg.equals("moss") )
 						{
 							sender.sendMessage( "Growing moss.." );
-							MaxGrowAmount = 3;
+							MaxGrowAmount = Vegetation.spreadAmountMoss;
 							for (int I = 0; I < MaxCycle; I++)
 							{
 								Block CB = Blocks.getRandomBlock( PL, Material.COBBLESTONE, Material.STATIONARY_WATER );
