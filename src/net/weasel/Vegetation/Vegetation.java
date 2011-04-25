@@ -61,7 +61,7 @@ public class Vegetation extends JavaPlugin
 	public static double overGrowTicks = 0;
 	
 	// Growth-related stuff
-	public static double grassPerGrow = 1;
+	//public static double grassPerGrow = 1;
 	public static double tempGrassPerGrow = 1;
 	public static double grassPercent = 40;
 	public static double plantsPercent = 1;
@@ -217,9 +217,9 @@ public class Vegetation extends JavaPlugin
     	vinePercent = getDblSetting( "lilyPadPercent", 0.5 );
     	lilyPadPercent = getDblSetting( "lilyPadPercent", 0.5 );
     	grazePercent = getDblSetting( "grazePercent", 10 );
-    	grassPerGrow = getDblSetting( "grassPerGrow", 1 );
+    	//grassPerGrow = getDblSetting( "grassPerGrow", 1 );
     	
-    	tempGrassPerGrow = grassPerGrow;
+    	//tempGrassPerGrow = grassPerGrow;
     	
     	
     	/*if( ( grassPercent + plantsPercent + mossPercent + grazePercent ) > 100 )
@@ -233,17 +233,19 @@ public class Vegetation extends JavaPlugin
         	logOutput( "No vegetation is enabled. Disabling plugin." );
             this.getPluginLoader().disablePlugin(this);
         }
-        /*else if( !growForestBiome && !growRainforestBiome && ! growShrublandBiome &&
+        else if( !growForestBiome && !growRainforestBiome && ! growShrublandBiome &&
         		 !growSavannahBiome && !growPlainsBiome && !growSeasonalForestBiome &&
         		 !growIceDesertBiome && !growHellBiome && !growDesertBiome &&
         		 !growDesertBiome && !growSwamplandBiome && !growTaigaBiome && !growTundraBiome )
         {
         	logOutput( "No Biome Type is enabled. Disabling plugin." );
         	this.getPluginLoader().disablePlugin(this);
-        }*/
+        }
         else
+        {
         	getActivePlayerList();
             tTask = setupTimerTask( 10, 1 );
+        }
     }
     
     @Override
@@ -327,8 +329,11 @@ public class Vegetation extends JavaPlugin
 			FileWriter outFile = new FileWriter(pluginIni);
 			PrintWriter outP = new PrintWriter(outFile);
 			
+			outP.println( "/* Block Search Settings:" );
 			outP.println( "growthRange=100" );
 			outP.println( "verticalRadius=5" );
+			outP.println( "" );
+			outP.println( "/* Vegetation Settings:" );
 			outP.println( "enableGrass=true" );
 			outP.println( "enablePlants=true" );
 			outP.println( "enableFlowers=true" );
@@ -339,13 +344,24 @@ public class Vegetation extends JavaPlugin
 			outP.println( "enableMoss=true" );
 			outP.println( "enableLilyPads=true" );
 			outP.println( "enableVines=true" );
-			outP.println( "enableGrazers=true" );
-			outP.println( "GrazerMaxCount=10" );
+			outP.println( "/* If this option is set to true," );
+			outP.println( "/* moss will grow on any cobblestones touching water" );
+			outP.println( "/* regardless if there was a moss block to spread from or not." );
 			outP.println( "waterGrowsMoss=true" );
+			outP.println( "" );
+			outP.println( "/* ENTITIES:" );
+			outP.println( "enableGrazers=true" );
+			outP.println( "/* Sets max number of grazing animals." );
+			outP.println( "/* You should decrease this number if you encounter server lag." );
+			outP.println( "grazerMaxCount=10" );
 			outP.println( "grazingSheep=true" );
 			outP.println( "grazingCows=true" );
 			outP.println( "grazingPigs=true" );
 			outP.println( "grazingChickens=true" );
+			outP.println( "" );
+			outP.println( "/* BIOMES: " );
+			outP.println( "/* Enabled/Disables the growth of vegetation on " );
+			outP.println( "/* certain biomes." );
 			outP.println( "growForestBiome=true" );
 			outP.println( "growRainforestBiome=true" );
 			outP.println( "growShrublandBiome=true" );
@@ -358,7 +374,13 @@ public class Vegetation extends JavaPlugin
 			outP.println( "growSwamplandBiome=true" );
 			outP.println( "growTaigaBiome=true" );
 			outP.println( "growTundraBiome=true" );
-			outP.println( "grassPerGrow=1" );
+			//outP.println( "grassPerGrow=1" );
+			outP.println( "" );
+			outP.println( "/* EVENTS: " );
+			outP.println( "/* The following parameters determine how many ticks of " );
+			outP.println( "/* 100 ticks a specific type of action is being executed. " );
+			outP.println( "/* (Example: If grassPercent is set to 60, there is the possibility " );
+			outP.println( "/*  of grass growing at 60/100 ticks if a grass block is found 60 times. " );
 			outP.println( "grassPercent=40" );
 			outP.println( "plantsPercent=0.5" );
 			outP.println( "mossPercent=0.5" );
