@@ -22,7 +22,7 @@ public final class Grass
 		if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() );
 		B.setData( (byte)(int)V );
 
-		if( Vegetation.overGrowTicks > 0 )
+		/*if( Vegetation.overGrowTicks > 0 )
 		{
 			Vegetation.overGrowTicks--;
 
@@ -46,7 +46,7 @@ public final class Grass
 			{
 				Vegetation.overGrower.sendMessage( "Overgrowth 25% done." );
 			}
-		}
+		}*/
 	}
     
     public static void mowGrass( Location BaseBlock , int V )
