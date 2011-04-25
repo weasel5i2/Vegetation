@@ -41,7 +41,7 @@ public class GrowAllCommand implements CommandExecutor {
 							switch ( CB.getType() )
 							{
 							case GRASS:
-								Grass.growGrass( CB );
+								//Grass.growGrass( CB );
 								break;
 
 							case CACTUS:

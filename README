@@ -9,7 +9,15 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
-Version 2.31_fixed 22-Apr-201
+Version 3.0_beta 25-Apr-2011
+* Works on bukkit #714
+* Implemented Grow and GrowAll Commands
+* Permission: vegetation.grow, vegetation.growall, vegetation.mow
+* Implemented Permissions support (2.6 or higher)
+* Disabled grass growing since there is no update for the grass mod yet
+* Note: This is a test version
+
+Version 2.31_fixed 22-Apr-2011
 * Made some performance improvements
 * Note: Player commands are not working at the moment
 * Note: Biome settings are not working at the moment

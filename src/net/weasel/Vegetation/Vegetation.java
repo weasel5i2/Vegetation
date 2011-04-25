@@ -143,7 +143,7 @@ public class Vegetation extends JavaPlugin
 		{
 			getCommand("grow").setExecutor(new GrowCommand(this));
 	        getCommand("growall").setExecutor(new GrowAllCommand(this));
-	        getCommand("mow").setExecutor(new MowCommand(this));
+	        //getCommand("mow").setExecutor(new MowCommand(this));
 		}
 		
 		if( new File("plugins/Vegetation/").exists() == false )

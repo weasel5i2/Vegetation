@@ -42,12 +42,12 @@ public class Timer implements Runnable {
 					switch( CB.getType() )
 					{
 					case GRASS:
-						if ( Vegetation.enableGrass && ( ActiveTickCount < Vegetation.grassPercent ) )
+						/*if ( Vegetation.enableGrass && ( ActiveTickCount < Vegetation.grassPercent ) )
 						{
 							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.GRASS );
 							Grass.growGrass( CB );
 						}
-						break;
+						break;*/
 					
 					case CACTUS:
 						if ( Vegetation.enablePlants && Vegetation.enableCacti && ( ActiveTickCount < Vegetation.plantsPercent ) )

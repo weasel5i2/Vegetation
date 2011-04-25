@@ -3,11 +3,11 @@ main: net.weasel.Vegetation.Vegetation
 version: 3.0_beta
 commands:
   mow:
-    description: Mow the grass
+    description: Mow the grass (currently disabled)
     usage:
   grow:
     description: Grows the specified type of plant
-    usage: "Usage: /grow [type]  (type = grass/flower/mushroom/cactus/sugar_cane/moss)"
+    usage: "Usage: /grow [type]  (type = flower/mushroom/cactus/sugar_cane/moss)"
   growall:
     description: Grow everything (100 cycles)
     usage:
