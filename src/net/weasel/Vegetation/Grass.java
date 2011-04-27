@@ -36,9 +36,9 @@ public final class Grass
     	    	
     	Block CurrentBlock = null;
     	
-    	for( double X = (pX-R); X <= (pX+R); X++ )
+    	for( double X = pX-R; X <= pX+R; X++ )
     	{
-    		for( double Z = (pZ-R); Z <= (pZ+R); Z++ )
+    		for( double Z = pZ-R; Z <= pZ+R; Z++ )
     		{
     			CurrentBlock = Blocks.getTopBlock(BaseBlock, X, Z, Material.AIR );
     			

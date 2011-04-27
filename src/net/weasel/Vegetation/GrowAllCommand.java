@@ -4,6 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.block.Block;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -31,10 +32,11 @@ public class GrowAllCommand implements CommandExecutor {
 				if ( Vegetation.ActivePlayerCommands < 20 )
 				{
 					Vegetation.ActivePlayerCommands++;
+					Location L = ((Player) sender).getLocation();
 					sender.sendMessage( "Growing everything.." );
-					for (int I = 0; I < 100; I++)
+					for (int I = 0; I < 500; I++)
 					{
-						Block CB = Blocks.getRandomBlock(((Player) sender).getLocation(), Material.AIR);
+						Block CB = Blocks.getRandomBlock( L , Material.AIR );
 
 						if ( CB != null )
 						{
@@ -81,6 +83,7 @@ public class GrowAllCommand implements CommandExecutor {
 								break;
 
 							default:
+								Vegetation.ActivePlayerCommands--;
 								return false;
 							}
 						}

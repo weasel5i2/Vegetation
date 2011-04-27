@@ -35,7 +35,7 @@ public class GrowCommand implements CommandExecutor{
 				{
 					Vegetation.ActivePlayerCommands++;
 					
-					if( args.length == 1)
+					if( args.length == 1 )
 					{
 						String Arg = args[0];
 						int MaxGrowAmount = 0;
@@ -46,6 +46,7 @@ public class GrowCommand implements CommandExecutor{
 							sender.sendMessage( "Growing grass.." );
 							Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
 							Grass.growGrass( CB );
+							Vegetation.ActivePlayerCommands--;
 							return true;
 						}
 						else if( Arg.equals("flower") )
@@ -71,6 +72,7 @@ public class GrowCommand implements CommandExecutor{
 									if( MaxGrowAmount <= 0 ) break;
 								}
 							}
+							Vegetation.ActivePlayerCommands--;
 							return true;
 						}
 						else if( Arg.equals("mushroom") )
@@ -96,6 +98,7 @@ public class GrowCommand implements CommandExecutor{
 
 								if( MaxGrowAmount <= 0 ) break;
 							}
+							Vegetation.ActivePlayerCommands--;
 							return true;
 						}
 						else if( Arg.equals("cactus") )
@@ -113,6 +116,7 @@ public class GrowCommand implements CommandExecutor{
 
 								if( MaxGrowAmount <= 0 ) break;
 							}
+							Vegetation.ActivePlayerCommands--;
 							return true;
 						}
 						else if( Arg.equals("sugar_cane") )
@@ -130,6 +134,7 @@ public class GrowCommand implements CommandExecutor{
 
 								if( MaxGrowAmount <= 0 ) break;
 							}
+							Vegetation.ActivePlayerCommands--;
 							return true;
 						}
 						else if( Arg.equals("moss") )
@@ -169,10 +174,15 @@ public class GrowCommand implements CommandExecutor{
 
 								if( MaxGrowAmount <= 0 ) break;
 							}
+							Vegetation.ActivePlayerCommands--;
+							return true;
+						}
+						else
+						{
+							Vegetation.ActivePlayerCommands--;
 							return true;
 						}
 					}
-					Vegetation.ActivePlayerCommands--;
 				}
 			}
 		}

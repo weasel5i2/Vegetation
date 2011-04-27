@@ -25,8 +25,10 @@ public class MowCommand implements CommandExecutor{
 				// Todo: implement command queue
 				if( Vegetation.ActivePlayerCommands < 20 )
 				{
+					Vegetation.ActivePlayerCommands++;
 					Grass.mowGrass( P.getLocation() );
 					sender.sendMessage( "You have cut down the grass." );
+					Vegetation.ActivePlayerCommands--;
 					return true;
 				}
 			}
