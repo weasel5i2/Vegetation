@@ -29,7 +29,7 @@ public class GrowAllCommand implements CommandExecutor {
 			if ( Vegetation.Permissions.has(P, "vegetation.growall") )
 			{
 				// Todo: implement command queue
-				if ( Vegetation.ActivePlayerCommands < Vegetation.MaxActivePlayerCommands )
+				if ( Vegetation.ActivePlayerCommands < Vegetation.maxActivePlayerCommands )
 				{
 					Vegetation.ActivePlayerCommands++;
 					Location L = ((Player) sender).getLocation();

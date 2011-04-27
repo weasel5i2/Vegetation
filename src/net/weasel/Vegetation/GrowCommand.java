@@ -31,7 +31,7 @@ public class GrowCommand implements CommandExecutor{
 			if ( Vegetation.Permissions.has(P, "vegetation.grow") )
 			{
 				// Todo: implement command queue
-				if ( Vegetation.ActivePlayerCommands < Vegetation.MaxActivePlayerCommands )
+				if ( Vegetation.ActivePlayerCommands < Vegetation.maxActivePlayerCommands )
 				{
 					Vegetation.ActivePlayerCommands++;
 					

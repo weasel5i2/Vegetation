@@ -42,7 +42,7 @@ public class Vegetation extends JavaPlugin
 	public static BukkitScheduler timer;
 	public static ArrayList<String> playerList = new ArrayList<String>();
 	//prevents server crash and lag if too many players issue commands
-	public static final int MaxActivePlayerCommands = 40;
+	public static int maxActivePlayerCommands = 40;
 	public static int ActivePlayerCommands = 0;
 
 	// Timer task stuff
@@ -190,6 +190,7 @@ public class Vegetation extends JavaPlugin
     	maxGrazingAnimalsCount = getIntSetting( "grazerMaxCount", 10 ) ;
     	waterGrowsMoss = getBooleanSetting( "waterGrowsMoss", true );
     	
+    	maxActivePlayerCommands = getIntSetting( "maxActivePlayerCommands", 40 );
     	spreadAmountFlowers = getIntSetting( "spreadAmountFlowers", 5 );
     	spreadAmountFungi = getIntSetting( "spreadAmountFungi", 5 );
     	spreadAmountCacti = getIntSetting( "spreadAmountCacti", 5 );
@@ -215,13 +216,13 @@ public class Vegetation extends JavaPlugin
 		growTundraBiome = getBooleanSetting( "growTundraBiome", true );
 
         growthRange = getIntSetting( "growthRange", 100 );
-    	verticalRadius = getIntSetting( "verticalRadius", 5 );
+    	verticalRadius = getIntSetting( "verticalRadius", 10 );
     	
     	grassPercent = getDblSetting( "grassPercent", 40 );
-    	plantsPercent = getDblSetting( "plantsPercent", 0.5 );
-    	mossPercent = getDblSetting( "mossPercent", 0.5 );
-    	vinePercent = getDblSetting( "lilyPadPercent", 0.5 );
-    	lilyPadPercent = getDblSetting( "lilyPadPercent", 0.5 );
+    	plantsPercent = getDblSetting( "plantsPercent", 5 );
+    	mossPercent = getDblSetting( "mossPercent", 5 );
+    	vinePercent = getDblSetting( "lilyPadPercent", 5 );
+    	lilyPadPercent = getDblSetting( "lilyPadPercent", 5 );
     	grazePercent = getDblSetting( "grazePercent", 10 );
     	//grassPerGrow = getDblSetting( "grassPerGrow", 1 );
     	
@@ -328,7 +329,7 @@ public class Vegetation extends JavaPlugin
 			
 			outP.println( "/* Block Search Settings:" );
 			outP.println( "growthRange=100" );
-			outP.println( "verticalRadius=5" );
+			outP.println( "verticalRadius=10" );
 			outP.println( "" );
 			outP.println( "/* Vegetation Settings:" );
 			outP.println( "enableGrass=true" );
@@ -347,6 +348,7 @@ public class Vegetation extends JavaPlugin
 			outP.println( "waterGrowsMoss=true" );
 			outP.println( "" );
 			outP.println( "/* Player Command Settings:" );
+			outP.println( "maxActivePlayerCommands=40" );
 			outP.println( "spreadAmountFlowers=5" );
 			outP.println( "spreadAmountFungi=5" );
 			outP.println( "spreadAmountCacti=5" );
