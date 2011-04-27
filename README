@@ -9,6 +9,12 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.0 27-Apr-2011
+* disabled growall command since it's kind of useless the way it is now
+* fixed mow player command
+* disabled vines since they are not working properly and create lag
+* added new setting option for player commands: maxActivePlayerCommands only allows a set amount of commands to run simultaneously
+
 Version 3.0_beta 25-Apr-2011
 * Works on bukkit #714
 * Implemented Grow and GrowAll Commands
