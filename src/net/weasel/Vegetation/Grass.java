@@ -26,32 +26,6 @@ public final class Grass
 			if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
 			B.setData( (byte)V );
 		}
-
-		/*if( Vegetation.overGrowTicks > 0 )
-		{
-			Vegetation.overGrowTicks--;
-
-			if( Vegetation.overGrowTicks == 0 )
-			{
-				Vegetation.overGrower.sendMessage( "Overgrowth completed." );
-				Vegetation.overGrowTicks = 0;
-				Vegetation.overGrower = null;
-				Vegetation.overGrowingPlants = false;
-				Vegetation.tempGrassPerGrow = Vegetation.grassPerGrow;
-			}
-			if( Vegetation.overGrowTicks == 250 )
-			{
-				Vegetation.overGrower.sendMessage( "Overgrowth 75% done." );
-			}
-			if( Vegetation.overGrowTicks == 500 )
-			{
-				Vegetation.overGrower.sendMessage( "Overgrowth 50% done." );
-			}
-			if( Vegetation.overGrowTicks == 750 )
-			{
-				Vegetation.overGrower.sendMessage( "Overgrowth 25% done." );
-			}
-		}*/
 	}
     
     public static void mowGrass( Location BaseBlock )
