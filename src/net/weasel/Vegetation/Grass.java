@@ -12,15 +12,20 @@ public final class Grass
 	{	
 		if( Vegetation.debugging ) logOutput( "Growing grass.." );
 
-		Integer V;
+		/*Integer V;
 
 		V = B.getData() + 1;
 
 		if( V < 2 ) V = 2;
-		if( V > 10 ) V = 10;
+		if( V > 10 ) V = 10;*/
 
-		if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() );
-		B.setData( (byte)(int)V );
+		if( (int)B.getData() == 0 )
+		{
+			int V = Vegetation.generator.nextInt(10);
+			if( V < 2 ) V = 2;
+			if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
+			B.setData( (byte)V );
+		}
 
 		/*if( Vegetation.overGrowTicks > 0 )
 		{
@@ -49,14 +54,9 @@ public final class Grass
 		}*/
 	}
     
-    public static void mowGrass( Location BaseBlock , int V )
-    {
-    	//max grass height
-    	if( V > 10 ) V = 10;
-    	//no grass
-    	if( V < 1 ) V = 1;
-    	
-    	int R = Math.round( Vegetation.growthRange / 2 );
+    public static void mowGrass( Location BaseBlock )
+    {    	
+    	int R = Math.round( 50 / 2 );
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
     	    	
@@ -72,7 +72,7 @@ public final class Grass
     			{
 	    			if( CurrentBlock.getType() == Material.GRASS ) 
 	    			{
-	    				CurrentBlock.setData( (byte)V );
+	    				CurrentBlock.setData( (byte)0 );
 	    			}
     			}
     		}

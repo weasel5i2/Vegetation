@@ -1,9 +1,9 @@
 name: Vegetation
 main: net.weasel.Vegetation.Vegetation
-version: 3.0_beta
+version: 3.0
 commands:
   mow:
-    description: Mow the grass (currently disabled)
+    description: Mow the grass!
     usage:
   grow:
     description: Grows the specified type of plant

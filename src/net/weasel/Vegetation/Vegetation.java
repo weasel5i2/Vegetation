@@ -48,12 +48,6 @@ public class Vegetation extends JavaPlugin
 	public static Integer tTask;
 	
 	public static double timerTick = 0;
-	public static double plantTicks = 0;
-	public static double grassTicks = 0;
-	public static double lilyPadTicks = 0;
-	public static double mossTicks = 0;
-	public static double vineTicks = 0;
-	public static double grazeTicks = 0;
 	
 	public static Player currentPlayer = null;
 	public static Integer playerIndex = 0;
@@ -149,7 +143,7 @@ public class Vegetation extends JavaPlugin
 		{
 			getCommand("grow").setExecutor(new GrowCommand(this));
 	        getCommand("growall").setExecutor(new GrowAllCommand(this));
-	        //getCommand("mow").setExecutor(new MowCommand(this));
+	        getCommand("mow").setExecutor(new MowCommand(this));
 		}
 		
 		if( new File("plugins/Vegetation/").exists() == false )
@@ -229,15 +223,6 @@ public class Vegetation extends JavaPlugin
     	lilyPadPercent = getDblSetting( "lilyPadPercent", 0.5 );
     	grazePercent = getDblSetting( "grazePercent", 10 );
     	//grassPerGrow = getDblSetting( "grassPerGrow", 1 );
-    	
-    	//tempGrassPerGrow = grassPerGrow;
-    	
-    	
-    	/*if( ( grassPercent + plantsPercent + mossPercent + grazePercent ) > 100 )
-    	{
-        	logOutput( "The sum of the growth percentages is > 100. Please fix it." );
-            this.getPluginLoader().disablePlugin(this);
-    	}*/
     	
         if( !enableGrass && !enableGrazers && !enableMoss && !enablePlants )
         {
@@ -400,10 +385,10 @@ public class Vegetation extends JavaPlugin
 			outP.println( "/* (Example: If grassPercent is set to 60, there is the possibility " );
 			outP.println( "/*  of grass growing at 60/100 ticks if a grass block is found 60 times. " );
 			outP.println( "grassPercent=40" );
-			outP.println( "plantsPercent=0.5" );
-			outP.println( "mossPercent=0.5" );
-			outP.println( "lilyPadPercent=0.5" );
-			outP.println( "vinePercent=0.5" );
+			outP.println( "plantsPercent=5" );
+			outP.println( "mossPercent=5" );
+			outP.println( "lilyPadPercent=5" );
+			outP.println( "vinePercent=5" );
 			outP.println( "grazePercent=10" );
 			
 			outP.close();

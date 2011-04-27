@@ -43,10 +43,10 @@ public class GrowCommand implements CommandExecutor{
 
 						if( Arg.equals("grass") )
 						{
-							/*sender.sendMessage( "Growing grass.." );
+							sender.sendMessage( "Growing grass.." );
 							Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
 							Grass.growGrass( CB );
-							return true;*/
+							return true;
 						}
 						else if( Arg.equals("flower") )
 						{
