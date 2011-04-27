@@ -3,6 +3,7 @@ package net.weasel.Vegetation;
 import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 
 public class Timer implements Runnable {
 	
@@ -60,7 +61,6 @@ public class Timer implements Runnable {
 					case GRASS:
 						if ( Vegetation.enableGrass && ( grassTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.GRASS );
 							Grass.growGrass( CB );
 							grassTicks--;
 						}
@@ -69,7 +69,6 @@ public class Timer implements Runnable {
 					case CACTUS:
 						if ( Vegetation.enablePlants && Vegetation.enableCacti && ( plantTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.CACTUS );
 							Cacti.growCacti( CB );
 							plantTicks--;
 						}
@@ -78,7 +77,6 @@ public class Timer implements Runnable {
 					case SUGAR_CANE_BLOCK:
 						if ( Vegetation.enablePlants && Vegetation.enableCanes && ( plantTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.SUGAR_CANE_BLOCK );
 							Canes.growCanes( CB );
 							plantTicks--;
 						}
@@ -87,43 +85,73 @@ public class Timer implements Runnable {
 					case YELLOW_FLOWER:
 						if ( Vegetation.enablePlants && Vegetation.enableFlowers && ( plantTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.YELLOW_FLOWER );
-							Plants.growPlant( CB , Material.YELLOW_FLOWER );
 							plantTicks--;
+						}
+						
+						if ( Vegetation.enableGrass && ( grassTicks > 0 ) )
+						{
+							if( CB.getRelative(BlockFace.DOWN).getType() == Material.GRASS )
+							{
+								Grass.growGrass( CB.getRelative(BlockFace.DOWN) );
+								grassTicks--;
+							}
 						}
 						break;
 					
 					case RED_ROSE:
 						if ( Vegetation.enablePlants && Vegetation.enableFlowers && ( plantTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.RED_ROSE );
 							Plants.growPlant( CB , Material.RED_ROSE );
 							plantTicks--;
+						}
+						
+						if ( Vegetation.enableGrass && ( grassTicks > 0 ) )
+						{
+							if( CB.getRelative(BlockFace.DOWN).getType() == Material.GRASS )
+							{
+								Grass.growGrass( CB.getRelative(BlockFace.DOWN) );
+								grassTicks--;
+							}
 						}
 						break;
 					
 					case BROWN_MUSHROOM:
 						if ( Vegetation.enablePlants && Vegetation.enableFungi && ( plantTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.BROWN_MUSHROOM );
 							Plants.growPlant( CB , Material.BROWN_MUSHROOM );
 							plantTicks--;
+						}
+						
+						if ( Vegetation.enableGrass && ( grassTicks > 0 ) )
+						{
+							if( CB.getRelative(BlockFace.DOWN).getType() == Material.GRASS )
+							{
+								Grass.growGrass( CB.getRelative(BlockFace.DOWN) );
+								grassTicks--;
+							}
 						}
 						break;
 						
 					case RED_MUSHROOM:
 						if ( Vegetation.enablePlants && Vegetation.enableFungi && ( plantTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.RED_MUSHROOM );
 							Plants.growPlant( CB , Material.RED_MUSHROOM );
 							plantTicks--;
+						}
+						
+						if ( Vegetation.enableGrass && ( grassTicks > 0 ) )
+						{
+							if( CB.getRelative(BlockFace.DOWN).getType() == Material.GRASS )
+							{
+								Grass.growGrass( CB.getRelative(BlockFace.DOWN) );
+								grassTicks--;
+							}
 						}
 						break;
 					
 					case PUMPKIN:
 						if ( Vegetation.enablePlants && Vegetation.enablePumpkins && ( plantTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.PUMPKIN );
 							Plants.growPlant( CB , Material.PUMPKIN );
 							plantTicks--;
 						}
@@ -132,7 +160,6 @@ public class Timer implements Runnable {
 					case COBBLESTONE:
 						if ( Vegetation.enableMoss && Vegetation.waterGrowsMoss && ( mossTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.COBBLESTONE );
 							Moss.growMoss( CB );
 							mossTicks--;
 						}
@@ -141,7 +168,6 @@ public class Timer implements Runnable {
 					case MOSSY_COBBLESTONE:
 						if ( Vegetation.enableMoss  && ( mossTicks > 0 ) )
 						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.MOSSY_COBBLESTONE );
 							Moss.growMoss( CB );
 							mossTicks--;
 						}
