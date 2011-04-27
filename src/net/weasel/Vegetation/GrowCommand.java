@@ -41,15 +41,7 @@ public class GrowCommand implements CommandExecutor{
 						int MaxGrowAmount = 0;
 						Location PL = ((Player) sender).getLocation();
 
-						if( Arg.equals("grass") )
-						{
-							sender.sendMessage( "Growing grass.." );
-							Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
-							Grass.growGrass( CB );
-							Vegetation.ActivePlayerCommands--;
-							return true;
-						}
-						else if( Arg.equals("flower") )
+						if( Arg.equals("flower") )
 						{
 							sender.sendMessage( "Growing flowers.." );
 							MaxGrowAmount = Vegetation.spreadAmountFlowers;
