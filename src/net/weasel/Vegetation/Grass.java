@@ -3,6 +3,7 @@ package net.weasel.Vegetation;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 
 public final class Grass 
 {
@@ -47,6 +48,14 @@ public final class Grass
 	    			if( CurrentBlock.getType() == Material.GRASS ) 
 	    			{
 	    				CurrentBlock.setData( (byte)0 );
+	    			}
+	    			else if( CurrentBlock.getType() == Material.RED_ROSE
+	    					|| CurrentBlock.getType() == Material.YELLOW_FLOWER 
+	    					|| CurrentBlock.getType() == Material.RED_MUSHROOM
+	    					|| CurrentBlock.getType() == Material.BROWN_MUSHROOM )
+	    			{
+	    				if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.GRASS )
+	    					CurrentBlock.getRelative(BlockFace.DOWN).setData( (byte)0 );
 	    			}
     			}
     		}
