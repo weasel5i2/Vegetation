@@ -172,7 +172,7 @@ public class GrowCommand implements CommandExecutor{
 						else
 						{
 							Vegetation.ActivePlayerCommands--;
-							return true;
+							return false;
 						}
 					}
 				}
