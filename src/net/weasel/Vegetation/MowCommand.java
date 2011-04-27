@@ -23,7 +23,7 @@ public class MowCommand implements CommandExecutor{
 			if ( Vegetation.Permissions.has(P, "vegetation.mow") )
 			{
 				// Todo: implement command queue
-				if( Vegetation.ActivePlayerCommands < 20 )
+				if( Vegetation.ActivePlayerCommands < Vegetation.MaxActivePlayerCommands )
 				{
 					Vegetation.ActivePlayerCommands++;
 					Grass.mowGrass( P.getLocation() );

@@ -42,6 +42,7 @@ public class Vegetation extends JavaPlugin
 	public static BukkitScheduler timer;
 	public static ArrayList<String> playerList = new ArrayList<String>();
 	//prevents server crash and lag if too many players issue commands
+	public static final int MaxActivePlayerCommands = 40;
 	public static int ActivePlayerCommands = 0;
 
 	// Timer task stuff
