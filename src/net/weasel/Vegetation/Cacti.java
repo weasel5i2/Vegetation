@@ -10,6 +10,9 @@ public class Cacti
 	
 	public static void growCacti(Block B)
 	{
+		Material[] M = { Material.CACTUS };
+		if( Blocks.getFieldDensity( B, 5, M ) > 0.05 ) return;
+		
 		if( Vegetation.debugging ) logOutput( "Spreading cacti.." );
 		
 		int MaxSpreadAmount = 1;
@@ -18,7 +21,7 @@ public class Cacti
 		//Get surrounding block and place new plant
 		for( int I = 0; I < 150; I++ )
 		{
-			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.SAND, Material.AIR, 5, 15);
+			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.SAND, Material.AIR, 5);
 			if( PlantBlock != null && Blocks.isSurroundedByBlockType1( B.getRelative(BlockFace.UP), Material.AIR ) )
 			{
 				PlantBlock.getRelative(BlockFace.UP).setType(Material.CACTUS);

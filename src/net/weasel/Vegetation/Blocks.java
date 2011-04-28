@@ -203,20 +203,14 @@ public class Blocks
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
-    	
-    	double i, y;
 
     	Block currentBlock;
     	double tX, tZ;
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-    		i = getRandomRangeValue( I, Range );
-    		y = getRandomRangeValue( I, Range );
-       		tX = pX + i;
-    		tZ = pZ + y;
-    		
-    		logOutput("Range: " + i + "/" + y);
+       		tX = pX + getRandomRangeValue( I, Range );
+    		tZ = pZ + getRandomRangeValue( I, Range );
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ, Surface );
     		if( ( currentBlock != null ) && ( currentBlock.getType() == M ) && ( withinEnabledBiome( currentBlock.getBiome() ) ) )
