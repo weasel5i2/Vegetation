@@ -19,7 +19,7 @@ public final class Moss
 		{
 			if( MaxCycle%2 == 0 )
 			{
-				CurrentBlock = Blocks.getRandomBlock( B.getLocation() ,Material.COBBLESTONE, Material.STATIONARY_WATER, 25 );
+				CurrentBlock = Blocks.getRandomTopBlock( B.getLocation() ,Material.COBBLESTONE, Material.STATIONARY_WATER, 25 );
 				if( CurrentBlock != null )
 				{
 					CurrentBlock.setType(Material.MOSSY_COBBLESTONE);
@@ -29,7 +29,7 @@ public final class Moss
 			}
 			else
 			{
-				CurrentBlock = Blocks.getRandomBlock( B.getLocation() , Material.COBBLESTONE, Material.AIR, 25 );
+				CurrentBlock = Blocks.getRandomTopBlock( B.getLocation() , Material.COBBLESTONE, Material.AIR, 25 );
 				if( CurrentBlock != null )
 				{
 					if( Blocks.isAdjacentBlockofType2( CurrentBlock  , Material.STATIONARY_WATER )

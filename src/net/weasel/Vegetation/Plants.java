@@ -27,7 +27,7 @@ public class Plants
 		//Get surrounding block and place new plant
 		for( int I = 0; I < 150; I++ )
 		{
-			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS, Material.AIR, 3);
+			PlantBlock = Blocks.getRandomTopBlock( B.getLocation() , Material.GRASS, Material.AIR, 3);
 			if( PlantBlock != null )
 			{
 				PlantBlock.getRelative(BlockFace.UP).setType(PlantType);

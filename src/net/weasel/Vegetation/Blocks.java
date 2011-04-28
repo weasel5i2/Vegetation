@@ -143,7 +143,7 @@ public class Blocks
     	return retVal;
     }
     
-	public static Block getRandomBlock( Location BaseBlock, Material Surface )
+	public static Block getRandomTopBlock( Location BaseBlock, Material Surface )
     {
     	Block retVal = null;
     	int Range = Vegetation.growthRange;
@@ -170,7 +170,7 @@ public class Blocks
     	return retVal;
     }
     
-	public static Block getRandomBlock( Location BaseBlock, Material M, Material Surface )
+	public static Block getRandomTopBlock( Location BaseBlock, Material M, Material Surface )
     {
     	Block retVal = null;
     	int Range = Vegetation.growthRange;
@@ -197,7 +197,7 @@ public class Blocks
     	return retVal;
     }
 	
-	public static Block getRandomBlock( Location BaseBlock, Material M, Material Surface, int Range )
+	public static Block getRandomTopBlock( Location BaseBlock, Material M, Material Surface, int Range )
     {
     	Block retVal = null;
     	
@@ -223,7 +223,7 @@ public class Blocks
     	return retVal;
     }
 	
-	public static Block getRandomBlock( Location BaseBlock, Material M, Material Surface, int MinRange, int MaxRange )
+	public static Block getRandomTopBlock( Location BaseBlock, Material M, Material Surface, int MinRange, int MaxRange )
     {
     	Block retVal = null;
     	

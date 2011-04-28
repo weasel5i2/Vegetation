@@ -47,7 +47,7 @@ public class GrowCommand implements CommandExecutor{
 							MaxGrowAmount = Vegetation.spreadAmountFlowers;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
+								Block CB = Blocks.getRandomTopBlock( PL, Material.GRASS, Material.AIR );
 								if( CB != null )
 								{
 									if( I%2 == 0 )
@@ -73,7 +73,7 @@ public class GrowCommand implements CommandExecutor{
 							MaxGrowAmount = Vegetation.spreadAmountFungi;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
+								Block CB = Blocks.getRandomTopBlock( PL, Material.GRASS, Material.AIR );
 								if( CB != null )
 								{
 									if( I%2 == 0 )
@@ -99,7 +99,7 @@ public class GrowCommand implements CommandExecutor{
 							MaxGrowAmount = Vegetation.spreadAmountCacti;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = Blocks.getRandomBlock( PL, Material.SAND, Material.AIR );
+								Block CB = Blocks.getRandomTopBlock( PL, Material.SAND, Material.AIR );
 								if( CB != null )
 								{
 									if( Cacti.growSingleCacti( CB ) )
@@ -117,7 +117,7 @@ public class GrowCommand implements CommandExecutor{
 							MaxGrowAmount = Vegetation.spreadAmountSugarCane;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = Blocks.getRandomBlock( PL, Material.GRASS, Material.AIR );
+								Block CB = Blocks.getRandomTopBlock( PL, Material.GRASS, Material.AIR );
 								if( CB != null )
 								{
 									if( Canes.growSingleCane( CB ) )
@@ -135,7 +135,7 @@ public class GrowCommand implements CommandExecutor{
 							MaxGrowAmount = Vegetation.spreadAmountMoss;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = Blocks.getRandomBlock( PL, Material.COBBLESTONE, Material.STATIONARY_WATER );
+								Block CB = Blocks.getRandomTopBlock( PL, Material.COBBLESTONE, Material.STATIONARY_WATER );
 								if( CB != null )
 								{
 									if( Moss.growSingleMoss( CB ))
@@ -143,7 +143,7 @@ public class GrowCommand implements CommandExecutor{
 								}
 								else
 								{
-									CB = Blocks.getRandomBlock( PL, Material.COBBLESTONE, Material.WATER );
+									CB = Blocks.getRandomTopBlock( PL, Material.COBBLESTONE, Material.WATER );
 									if( CB != null )
 									{
 										if( Moss.growSingleMoss( CB ))
@@ -151,7 +151,7 @@ public class GrowCommand implements CommandExecutor{
 									}
 									else
 									{
-										CB = Blocks.getRandomBlock( PL, Material.COBBLESTONE, Material.AIR );
+										CB = Blocks.getRandomTopBlock( PL, Material.COBBLESTONE, Material.AIR );
 										if( CB != null )
 										{
 											if( Blocks.isAdjacentBlockofType2( CB  , Material.STATIONARY_WATER )
