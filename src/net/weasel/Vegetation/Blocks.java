@@ -346,4 +346,36 @@ public class Blocks
     		return Vegetation.generator.nextInt(MaxRange) - Vegetation.generator.nextInt(MaxRange);
     	}
     }
+    
+    //returns density value from 0.00 - 1.00
+    public static float getFieldDensity(Block CenterBlock, int Range)
+    {
+    	Location L = CenterBlock.getLocation();
+    	double pX = CenterBlock.getX();
+    	double pZ = CenterBlock.getZ();
+    	int R = Math.round( Range / 2 );
+    	Material M = CenterBlock.getType();
+    	int blockCountInRange = Range * Range;
+    	int populatedBlocks = 0;
+    	float density = 0.0f;
+    	Block CurrentBlock = null;
+    	
+       	for( double X = pX-R; X <= pX+R; X++ )
+    	{
+    		for( double Z = pZ-R; Z <= pZ+R; Z++ )
+    		{
+    			CurrentBlock = Blocks.getTopBlock( L, X, Z, Material.AIR );
+    			if( CurrentBlock != null )
+    			{
+    				if( CurrentBlock.getType() == M ) populatedBlocks++;
+    			}
+    		}
+    	}
+       	if( populatedBlocks > 0 )
+       	{
+       		density = (float)populatedBlocks / (float)blockCountInRange;
+       	}
+       	logOutput("Densitiy for a field of " + blockCountInRange + "/" + populatedBlocks + " was: " + densitiy );
+    	return density;
+    }
 }
