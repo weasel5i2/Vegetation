@@ -174,17 +174,19 @@ public class Timer implements Runnable {
 						}
 						break;
 						
-					/*case LEAVES:
-						if ( Vegetation.enableVines && ( vineTicks > 0 ) )
-						{
-							if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.LEAVES );
-							Vines.growVines( Vegetation.currentPlayer, 2 );
-							vineTicks--;
-						}
-						break;*/
-						
 					default:
 						break;
+					}
+				}
+				
+				CB = Blocks.getRandomBlock( Vegetation.currentPlayer.getLocation(), Material.WOOD );
+				if( CB != null )
+				{
+					if ( Vegetation.enableVines && ( vineTicks > 0 ) )
+					{
+						if( Vegetation.debugging ) logOutput( "Found Block of Type: " + Material.LEAVES );
+						Vines.growVines( CB );
+						vineTicks--;
 					}
 				}
 			}

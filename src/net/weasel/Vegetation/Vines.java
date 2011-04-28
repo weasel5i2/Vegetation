@@ -2,6 +2,8 @@ package net.weasel.Vegetation;
 
 import java.util.ArrayList;
 
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
@@ -14,7 +16,31 @@ public final class Vines
 	public static boolean withinEnabledBiome( Biome biome ) { return Blocks.withinEnabledBiome( biome ); }
 	public static Block getTopTreeBlock(World world, double X, double Z ) { return Blocks.getTopTreeBlock(world, X, Z ); }
 
-	public static void growVines( Player player, int count )
+	public static void growVines(Block Wood)
+	{
+		ArrayList<Block> LowerLeaves = getLowerLeafBlocks( getTreeTrunk(Wood) );
+		
+		if( !LowerLeaves.isEmpty() )
+		{
+			int R = Vegetation.generator.nextInt( LowerLeaves.size() );
+			
+			if( R <= LowerLeaves.size() )
+			{
+				Block Leaf = LowerLeaves.get( R );
+				int Height = Vegetation.generator.nextInt(5);
+				
+				for( int I = 0; I < Height; I++ )
+				{
+					Leaf = Leaf.getRelative( BlockFace.DOWN );
+					if( Leaf.getType() == Material.AIR && !Blocks.isSurroundedByBlockType1( Leaf, Material.SUGAR_CANE_BLOCK ) )
+					{
+						Leaf.setTypeIdAndData( 83, (byte)15, true );
+					}
+				}
+			}
+		}
+	}
+	/*public static void growVines( Player player, int count )
 	{
 		int R = 0;
 		
@@ -251,5 +277,77 @@ public final class Vines
 		}
 		
 		return retVal;
+	}*/
+	
+	public static ArrayList<Block> getTreeTrunk(Block BaseBlock)
+	{
+		if( BaseBlock.getType() != Material.WOOD ) return null;
+		
+		ArrayList<Block> TreeTrunk = new ArrayList<Block>();
+		Block CurrentBlock = BaseBlock;
+		
+		TreeTrunk.add( BaseBlock );
+		
+		if( BaseBlock.getRelative(BlockFace.DOWN).getType() == Material.WOOD )
+		{
+			while(true)
+			{
+				CurrentBlock = CurrentBlock.getRelative(BlockFace.DOWN);
+				if( CurrentBlock.getType() == Material.WOOD )
+				{
+					TreeTrunk.add( CurrentBlock );
+				}
+				else break;
+			}
+		}
+		if( BaseBlock.getRelative(BlockFace.UP).getType() == Material.WOOD )
+		{
+			while(true)
+			{
+				CurrentBlock = CurrentBlock.getRelative(BlockFace.UP);
+				if( CurrentBlock.getType() == Material.WOOD )
+				{
+					TreeTrunk.add( CurrentBlock );
+				}
+				else break;
+			}
+		}
+		
+		return TreeTrunk.size() > 1 ? TreeTrunk : null;
+	}
+	
+	public static ArrayList<Block> getLowerLeafBlocks(ArrayList<Block> TreeTrunk)
+	{
+		ArrayList<Block> LowerLeaves = new ArrayList<Block>();
+    	double pX, pY, pZ;
+    	int Range = 4;
+    	double blockCountInRange = Math.pow(2*Range + 1, 2);
+    	int count = 0;
+    	Block CurrentBlock = null;
+    	World W = TreeTrunk.get(0).getWorld();
+    	
+		for( Block B: TreeTrunk )
+		{
+			pX = B.getLocation().getX();
+			pY = B.getLocation().getY();
+			pZ = B.getLocation().getZ();
+	       	for( double X = pX-Range; X <= pX+Range; X++ )
+	    	{
+	    		for( double Z = pZ-Range; Z <= pZ+Range; Z++ )
+	    		{
+	    			CurrentBlock = W.getBlockAt((int)X , (int)pY , (int)Z );
+	    			if( CurrentBlock != null && CurrentBlock.getType() == Material.LEAVES )
+	    			{
+	    				if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.AIR )
+	    					LowerLeaves.add( CurrentBlock );
+	    			}
+	    			count++;
+	    		}
+	    	}
+			
+		}
+		logOutput("Tree Leaves scanned field of " + blockCountInRange + " " + count + " was: " + LowerLeaves.size() );
+		
+		return !LowerLeaves.isEmpty() ? LowerLeaves : null;
 	}
 }
