@@ -156,8 +156,8 @@ public class Blocks
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-    		tX = pX + Vegetation.generator.nextInt(Range) - Vegetation.generator.nextInt(Range);
-    		tZ = pZ + Vegetation.generator.nextInt(Range) - Vegetation.generator.nextInt(Range);
+       		tX = pX + getRandomRangeValue( I, Range );
+    		tZ = pZ + getRandomRangeValue( I, Range );
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ, Surface );
     		if( currentBlock != null && withinEnabledBiome( currentBlock.getBiome() ) )
@@ -203,14 +203,20 @@ public class Blocks
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
+    	
+    	double i, y;
 
     	Block currentBlock;
     	double tX, tZ;
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-       		tX = pX + getRandomRangeValue( I, Range );
-    		tZ = pZ + getRandomRangeValue( I, Range );
+    		i = getRandomRangeValue( I, Range );
+    		y = getRandomRangeValue( I, Range );
+       		tX = pX + i;
+    		tZ = pZ + y;
+    		
+    		logOutput("Range: " + i + "/" + y);
 
     		currentBlock = getTopBlock( BaseBlock, tX, tZ, Surface );
     		if( ( currentBlock != null ) && ( currentBlock.getType() == M ) && ( withinEnabledBiome( currentBlock.getBiome() ) ) )
@@ -331,51 +337,68 @@ public class Blocks
     	return false;
     }
     
-    public static int getRandomRangeValue(int V, int MaxRange)
+    public static double getRandomRangeValue(int V, int Range)
     {
+    	double retVal = 0;
     	if( V%3 == 1 )
     	{
-    		return ( Vegetation.generator.nextInt(MaxRange) - Vegetation.generator.nextInt(MaxRange) ) / 2;
+    		retVal = ( Vegetation.generator.nextInt(Range + 1) - Vegetation.generator.nextInt(Range + 1) ) / 2;
     	}
     	else if( V%3 == 2 )
     	{
-    		return ( Vegetation.generator.nextInt(MaxRange) - Vegetation.generator.nextInt(MaxRange) ) / 3;
+    		retVal = ( Vegetation.generator.nextInt(Range + 1) - Vegetation.generator.nextInt(Range + 1) ) / 3;
     	}
     	else
     	{
-    		return Vegetation.generator.nextInt(MaxRange) - Vegetation.generator.nextInt(MaxRange);
+    		retVal = Vegetation.generator.nextInt(Range + 1) - Vegetation.generator.nextInt(Range + 1);
     	}
+    	
+    	if( ( retVal > 0 ) && ( retVal > Range ) ) retVal = Range;
+    	else if( ( retVal < 0 ) && ( retVal < Range*-1 ) ) retVal = Range*-1;
+    	
+    	return retVal;
     }
     
-    //returns density value from 0.00 - 1.00
-    public static float getFieldDensity(Block CenterBlock, int Range)
+    //returns density value from 0.0 - 1.0
+    //range is (2*Range+1)^2 blocks
+    public static float getFieldDensity(Block CenterBlock, int Range, Material[] M)
     {
     	Location L = CenterBlock.getLocation();
     	double pX = CenterBlock.getX();
     	double pZ = CenterBlock.getZ();
-    	int R = Math.round( Range / 2 );
-    	Material M = CenterBlock.getType();
-    	int blockCountInRange = Range * Range;
+    	double blockCountInRange = Math.pow(2*Range + 1, 2);
     	int populatedBlocks = 0;
     	float density = 0.0f;
     	Block CurrentBlock = null;
+    	Material CurrentM;
+    	int count = 0;
     	
-       	for( double X = pX-R; X <= pX+R; X++ )
+       	for( double X = pX-Range; X <= pX+Range; X++ )
     	{
-    		for( double Z = pZ-R; Z <= pZ+R; Z++ )
+    		for( double Z = pZ-Range; Z <= pZ+Range; Z++ )
     		{
     			CurrentBlock = Blocks.getTopBlock( L, X, Z, Material.AIR );
     			if( CurrentBlock != null )
     			{
-    				if( CurrentBlock.getType() == M ) populatedBlocks++;
+    				CurrentM = CurrentBlock.getType();
+    				
+    				for( int I = 0; I < M.length; I++ )
+    				{
+    					if( CurrentM == M[I] )
+    					{
+    						populatedBlocks++;
+    						break;
+    					}
+    				}
     			}
+    			count++;
     		}
     	}
        	if( populatedBlocks > 0 )
        	{
        		density = (float)populatedBlocks / (float)blockCountInRange;
        	}
-       	logOutput("Densitiy for a field of " + blockCountInRange + "/" + populatedBlocks + " was: " + densitiy );
+       	logOutput("Densitiy for a field of " + populatedBlocks + "/" + blockCountInRange + " " + count + " was: " + density );
     	return density;
     }
 }

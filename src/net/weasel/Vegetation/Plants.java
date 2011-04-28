@@ -14,17 +14,20 @@ public class Plants
 	
 	public static void growPlant(Block B, Material PlantType)
 	{
+		Material[] M = { Material.YELLOW_FLOWER, Material.RED_ROSE, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.PUMPKIN };
+		if( Blocks.getFieldDensity( B, 3, M ) > 0.1 ) return;
+		
 		if( Vegetation.debugging ) logOutput( "Spreading plants.." );
 
 		int MaxSpreadAmount = 2;
-
+		
 		if( Vegetation.debugging ) logOutput( "Spreading Type of Plant: " + PlantType.toString() );
-
+		
 		Block PlantBlock = null;
 		//Get surrounding block and place new plant
 		for( int I = 0; I < 150; I++ )
 		{
-			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS, Material.AIR, 5);
+			PlantBlock = Blocks.getRandomBlock( B.getLocation() , Material.GRASS, Material.AIR, 3);
 			if( PlantBlock != null )
 			{
 				PlantBlock.getRelative(BlockFace.UP).setType(PlantType);
