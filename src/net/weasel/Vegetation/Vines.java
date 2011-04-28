@@ -26,14 +26,14 @@ public final class Vines
 			{
 				if ( Vegetation.debugging ) logOutput("Growing Vines...");
 				Block Leaf = LowerLeaves.get( R );
-				int Height = Vegetation.generator.nextInt(5);
+				int Height = Vegetation.generator.nextInt(7) + 2;
 				
 				for( int I = 0; I < Height; I++ )
 				{
 					Leaf = Leaf.getRelative( BlockFace.DOWN );
 					if( Leaf.getType() == Material.AIR )
 					{
-						if( Blocks.isSurroundedByBlockType1( Leaf, Material.AIR ) )
+						if( Leaf.getRelative(BlockFace.DOWN).getType() == Material.AIR && Blocks.isSurroundedByBlockType1( Leaf, Material.AIR ) )
 							Leaf.setTypeIdAndData( 83, (byte)15, true );
 					}
 					else break;
@@ -298,6 +298,11 @@ public final class Vines
 				{
 					TreeTrunk.add( CurrentBlock );
 				}
+				else if( CurrentBlock.getType() == Material.AIR )
+				{
+					//treetrunk is floating
+					return null;
+				}
 				else break;
 			}
 		}
@@ -323,7 +328,24 @@ public final class Vines
 		
 		ArrayList<Block> LowerLeaves = new ArrayList<Block>();
     	double pX, pY, pZ;
-    	int Range = 4;
+    	int Range = 0;
+    	
+    	if( TreeTrunk.size() > 5 )
+    	{
+    		//big tree
+    		Range = 5;
+    	}
+    	else if( TreeTrunk.size() < 5 )
+    	{
+    		//tree is too small to grow vines (only one block between leaves and ground
+    		return null;
+    	}
+    	else
+    	{
+    		//normal sized tree
+    		Range = 2;
+    	}
+
     	double blockCountInRange = Math.pow(2*Range + 1, 2);
     	int count = 0;
     	Block CurrentBlock = null;
@@ -334,6 +356,7 @@ public final class Vines
 			pX = B.getLocation().getX();
 			pY = B.getLocation().getY();
 			pZ = B.getLocation().getZ();
+			
 	       	for( double X = pX-Range; X <= pX+Range; X++ )
 	    	{
 	    		for( double Z = pZ-Range; Z <= pZ+Range; Z++ )
@@ -341,7 +364,8 @@ public final class Vines
 	    			CurrentBlock = W.getBlockAt((int)X , (int)pY , (int)Z );
 	    			if( CurrentBlock != null && CurrentBlock.getType() == Material.LEAVES )
 	    			{
-	    				if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.AIR )
+	    				if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.AIR 
+	    						&& Blocks.isSurroundedByBlockType1( CurrentBlock.getRelative(BlockFace.DOWN), Material.AIR) )
 	    					LowerLeaves.add( CurrentBlock );
 	    			}
 	    			count++;
