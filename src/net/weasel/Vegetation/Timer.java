@@ -188,6 +188,12 @@ public class Timer implements Runnable {
 						vineTicks--;
 					}
 				}
+				
+				if( Vegetation.enableGrazers && grazeTicks > 0 )
+				{
+					Grazers.grazeAnimals();
+					grazeTicks--;
+				}
 			}
 			LastTick = Tick;
 			ActiveTickCount++;
