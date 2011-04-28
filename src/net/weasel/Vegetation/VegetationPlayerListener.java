@@ -1,8 +1,10 @@
 package net.weasel.Vegetation;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -49,19 +51,10 @@ public class VegetationPlayerListener extends PlayerListener
 			if( Vegetation.playerList.contains( event.getPlayer() ) )
 				Vegetation.playerList.remove( event.getPlayer() );
 
-			if( Vegetation.overGrower != null )
-			{
-				if( event.getPlayer() == Vegetation.overGrower )
-				{
-					Vegetation.overGrowTicks = 0;
-					Vegetation.overGrower = null;
-					Vegetation.logOutput( "Overgrower has quit the game. Cancelling overgrowth loop." );
-				}
-			}
 		}
 		catch( Exception e )
 		{
-			// Do nothing..
+			Vegetation.getActivePlayerList();
 		}
 	}
 	
@@ -72,9 +65,26 @@ public class VegetationPlayerListener extends PlayerListener
 			if( !Vegetation.playerList.contains( Event.getPlayer().getName() ) )
 				Vegetation.playerList.add( Event.getPlayer().getName() );
 		}
-		catch ( Exception e )
+		catch( Exception e )
 		{
 			logOutput( "Something went wrong during PlayerList Login Event" );
+		}
+	}
+	
+	public void onPlayerMove ( PlayerMoveEvent Event )
+	{
+		try
+		{
+			Block B = Event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
+			if( B.getType() == Material.GRASS )
+			{
+				byte data = B.getData();
+				if( data >= 2 ) B.setData( (byte)(data - 1) );
+			}
+		}
+		catch( Exception e )
+		{
+			
 		}
 	}
 }

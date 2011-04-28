@@ -40,20 +40,18 @@ public class Vegetation extends JavaPlugin
 	// System stuff
 	public static Random generator = new Random();
 	public static BukkitScheduler timer;
-	public static ArrayList<String> playerList = new ArrayList<String>();
-	//prevents server crash and lag if too many players issue commands
-	public static int maxActivePlayerCommands = 40;
-	public static int ActivePlayerCommands = 0;
 
 	// Timer task stuff
 	public static Integer tTask;
-	
 	public static double timerTick = 0;
 	
+	//Player related settings
 	public static Player currentPlayer = null;
-	public static Integer playerIndex = 0;
-	
-	public static double overGrowTicks = 0;
+	public static ArrayList<String> playerList = new ArrayList<String>();
+	public static int playerIndex = 0;
+	public static int maxActivePlayerCommands = 40;
+	public static int ActivePlayerCommands = 0;
+	public static boolean trampleGrass = false;
 	
 	// Growth-related stuff
 	//public static double grassPerGrow = 1;
@@ -135,7 +133,6 @@ public class Vegetation extends JavaPlugin
 		pluginVersion = this.getDescription().getVersion();
 		
 		//pm.registerEvent(Type.BLOCK_PLACE, BlockListener, Event.Priority.Normal, plugin );
-		pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_LOGIN, PlayerListener, Event.Priority.Normal, plugin );
 		
@@ -196,6 +193,7 @@ public class Vegetation extends JavaPlugin
     	spreadAmountCacti = getIntSetting( "spreadAmountCacti", 5 );
     	spreadAmountSugarCane = getIntSetting( "spreadAmountSugarCane", 5 );
     	spreadAmountMoss = getIntSetting( "spreadAmountMoss", 5 );
+    	trampleGrass = getBooleanSetting( "trampleGrass", false );
 
     	grazingSheep = getBooleanSetting( "grazingSheep", true );
     	grazingCows = getBooleanSetting( "grazingCows", true );
@@ -225,6 +223,10 @@ public class Vegetation extends JavaPlugin
     	lilyPadPercent = getDblSetting( "lilyPadPercent", 5 );
     	grazePercent = getDblSetting( "grazePercent", 10 );
     	//grassPerGrow = getDblSetting( "grassPerGrow", 1 );
+    	
+    	//register event for trampleGrass
+    	if( trampleGrass )
+    		pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, plugin );
     	
         if( !enableGrass && !enableGrazers && !enableMoss && !enablePlants )
         {
@@ -347,13 +349,15 @@ public class Vegetation extends JavaPlugin
 			outP.println( "/* regardless if there was a moss block to spread from or not." );
 			outP.println( "waterGrowsMoss=true" );
 			outP.println( "" );
-			outP.println( "/* Player Command Settings:" );
+			outP.println( "/* Player related Settings:" );
 			outP.println( "maxActivePlayerCommands=40" );
 			outP.println( "spreadAmountFlowers=5" );
 			outP.println( "spreadAmountFungi=5" );
 			outP.println( "spreadAmountCacti=5" );
 			outP.println( "spreadAmountSugarCane=5" );
 			outP.println( "spreadAmountMoss=5" );
+			outP.println( "/* The player will trample a path through the grass if set to true." );
+			outP.println( "trampleGrass=false" );
 			outP.println( "" );
 			outP.println( "/* ENTITIES:" );
 			outP.println( "enableGrazers=true" );
