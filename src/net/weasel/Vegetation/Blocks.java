@@ -104,44 +104,6 @@ public class Blocks
     	}
     	return retVal;
     }
-
-    public static Block getTopTreeBlock( World world, double X, double Z )
-    {
-    	Block retVal = null;
-    	double Y = 127;
-    	boolean exitLoop = false;
-    	Block currentBlock = null;
-    	
-    	while( Y > 0 && exitLoop == false )
-    	{
-    		try
-    		{
-    			currentBlock = world.getBlockAt((int)X,(int)Y,(int)Z);
-    		}
-    		catch( Exception e )
-    		{
-    			retVal = null;
-    			exitLoop = true;
-    			break;
-    		}
-    		
-    		if( currentBlock.getTypeId() == 18 )
-    		{
-    			retVal = currentBlock;
-    			exitLoop = true;
-    		}
-    		else if( currentBlock.getTypeId() == 0 )
-    		{
-    			Y--;
-    		}
-    		else
-    		{
-    			Y = 0;
-    		}
-    	}
-    	
-    	return retVal;
-    }
     
     public static Block getRandomBlock(Location BaseBlock, Material M)
     {
@@ -412,7 +374,7 @@ public class Blocks
     	float density = 0.0f;
     	Block CurrentBlock = null;
     	Material CurrentM;
-    	int count = 0;
+    	//int count = 0;
     	
        	for( double X = pX-Range; X <= pX+Range; X++ )
     	{
@@ -432,7 +394,7 @@ public class Blocks
     					}
     				}
     			}
-    			count++;
+    			//count++;
     		}
     	}
        	if( populatedBlocks > 0 )
