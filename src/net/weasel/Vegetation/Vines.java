@@ -48,6 +48,8 @@ public final class Vines
 		ArrayList<Block> TreeTrunk = new ArrayList<Block>();
 		Block CurrentBlock = BaseBlock;
 		
+		TreeTrunk.add(BaseBlock);
+		
 		if( BaseBlock.getRelative(BlockFace.DOWN).getType() == Material.LOG )
 		{
 			while(true)
@@ -89,7 +91,7 @@ public final class Vines
     	double pX, pY, pZ;
     	int Range = 0;
     	
-    	if( TreeTrunk.size() > 5 )
+    	if( TreeTrunk.size() > 6 )
     	{
     		//big tree
     		Range = 5;
@@ -129,12 +131,12 @@ public final class Vines
 	    				if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.AIR 
 	    						&& Blocks.isSurroundedByBlockType1( CurrentBlock.getRelative(BlockFace.DOWN), Material.AIR) )
 	    				{
-	    					LowerLeaves.add( CurrentBlock );
-	    				}
-	    				else if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.SUGAR_CANE_BLOCK )
-	    				{
-	    					VineCount++;
-	    					if( VineCount >= MaxVinesOnTree ) return null;
+		    				if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.SUGAR_CANE_BLOCK )
+		    				{
+		    					VineCount++;
+		    					if( VineCount >= MaxVinesOnTree ) return null;
+		    				}
+		    				else LowerLeaves.add( CurrentBlock );
 	    				}
 	    			}
 	    			//count++;
