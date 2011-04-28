@@ -14,26 +14,29 @@ public final class Vines
 	public static boolean withinEnabledBiome( Biome biome ) { return Blocks.withinEnabledBiome( biome ); }
 	public static Block getTopTreeBlock(World world, double X, double Z ) { return Blocks.getTopTreeBlock(world, X, Z ); }
 
-	public static void growVines(Block Wood)
+	public static void growVines(Block Log)
 	{
-		ArrayList<Block> LowerLeaves = getLowerLeafBlocks( getTreeTrunk(Wood) );
+		ArrayList<Block> LowerLeaves = getLowerLeafBlocks( getTreeTrunk(Log) );
 		
-		if( !LowerLeaves.isEmpty() )
+		if( LowerLeaves != null )
 		{
 			int R = Vegetation.generator.nextInt( LowerLeaves.size() );
 			
 			if( R <= LowerLeaves.size() )
 			{
+				if ( Vegetation.debugging ) logOutput("Growing Vines...");
 				Block Leaf = LowerLeaves.get( R );
 				int Height = Vegetation.generator.nextInt(5);
 				
 				for( int I = 0; I < Height; I++ )
 				{
 					Leaf = Leaf.getRelative( BlockFace.DOWN );
-					if( Leaf.getType() == Material.AIR && !Blocks.isSurroundedByBlockType1( Leaf, Material.SUGAR_CANE_BLOCK ) )
+					if( Leaf.getType() == Material.AIR )
 					{
-						Leaf.setTypeIdAndData( 83, (byte)15, true );
+						if( Blocks.isSurroundedByBlockType1( Leaf, Material.AIR ) )
+							Leaf.setTypeIdAndData( 83, (byte)15, true );
 					}
+					else break;
 				}
 			}
 		}
@@ -279,31 +282,31 @@ public final class Vines
 	
 	public static ArrayList<Block> getTreeTrunk(Block BaseBlock)
 	{
-		if( BaseBlock.getType() != Material.WOOD ) return null;
+		if( BaseBlock.getType() != Material.LOG ) return null;
 		
 		ArrayList<Block> TreeTrunk = new ArrayList<Block>();
 		Block CurrentBlock = BaseBlock;
 		
 		TreeTrunk.add( BaseBlock );
 		
-		if( BaseBlock.getRelative(BlockFace.DOWN).getType() == Material.WOOD )
+		if( BaseBlock.getRelative(BlockFace.DOWN).getType() == Material.LOG )
 		{
 			while(true)
 			{
 				CurrentBlock = CurrentBlock.getRelative(BlockFace.DOWN);
-				if( CurrentBlock.getType() == Material.WOOD )
+				if( CurrentBlock.getType() == Material.LOG )
 				{
 					TreeTrunk.add( CurrentBlock );
 				}
 				else break;
 			}
 		}
-		if( BaseBlock.getRelative(BlockFace.UP).getType() == Material.WOOD )
+		if( BaseBlock.getRelative(BlockFace.UP).getType() == Material.LOG )
 		{
 			while(true)
 			{
 				CurrentBlock = CurrentBlock.getRelative(BlockFace.UP);
-				if( CurrentBlock.getType() == Material.WOOD )
+				if( CurrentBlock.getType() == Material.LOG )
 				{
 					TreeTrunk.add( CurrentBlock );
 				}
@@ -316,6 +319,8 @@ public final class Vines
 	
 	public static ArrayList<Block> getLowerLeafBlocks(ArrayList<Block> TreeTrunk)
 	{
+		if( TreeTrunk == null ) return null;
+		
 		ArrayList<Block> LowerLeaves = new ArrayList<Block>();
     	double pX, pY, pZ;
     	int Range = 4;
