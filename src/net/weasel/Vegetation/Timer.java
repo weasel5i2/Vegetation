@@ -85,6 +85,7 @@ public class Timer implements Runnable {
 					case YELLOW_FLOWER:
 						if ( Vegetation.enablePlants && Vegetation.enableFlowers && ( plantTicks > 0 ) )
 						{
+							Plants.growPlant( CB , Material.YELLOW_FLOWER );
 							plantTicks--;
 						}
 						
