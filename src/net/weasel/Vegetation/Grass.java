@@ -18,7 +18,6 @@ public final class Grass
 		if( V > Vegetation.maxGrassHeight + 1 )
 		{
 			B.setData( (byte)(Vegetation.maxGrassHeight + 1) );
-			logOutput("" + Vegetation.maxGrassHeight + " " + 1);
 			if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
 		}
 		else
@@ -30,7 +29,6 @@ public final class Grass
 				if( V > 10 ) V = 10;
 				B.setData( (byte)V );
 				if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
-				logOutput("" + V);
 			}
 		}
 
