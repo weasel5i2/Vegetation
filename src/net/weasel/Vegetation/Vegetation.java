@@ -134,7 +134,7 @@ public class Vegetation extends JavaPlugin
 		pluginName = this.getDescription().getName();
 		pluginVersion = this.getDescription().getVersion();
 		
-		pm.registerEvent(Type.BLOCK_PLACE, BlockListener, Event.Priority.Normal, plugin );
+		//pm.registerEvent(Type.BLOCK_PLACE, BlockListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_LOGIN, PlayerListener, Event.Priority.Normal, plugin );
