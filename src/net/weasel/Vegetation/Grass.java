@@ -14,12 +14,25 @@ public final class Grass
 		if( Vegetation.debugging ) logOutput( "Growing grass.." );
 
 
-		int V = B.getData() + 1;
-
-		if( V < 2 ) V = 2;
-		if( V > 10 ) V = 10;
-		if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
-		B.setData( (byte)V );
+		int V = B.getData();
+		if( V > Vegetation.maxGrassHeight + 1 )
+		{
+			B.setData( (byte)(Vegetation.maxGrassHeight + 1) );
+			logOutput("" + Vegetation.maxGrassHeight + " " + 1);
+			if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
+		}
+		else
+		{
+			V++;
+			if( V <= Vegetation.maxGrassHeight + 1 )
+			{
+				if( V < 2 ) V = 2;
+				if( V > 10 ) V = 10;
+				B.setData( (byte)V );
+				if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
+				logOutput("" + V);
+			}
+		}
 
 		/*if( (int)B.getData() == 0 )
 		{
