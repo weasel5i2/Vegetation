@@ -9,11 +9,17 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.1 28-Apr-2011
+* Animals can once again graze grass
+* Implemented spreading ratio for flowers/mushrooms/cacti. This will prevent them from covering your whole map as they can only spawn in a specific ratio per area
+* Vines are growing now once you enable them
+* "trampleGrass": If enabled, players will trample down grass and create a path
+
 Version 3.0 27-Apr-2011
-* disabled growall command since it's kind of useless the way it is now
-* fixed mow player command
-* disabled vines since they are not working properly and create lag
-* added new setting option for player commands: maxActivePlayerCommands only allows a set amount of commands to run simultaneously
+* Disabled growall command since it's kind of useless the way it is now
+* Fixed mow player command
+* Disabled vines since they are not working properly and create lag
+* Added new setting option for player commands: maxActivePlayerCommands only allows a set amount of commands to run simultaneously
 
 Version 3.0_beta 25-Apr-2011
 * Works on bukkit #714

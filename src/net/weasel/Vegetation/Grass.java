@@ -13,20 +13,21 @@ public final class Grass
 	{	
 		if( Vegetation.debugging ) logOutput( "Growing grass.." );
 
-		/*Integer V;
 
-		V = B.getData() + 1;
+		int V = B.getData() + 1;
 
 		if( V < 2 ) V = 2;
-		if( V > 10 ) V = 10;*/
+		if( V > 10 ) V = 10;
+		if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
+		B.setData( (byte)V );
 
-		if( (int)B.getData() == 0 )
+		/*if( (int)B.getData() == 0 )
 		{
 			int V = Vegetation.generator.nextInt(10);
 			if( V < 2 ) V = 2;
 			if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
 			B.setData( (byte)V );
-		}
+		}*/
 	}
     
     public static void mowGrass( Location BaseBlock )
