@@ -79,7 +79,7 @@ public class VegetationPlayerListener extends PlayerListener
 			if( B.getType() == Material.GRASS )
 			{
 				byte data = B.getData();
-				if( data >= 2 ) B.setData( (byte)(data - 1) );
+				if( data >= 2 ) B.setData( (byte)(data - 2) );
 			}
 		}
 		catch( Exception e )
