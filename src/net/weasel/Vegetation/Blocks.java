@@ -147,21 +147,23 @@ public class Blocks
     {
     	Block retVal = null;
     	World W = BaseBlock.getWorld();
-    	int Range = Vegetation.growthRange;
+    	int hRange = Vegetation.growthRange;
+    	int vRange = Vegetation.verticalRadius;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
     	double pY = BaseBlock.getY();
 
     	Block currentBlock;
-    	double tX, tZ;
+    	double tX, tY, tZ;
 
     	for( int I = 0; I < MaxCycle; I++ )
     	{
-       		tX = pX + getRandomRangeValue( I, Range );
-    		tZ = pZ + getRandomRangeValue( I, Range );
+       		tX = pX + getRandomRangeValue( I, hRange );
+       		tY = pY + getRandomRangeValue( I, vRange );
+    		tZ = pZ + getRandomRangeValue( I, hRange );
 
-    		currentBlock = W.getBlockAt( (int)tX, (int)pY , (int)tZ );
+    		currentBlock = W.getBlockAt( (int)tX, (int)tY , (int)tZ );
     		if( currentBlock != null && withinEnabledBiome( currentBlock.getBiome() ) && currentBlock.getType() == M )
     		{
     			retVal = currentBlock;
