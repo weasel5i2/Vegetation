@@ -219,7 +219,7 @@ public class Vegetation extends JavaPlugin
 		growTaigaBiome = getBooleanSetting( "growTaigaBiome", true );
 		growTundraBiome = getBooleanSetting( "growTundraBiome", true );
 
-        growthRange = getIntSetting( "growthRange", 100 );
+        growthRange = getIntSetting( "growthRange", 30 );
     	verticalRadius = getIntSetting( "verticalRadius", 10 );
     	
     	grassPercent = getDblSetting( "grassPercent", 40 );
@@ -275,7 +275,7 @@ public class Vegetation extends JavaPlugin
 	          }
 	          else
 	          {
-	              logOutput( "Permission system not detected, defaulting to OP" );
+	              logOutput( "Permission system not detected. Commands won't work like this!" );
 	              return false;
 	          }
 	      }
@@ -336,14 +336,14 @@ public class Vegetation extends JavaPlugin
 			PrintWriter outP = new PrintWriter(outFile);
 			
 			outP.println( "/* Block Search Settings:" );
-			outP.println( "growthRange=100" );
+			outP.println( "growthRange=30" );
 			outP.println( "verticalRadius=10" );
 			outP.println( "" );
 			outP.println( "/* Vegetation Settings:" );
 			outP.println( "enableGrass=true" );
 			outP.println( "" );
 			outP.println( "/* Set max grass height from 1-9" );
-			outP.println( "maxGrassHeight=8" );
+			outP.println( "maxGrassHeight=9" );
 			outP.println( "enablePlants=true" );
 			outP.println( "enableFlowers=true" );
 			outP.println( "enableFungi=true" );
