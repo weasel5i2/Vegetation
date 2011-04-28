@@ -56,7 +56,7 @@ public class Grazers
 					
 					if( targetBlock.getType() == Material.GRASS )
 					{
-						if( targetBlock.getData() > 2 )
+						if( targetBlock.getData() >= 2 )
 						{
 							targetBlock.setData( (byte)(targetBlock.getData()-1) );
 							if ( Vegetation.debugging ) logOutput( "Entity " + entity.toString() + " just ate some grass." );
