@@ -84,7 +84,11 @@ public class VegetationPlayerListener extends PlayerListener
 		}
 		catch( Exception e )
 		{
-			
+			logOutput( "OnPlayerMove Exception: " + e );
+			logOutput( "Disabling trampleGrass");
+			Vegetation.trampleGrass = false;
+			Vegetation.plugin.getPluginLoader().disablePlugin(Vegetation.plugin);
+			Vegetation.plugin.getPluginLoader().enablePlugin(Vegetation.plugin);
 		}
 	}
 }
