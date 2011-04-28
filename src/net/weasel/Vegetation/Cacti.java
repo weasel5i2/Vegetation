@@ -11,7 +11,7 @@ public class Cacti
 	public static void growCacti(Block B)
 	{
 		Material[] M = { Material.CACTUS };
-		if( Blocks.getFieldDensity( B, 5, M ) > 0.05 ) return;
+		if( Blocks.getFieldDensity( B, 5, M ) > 0.03 ) return;
 		
 		if( Vegetation.debugging ) logOutput( "Spreading cacti.." );
 		
