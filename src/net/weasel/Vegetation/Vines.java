@@ -2,13 +2,11 @@ package net.weasel.Vegetation;
 
 import java.util.ArrayList;
 
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Player;
 
 public final class Vines 
 {
