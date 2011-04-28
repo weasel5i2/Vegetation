@@ -143,6 +143,35 @@ public class Blocks
     	return retVal;
     }
     
+    public static Block getRandomBlock(Location BaseBlock, Material M)
+    {
+    	Block retVal = null;
+    	World W = BaseBlock.getWorld();
+    	int Range = Vegetation.growthRange;
+    	
+    	double pX = BaseBlock.getX();
+    	double pZ = BaseBlock.getZ();
+    	double pY = BaseBlock.getY();
+
+    	Block currentBlock;
+    	double tX, tZ;
+
+    	for( int I = 0; I < MaxCycle; I++ )
+    	{
+       		tX = pX + getRandomRangeValue( I, Range );
+    		tZ = pZ + getRandomRangeValue( I, Range );
+
+    		currentBlock = W.getBlockAt( (int)tX, (int)pY , (int)tZ );
+    		if( currentBlock != null && withinEnabledBiome( currentBlock.getBiome() ) && currentBlock.getType() == M )
+    		{
+    			retVal = currentBlock;
+    			if( Vegetation.debugging ) logOutput( "Found random block of material: " + currentBlock.getType().toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ() );
+    			break;
+    		}
+    	}
+    	return retVal;
+    }
+    
 	public static Block getRandomTopBlock( Location BaseBlock, Material Surface )
     {
     	Block retVal = null;
@@ -333,7 +362,7 @@ public class Blocks
     
     public static double getRandomRangeValue(int V, int Range)
     {
-    	double retVal = 0;
+    	int retVal = 0;
     	if( V%3 == 1 )
     	{
     		retVal = ( Vegetation.generator.nextInt(Range + 1) - Vegetation.generator.nextInt(Range + 1) ) / 2;
@@ -392,7 +421,7 @@ public class Blocks
        	{
        		density = (float)populatedBlocks / (float)blockCountInRange;
        	}
-       	logOutput("Densitiy for a field of " + populatedBlocks + "/" + blockCountInRange + " " + count + " was: " + density );
+       	//logOutput("Densitiy for a field of " + populatedBlocks + "/" + blockCountInRange + " " + count + " was: " + density );
     	return density;
     }
 }
