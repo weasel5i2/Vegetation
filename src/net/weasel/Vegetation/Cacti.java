@@ -22,7 +22,7 @@ public class Cacti
 		for( int I = 0; I < 150; I++ )
 		{
 			PlantBlock = Blocks.getRandomTopBlock( B.getLocation() , Material.SAND, Material.AIR, 5);
-			if( PlantBlock != null && Blocks.isSurroundedByBlockType1( B.getRelative(BlockFace.UP), Material.AIR ) )
+			if( PlantBlock != null && Blocks.isSurroundedByBlockType1( PlantBlock.getRelative(BlockFace.UP), Material.AIR ) )
 			{
 				PlantBlock.getRelative(BlockFace.UP).setType(Material.CACTUS);
 				if( Vegetation.debugging ) logOutput( "Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ() );
