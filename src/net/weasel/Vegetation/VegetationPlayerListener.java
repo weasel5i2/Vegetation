@@ -73,22 +73,25 @@ public class VegetationPlayerListener extends PlayerListener
 	
 	public void onPlayerMove ( PlayerMoveEvent Event )
 	{
-		try
+		if( !Event.getPlayer().isSneaking() )
 		{
-			Block B = Event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
-			if( B.getType() == Material.GRASS )
+			try
 			{
-				byte data = B.getData();
-				if( data >= 2 ) B.setData( (byte)(data - 2) );
+				Block B = Event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
+				if( B.getType() == Material.GRASS )
+				{
+					byte data = B.getData();
+					if( data >= 2 ) B.setData( (byte)(data - 2) );
+				}
 			}
-		}
-		catch( Exception e )
-		{
-			logOutput( "OnPlayerMove Exception: " + e );
-			logOutput( "Disabling trampleGrass");
-			Vegetation.trampleGrass = false;
-			Vegetation.plugin.getPluginLoader().disablePlugin(Vegetation.plugin);
-			Vegetation.plugin.getPluginLoader().enablePlugin(Vegetation.plugin);
+			catch( Exception e )
+			{
+				logOutput( "OnPlayerMove Exception: " + e );
+				logOutput( "Disabling trampleGrass");
+				Vegetation.trampleGrass = false;
+				Vegetation.plugin.getPluginLoader().disablePlugin(Vegetation.plugin);
+				Vegetation.plugin.getPluginLoader().enablePlugin(Vegetation.plugin);
+			}
 		}
 	}
 }
