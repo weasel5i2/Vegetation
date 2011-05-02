@@ -45,26 +45,29 @@ public class Grazers
 			world = plugin.getServer().getWorlds().get(X);
 			entities = world.getEntities();
 			
-			for( int Y = 0; Y < Vegetation.maxGrazingAnimalsCount; Y++ )
+			if( entities.size() > 0 )
 			{
-				int R = Vegetation.generator.nextInt(entities.size());
-				entity = entities.get(R);
-
-				if( Grazers.isEnabledGrazer( entity.toString() ) )
+				for( int Y = 0; Y < Vegetation.maxGrazingAnimalsCount; Y++ )
 				{
-					targetBlock = entity.getLocation().getBlock().getRelative(BlockFace.DOWN);
-					
-					if( targetBlock.getType() == Material.GRASS )
-					{
-						if( targetBlock.getData() >= 2 )
-						{
-							targetBlock.setData( (byte)(targetBlock.getData()-1) );
-							if ( Vegetation.debugging ) logOutput( "Entity " + entity.toString() + " just ate some grass." );
-						}
-					}
-					
-				}
+					int R = Vegetation.generator.nextInt(entities.size());
+					entity = entities.get(R);
 
+					if( Grazers.isEnabledGrazer( entity.toString() ) )
+					{
+						targetBlock = entity.getLocation().getBlock().getRelative(BlockFace.DOWN);
+						
+						if( targetBlock.getType() == Material.GRASS )
+						{
+							if( targetBlock.getData() >= 2 )
+							{
+								targetBlock.setData( (byte)(targetBlock.getData()-1) );
+								if ( Vegetation.debugging ) logOutput( "Entity " + entity.toString() + " just ate some grass." );
+							}
+						}
+						
+					}
+
+				}
 			}
 		}
 	}
