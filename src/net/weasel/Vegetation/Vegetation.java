@@ -55,12 +55,12 @@ public class Vegetation extends JavaPlugin
 	
 	// Growth-related stuff
 	//public static double grassPerGrow = 1;
-	public static double tempGrassPerGrow = 1;
-	public static double grassPercent = 40;
-	public static double plantsPercent = 1;
-	public static double mossPercent = 1;
-	public static double vinePercent = 0.5;
-	public static double lilyPadPercent = 0.5;
+	//public static int tempGrassPerGrow = 1;
+	public static int grassPercent = 40;
+	public static int plantsPercent = 5;
+	public static int mossPercent = 5;
+	public static int vinePercent = 5;
+	public static int lilyPadPercent = 5;
 	
 	public static double grazePercent = 10;
 	
@@ -90,7 +90,7 @@ public class Vegetation extends JavaPlugin
 	public static int spreadAmountMoss;
 
 	// Grazing-related stuff..
-	public static int maxGrazingAnimalsCount = 0;
+	public static int maxGrazingAnimalsCount = 10;
 	public static boolean grazingSheep = true;
 	public static boolean grazingCows = true;
 	public static boolean grazingPigs = true;
@@ -222,12 +222,12 @@ public class Vegetation extends JavaPlugin
         growthRange = getIntSetting( "growthRange", 30 );
     	verticalRadius = getIntSetting( "verticalRadius", 10 );
     	
-    	grassPercent = getDblSetting( "grassPercent", 40 );
-    	plantsPercent = getDblSetting( "plantsPercent", 5 );
-    	mossPercent = getDblSetting( "mossPercent", 5 );
-    	vinePercent = getDblSetting( "lilyPadPercent", 5 );
-    	lilyPadPercent = getDblSetting( "lilyPadPercent", 5 );
-    	grazePercent = getDblSetting( "grazePercent", 10 );
+    	grassPercent = getIntSetting( "grassPercent", 40 );
+    	plantsPercent = getIntSetting( "plantsPercent", 5 );
+    	mossPercent = getIntSetting( "mossPercent", 5 );
+    	vinePercent = getIntSetting( "lilyPadPercent", 5 );
+    	lilyPadPercent = getIntSetting( "lilyPadPercent", 5 );
+    	grazePercent = getIntSetting( "grazePercent", 10 );
     	//grassPerGrow = getDblSetting( "grassPerGrow", 1 );
     	
     	//register event for trampleGrass
@@ -311,12 +311,14 @@ public class Vegetation extends JavaPlugin
     public Integer getIntSetting( String item, Integer dValue )
     {
     	Integer retVal = Integer.parseInt( getSettingValue(pluginIni, item, dValue.toString(), "" )[0]);
+    	if( retVal < 0 ) retVal = 0;
     	return retVal;
     }
 
     public double getDblSetting( String item, double d )
     {
     	double retVal = Double.parseDouble( getSettingValue(pluginIni, item, Double.toString(d), "" )[0]);
+    	if( retVal < 0 ) retVal = 0;
     	return retVal;
     }
 
