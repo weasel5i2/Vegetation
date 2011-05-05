@@ -1,9 +1,12 @@
 package net.weasel.Vegetation;
 
+import java.util.HashSet;
+
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -22,26 +25,35 @@ public class VegetationPlayerListener extends PlayerListener
 		plugin = instance;
 	}
 
-	public void onPlayerItem( PlayerInteractEvent e )
+	public void onPlayerInteract( PlayerInteractEvent event )
 	{
-		Player player = e.getPlayer();
+		if( !(event.getAction() == Action.RIGHT_CLICK_BLOCK) ) return;
+		
+		Player player = event.getPlayer();
 		ItemStack heldItems = player.getItemInHand();
-
-		if( heldItems.getTypeId() == 37 || heldItems.getTypeId() == 38 )
+		HashSet<Byte> transparentBlocks = new HashSet<Byte>();
+		transparentBlocks.add( (byte)9 ); //stationary water 
+		Block targetBlock = player.getTargetBlock(transparentBlocks, 100);
+		
+		logOutput(""+targetBlock.getType());
+		
+		if( targetBlock.getType() == Material.DIRT && targetBlock.getRelative(BlockFace.UP).getType() == Material.STATIONARY_WATER )
 		{
-			Block targetBlock = player.getTargetBlock(null, 100);
-
-			if( targetBlock.getRelative(BlockFace.UP).getTypeId() == 0 )
+			if( heldItems.getType() == Material.YELLOW_FLOWER || heldItems.getType() == Material.RED_ROSE )
 			{
-				targetBlock.getRelative(BlockFace.UP).setTypeIdAndData(heldItems.getTypeId(), (byte)1, true );
-				heldItems.setAmount(heldItems.getAmount() - 1 );
-				e.setCancelled( true );
+				event.setCancelled(true);
+				for( int I = 0; I < 5; I++ )
+				{
+					targetBlock = targetBlock.getRelative(BlockFace.UP);
+					if( targetBlock.getRelative(BlockFace.UP).getType() == Material.AIR )
+					{
+						targetBlock.getRelative(BlockFace.UP).setType( heldItems.getType() );
+						heldItems.setAmount( heldItems.getAmount() - 1 );
+						break;
+					}
+				}
 			}
 		}
-		else
-			e.setCancelled( false );
-		
-		return;
 	}
 	
 	public void onPlayerQuit( PlayerQuitEvent event)
@@ -71,7 +83,7 @@ public class VegetationPlayerListener extends PlayerListener
 		}
 	}
 	
-	public void onPlayerMove ( PlayerMoveEvent Event )
+	public void onPlayerMove( PlayerMoveEvent Event )
 	{
 		if( !Event.getPlayer().isSneaking() )
 		{
