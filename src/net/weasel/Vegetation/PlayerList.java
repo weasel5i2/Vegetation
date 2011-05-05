@@ -10,14 +10,16 @@ public class PlayerList {
 
 	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	private Plugin plugin;
+	private Vegetation plugin;
+	private World world;
 	private ArrayList<String> players;
 	private boolean mutex;
 	private int posIndex;
 	
-	public PlayerList(Plugin p)
+	public PlayerList(Vegetation p, World w)
 	{
 		plugin = p;
+		world = w;
 		players = new ArrayList<String>();
 		mutex = false;
 		posIndex = 0;
@@ -29,22 +31,9 @@ public class PlayerList {
 		
 		players.clear();
 		
-		int WC = Vegetation.plugin.getServer().getWorlds().size();
-		int PC = 0;
-		int X, Y;
-		
-		World world = null;
-		
-		for( X = 0; X < WC; X++ )
+		for( Player p: world.getPlayers() )
 		{
-			world = Vegetation.plugin.getServer().getWorlds().get(X);
-			PC = world.getPlayers().size();
-			
-			for( Y = 0; Y < PC; Y++ )
-			{
-				if( world.getPlayers().get(Y).isOnline() )
-					players.add(world.getPlayers().get(Y).getName());
-			}
+			players.add(p.getName());
 		}
 		
 		posIndex = 0;
@@ -67,13 +56,13 @@ public class PlayerList {
 		
 		if ( posIndex < (players.size() - 1) )
 		{
-			player = Vegetation.plugin.getServer().getPlayer(players.get( posIndex ) );
+			player = plugin.getServer().getPlayer(players.get(posIndex));
 			posIndex++;
 		}
 		else if ( players.size() > 0 )
 		{
 			posIndex = 0;
-			player = plugin.getServer().getPlayer(players.get( posIndex ) );
+			player = plugin.getServer().getPlayer(players.get(posIndex));
 		}
 		else
 		{
