@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -46,9 +45,7 @@ public class Vegetation extends JavaPlugin
 	public static double timerTick = 0;
 	
 	//Player related settings
-	public static Player currentPlayer = null;
-	public static ArrayList<String> playerList = new ArrayList<String>();
-	public static int playerIndex = 0;
+	public static PlayerList pList;
 	public static int maxActivePlayerCommands = 40;
 	public static int ActivePlayerCommands = 0;
 	public static boolean trampleGrass = false;
@@ -249,7 +246,8 @@ public class Vegetation extends JavaPlugin
         }
         else
         {
-        	getActivePlayerList();
+        	pList = new PlayerList(Vegetation.plugin);
+        	pList.getActivePlayerList();
             tTask = setupTimerTask( 10, 1 );
         }
     }
@@ -793,7 +791,7 @@ public class Vegetation extends JavaPlugin
     	Log.log( Level.INFO, "[" + pluginName + "]: " + text );
     }
 
-	public static void getActivePlayerList()
+	/*public static void getActivePlayerList()
 	{
 		World world = null;
 
@@ -820,6 +818,12 @@ public class Vegetation extends JavaPlugin
 	
 	public static void getNextPlayer()
 	{
+		for( int i = 0; i < playerList.size(); i++ )
+		{
+			logOutput(""+plugin.getServer().getPlayer(playerList.get( playerIndex )));
+		}
+		logOutput("PlayerIndex at: " + playerIndex);
+		logOutput("PlayerList size: " + playerList.size());
 		if ( playerIndex < (playerList.size() - 1) )
 		{
 			currentPlayer = plugin.getServer().getPlayer(playerList.get( playerIndex ) );
@@ -835,7 +839,7 @@ public class Vegetation extends JavaPlugin
 			playerIndex = 0;
 			currentPlayer = null;
 		}
-	}
+	}*/
 	
 	public static Integer getPlayerCount()
 	{

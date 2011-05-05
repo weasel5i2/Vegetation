@@ -56,31 +56,14 @@ public class VegetationPlayerListener extends PlayerListener
 		}
 	}
 	
-	public void onPlayerQuit( PlayerQuitEvent event)
+	public void onPlayerQuit( PlayerQuitEvent Event)
 	{
-		try
-		{
-			if( Vegetation.playerList.contains( event.getPlayer() ) )
-				Vegetation.playerList.remove( event.getPlayer() );
-
-		}
-		catch( Exception e )
-		{
-			Vegetation.getActivePlayerList();
-		}
+		Vegetation.pList.removePlayer( Event.getPlayer() );
 	}
 	
 	public void onPlayerLogin ( PlayerLoginEvent Event )
 	{
-		try
-		{
-			if( !Vegetation.playerList.contains( Event.getPlayer().getName() ) )
-				Vegetation.playerList.add( Event.getPlayer().getName() );
-		}
-		catch( Exception e )
-		{
-			logOutput( "Something went wrong during PlayerList Login Event" );
-		}
+		Vegetation.pList.addPlayer( Event.getPlayer() );
 	}
 	
 	public void onPlayerMove( PlayerMoveEvent Event )

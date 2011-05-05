@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
 
 public class Timer implements Runnable {
 	
@@ -47,11 +48,11 @@ public class Timer implements Runnable {
 		
 		if ( ( Tick - LastTick >= UpdateTicks ) )
 		{	
-			Vegetation.getNextPlayer();
+			Player currentPlayer = Vegetation.pList.getNextPlayer();
 			
-			if( Vegetation.currentPlayer != null )
+			if( currentPlayer != null )
 			{
-				Block CB = Blocks.getRandomTopBlock( Vegetation.currentPlayer.getLocation(), Material.AIR );
+				Block CB = Blocks.getRandomTopBlock( currentPlayer.getLocation(), Material.AIR );
 				
 				//Todo: Implement delegates instead of switch case
 				if ( CB != null )
@@ -179,7 +180,7 @@ public class Timer implements Runnable {
 					}
 				}
 				
-				CB = Blocks.getRandomBlock( Vegetation.currentPlayer.getLocation(), Material.LOG );
+				CB = Blocks.getRandomBlock( currentPlayer.getLocation(), Material.LOG );
 				if( CB != null )
 				{
 					if ( Vegetation.enableVines && ( vineTicks > 0 ) )
