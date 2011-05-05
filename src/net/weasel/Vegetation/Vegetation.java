@@ -68,19 +68,19 @@ public class Vegetation extends JavaPlugin
 	public static Integer verticalRadius = 5;
 
 	// On/off switches
-	public static boolean enableGrass = true;
+	public static boolean enableGrass = false;
 	public static int maxGrassHeight = 9;
-	public static boolean enablePlants = true;
-	public static boolean enablePumpkins = true;
-	public static boolean enableFlowers = true;
-	public static boolean enableFungi = true;
-	public static boolean enableCacti = true;
-	public static boolean enableCanes = true;
-	public static boolean enableMoss = true;
-	public static boolean enableLilyPads = true;
-	public static boolean enableVines = true;
-	public static boolean enableGrazers = true;
-	public static boolean waterGrowsMoss = true;
+	public static boolean enablePlants = false;
+	public static boolean enablePumpkins = false;
+	public static boolean enableFlowers = false;
+	public static boolean enableFungi = false;
+	public static boolean enableCacti = false;
+	public static boolean enableCanes = false;
+	public static boolean enableMoss = false;
+	public static boolean enableLilyPads = false;
+	public static boolean enableVines = false;
+	public static boolean enableGrazers = false;
+	public static boolean waterGrowsMoss = false;
 	
 	// Plant spreading amount for player commands
 	public static int spreadAmountFlowers;
@@ -174,24 +174,24 @@ public class Vegetation extends JavaPlugin
         
         timer = this.getServer().getScheduler();
 
-        enableGrass = getBooleanSetting( "enableGrass", true );
+        enableGrass = getBooleanSetting( "enableGrass", false );
         maxGrassHeight = getIntSetting( "maxGrassHeight", 9 );
         
         if( maxGrassHeight < 0 ) maxGrassHeight = 0;
         else if( maxGrassHeight > 9 ) maxGrassHeight = 9;
         
-        enablePlants = getBooleanSetting( "enablePlants", true );
-    	enablePumpkins = getBooleanSetting( "enablePumpkins", true );
-    	enableFlowers = getBooleanSetting( "enableFlowers", true );
-    	enableFungi = getBooleanSetting( "enableFungi", true );
-    	enableCacti = getBooleanSetting( "enableCacti", true );
-    	enableCanes = getBooleanSetting( "enableCanes", true );
-    	enableMoss = getBooleanSetting( "enableMoss", true );
-    	enableLilyPads = getBooleanSetting( "enableLilyPads", true );
-    	enableVines = getBooleanSetting( "enableVines", true );
-    	enableGrazers = getBooleanSetting( "enableGrazers", true );
+        enablePlants = getBooleanSetting( "enablePlants", false );
+    	enablePumpkins = getBooleanSetting( "enablePumpkins", false );
+    	enableFlowers = getBooleanSetting( "enableFlowers", false );
+    	enableFungi = getBooleanSetting( "enableFungi", false );
+    	enableCacti = getBooleanSetting( "enableCacti", false );
+    	enableCanes = getBooleanSetting( "enableCanes", false );
+    	enableMoss = getBooleanSetting( "enableMoss", false );
+    	enableLilyPads = getBooleanSetting( "enableLilyPads", false );
+    	enableVines = getBooleanSetting( "enableVines", false );
+    	enableGrazers = getBooleanSetting( "enableGrazers", false );
     	maxGrazingAnimalsCount = getIntSetting( "grazerMaxCount", 10 ) ;
-    	waterGrowsMoss = getBooleanSetting( "waterGrowsMoss", true );
+    	waterGrowsMoss = getBooleanSetting( "waterGrowsMoss", false );
     	
     	maxActivePlayerCommands = getIntSetting( "maxActivePlayerCommands", 40 );
     	spreadAmountFlowers = getIntSetting( "spreadAmountFlowers", 5 );
@@ -342,19 +342,19 @@ public class Vegetation extends JavaPlugin
 			outP.println( "verticalRadius=10" );
 			outP.println( "" );
 			outP.println( "/* Vegetation Settings:" );
-			outP.println( "enableGrass=true" );
+			outP.println( "enableGrass=false" );
 			outP.println( "" );
 			outP.println( "/* Set max grass height from 1-9" );
 			outP.println( "maxGrassHeight=9" );
-			outP.println( "enablePlants=true" );
-			outP.println( "enableFlowers=true" );
-			outP.println( "enableFungi=true" );
-			outP.println( "enablePumpkins=true" );
-			outP.println( "enableCacti=true" );
-			outP.println( "enableCanes=true" );
-			outP.println( "enableMoss=true" );
-			outP.println( "enableLilyPads=true" );
-			outP.println( "enableVines=true" );
+			outP.println( "enablePlants=false" );
+			outP.println( "enableFlowers=false" );
+			outP.println( "enableFungi=false" );
+			outP.println( "enablePumpkins=false" );
+			outP.println( "enableCacti=false" );
+			outP.println( "enableCanes=false" );
+			outP.println( "enableMoss=false" );
+			//outP.println( "enableLilyPads=false" );
+			outP.println( "enableVines=false" );
 			outP.println( "" );
 			outP.println( "/* If this option is set to true," );
 			outP.println( "/* moss will grow on any cobblestones touching water" );
@@ -406,7 +406,7 @@ public class Vegetation extends JavaPlugin
 			outP.println( "grassPercent=40" );
 			outP.println( "plantsPercent=5" );
 			outP.println( "mossPercent=5" );
-			outP.println( "lilyPadPercent=5" );
+			//outP.println( "lilyPadPercent=5" );
 			outP.println( "vinePercent=5" );
 			outP.println( "grazePercent=10" );
 			
