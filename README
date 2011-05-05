@@ -9,6 +9,10 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.1.2 6-May-2011
+* Implemented thread-safe playerlist as preparation for multi world support
+* changed default settings for first plugin run
+
 Version 3.1.1 2-May-2011
 * Cacti no longer spawn directly beside blocks which would unroot them instantly
 * Sneaking players no longer trample down grass
