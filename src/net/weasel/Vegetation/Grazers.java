@@ -8,10 +8,12 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.LivingEntity;
 
+/*
+ * This class controls entities, which
+ * graze grass.
+ */
 public class Grazers
 {
-	public static Vegetation plugin;
-	
 	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
 	private Settings settings;
@@ -23,15 +25,25 @@ public class Grazers
 		settings = s;
 	}
 	
-	public boolean isEnabledGrazer( String which )
+	/*
+	 * Determines whether a type of animals
+	 * grazes grass.
+	 * 
+	 * @param type
+	 * @return true if the entity is of specified type and allowed to graze
+	 */
+	public boolean isEnabledGrazer(String type)
 	{
-		if( which.equals( "CraftSheep" ) && settings.grazingSheep ) return true;
-		else if( which.equals( "CraftChicken" ) && settings.grazingChickens ) return true;
-		else if( which.equals( "CraftCow" ) && settings.grazingCows ) return true;
-		else if( which.equals( "CraftPig" ) && settings.grazingPigs ) return true;
+		if( type.equals("CraftSheep") && settings.grazingSheep ) return true;
+		else if( type.equals("CraftChicken") && settings.grazingChickens ) return true;
+		else if( type.equals("CraftCow") && settings.grazingCows ) return true;
+		else if( type.equals("CraftPig") && settings.grazingPigs ) return true;
 		else return false;
 	}
 	
+	/*
+	 * Fetches entity list and let's animal graze
+	 */
 	public void grazeAnimals()
 	{
 		Block targetBlock = null;
@@ -44,10 +56,10 @@ public class Grazers
 
 		if( entities.size() > 0 )
 		{
-			for( int Y = 0; Y < settings.maxGrazingAnimalsCount; Y++ )
+			for( int i = 0; i < settings.maxGrazingAnimalsCount; i++ )
 			{
-				int R = Vegetation.generator.nextInt(entities.size());
-				entity = entities.get(R);
+				int r = Vegetation.generator.nextInt(entities.size());
+				entity = entities.get(r);
 
 				if( isEnabledGrazer( entity.toString() ) )
 				{
@@ -58,7 +70,7 @@ public class Grazers
 						if( targetBlock.getData() >= 2 )
 						{
 							targetBlock.setData( (byte)(targetBlock.getData()-1) );
-							if ( Vegetation.debugging ) logOutput( "Entity " + entity.toString() + " just ate some grass." );
+							if ( Vegetation.debugging ) logOutput("Entity " + entity.toString() + " just ate some grass.");
 						}
 					}
 
