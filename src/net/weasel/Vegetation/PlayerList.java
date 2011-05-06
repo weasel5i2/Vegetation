@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 public class PlayerList {
 
@@ -13,7 +12,7 @@ public class PlayerList {
 	private Vegetation plugin;
 	private World world;
 	private ArrayList<String> players;
-	private boolean mutex;
+	private Mutex mutex;
 	private int posIndex;
 	
 	public PlayerList(Vegetation p, World w)
@@ -21,13 +20,13 @@ public class PlayerList {
 		plugin = p;
 		world = w;
 		players = new ArrayList<String>();
-		mutex = false;
+		mutex = new Mutex();
 		posIndex = 0;
 	}
 	
 	public void getActivePlayerList()
 	{
-		lock();
+		mutex.aquire();
 		
 		players.clear();
 		
@@ -38,12 +37,12 @@ public class PlayerList {
 		
 		posIndex = 0;
 		
-		unlock();
+		mutex.release();
 	}
 	
 	public Player getNextPlayer()
 	{
-		lock();
+		mutex.aquire();
 		
 		/*for( int i = 0; i < players.size(); i++ )
 		{
@@ -69,25 +68,25 @@ public class PlayerList {
 			posIndex = 0;
 		}
 		
-		unlock();
+		mutex.release();
 		return player;
 	}
 	
 	public void addPlayer(Player player)
 	{
-		lock();
+		mutex.aquire();
 		
 		if( !(players.contains(player.getName())) )
 		{
 			players.add(player.getName());
 		}
 		
-		unlock();
+		mutex.release();
 	}
 	
 	public void removePlayer(Player player)
 	{
-		lock();
+		mutex.aquire();
 		
 		if( players.contains(player.getName()) )
 		{
@@ -95,22 +94,6 @@ public class PlayerList {
 			players.trimToSize();
 		}
 		
-		unlock();
-	}
-	
-	public boolean isLocked()
-	{
-		return mutex;
-	}
-	
-	private void lock()
-	{
-		while( isLocked() ) {}
-		mutex = true;
-	}
-	
-	private void unlock()
-	{
-		mutex = false;
+		mutex.release();
 	}
 }
