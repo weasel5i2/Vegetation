@@ -6,46 +6,57 @@ import org.bukkit.block.BlockFace;
 
 public class Cacti 
 {
-	public void logOutput( String text ) { Vegetation.logOutput( text ); }
+	public void logOutput(String text) { Vegetation.logOutput(text); }
 	
 	private Blocks blocks;
 	
+	/*
+	 * generates a new cacti object
+	 */
 	public Cacti(Blocks b)
 	{
 		blocks = b;
 	}
 	
-	public void growCacti(Block B)
+	/*
+	 * spreads cacti from give block
+	 * @param blocks Cactus
+	 */
+	public void growCacti(Block block)
 	{
-		Material[] M = { Material.CACTUS };
-		if( blocks.getFieldDensity( B, 5, M ) > 0.03 ) return;
+		Material[] material = { Material.CACTUS };
+		if( blocks.getFieldDensity( block, 5, material ) > 0.03 ) return;
 		
 		if( Vegetation.debugging ) logOutput( "Spreading cacti.." );
 		
-		int MaxSpreadAmount = 1;
-
-		Block PlantBlock = null;
+		int maxSpreadAmount = 1;
+		Block plantBlock = null;
+		
 		//Get surrounding block and place new plant
-		for( int I = 0; I < 150; I++ )
+		for( int i = 0; i < 150; i++ )
 		{
-			PlantBlock = blocks.getRandomTopBlock( B.getLocation() , Material.SAND, Material.AIR, 5);
-			if( PlantBlock != null && blocks.isSurroundedByBlockType1( PlantBlock.getRelative(BlockFace.UP), Material.AIR ) )
+			plantBlock = blocks.getRandomTopBlock(block.getLocation() , Material.SAND, Material.AIR, 5);
+			if( plantBlock != null && blocks.isSurroundedByBlockType1(plantBlock.getRelative(BlockFace.UP), Material.AIR) )
 			{
-				PlantBlock.getRelative(BlockFace.UP).setType(Material.CACTUS);
-				if( Vegetation.debugging ) logOutput( "Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ() );
-				MaxSpreadAmount--;
+				plantBlock.getRelative(BlockFace.UP).setType(Material.CACTUS);
+				if( Vegetation.debugging ) logOutput("Planting at: " + plantBlock.getX() + " " + plantBlock.getY() + " " + plantBlock.getZ());
+				maxSpreadAmount--;
 			}
 
-			if( MaxSpreadAmount <= 0 ) break;
+			if( maxSpreadAmount <= 0 ) break;
 		}
 	}
 	
-	public boolean growSingleCacti(Block B)
+	/*
+	 * grows just a single cactus on give block
+	 * @param block Sand
+	 */
+	public boolean growSingleCacti(Block block)
 	{
-		if( blocks.isSurroundedByBlockType1( B.getRelative(BlockFace.UP), Material.AIR ) )
+		if( blocks.isSurroundedByBlockType1(block.getRelative(BlockFace.UP), Material.AIR) )
 		{
-			B.getRelative(BlockFace.UP).setType(Material.CACTUS);
-			if( Vegetation.debugging ) logOutput( "Planting at: " + B.getX() + " " + B.getY() + " " + B.getZ() );
+			block.getRelative(BlockFace.UP).setType(Material.CACTUS);
+			if( Vegetation.debugging ) logOutput("Planting at: " + block.getX() + " " + block.getY() + " " + block.getZ());
 			return true;
 		}
 		return false;
