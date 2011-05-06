@@ -109,6 +109,11 @@ public class VegetationWorld {
 		return world;
 	}
 	
+	public PlayerList getPlayerList()
+	{
+		return pList;
+	}
+	
 	public void readSettings()
 	{
 	       enableGrass = getBooleanSetting( "enableGrass", false );
