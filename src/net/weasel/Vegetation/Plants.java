@@ -8,9 +8,9 @@ public class Plants
 {
 	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	private Blocks blocks;
+	private BlockCrawler blocks;
 	
-	public Plants(Blocks b)
+	public Plants(BlockCrawler b)
 	{
 		blocks = b;
 	}

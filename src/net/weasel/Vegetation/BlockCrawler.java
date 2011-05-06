@@ -7,7 +7,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.Location;
 import org.bukkit.Material;
 
-public class Blocks 
+public class BlockCrawler 
 {
 	public void logOutput(String text) { Vegetation.logOutput(text); }
 	
@@ -18,7 +18,7 @@ public class Blocks
 	 * Constructs a new object
 	 * @param s a set of settings i required
 	 */
-	public Blocks(Settings s)
+	public BlockCrawler(Settings s)
 	{
 		settings = s;
 	}

@@ -9,10 +9,10 @@ public class Grass
 {
 	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	private Blocks blocks;
+	private BlockCrawler blocks;
 	private int maxGrassHeight;
 	
-	public Grass(Blocks b, int height)
+	public Grass(BlockCrawler b, int height)
 	{
 		blocks = b;
 		maxGrassHeight = height;

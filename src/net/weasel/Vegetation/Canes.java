@@ -6,51 +6,63 @@ import org.bukkit.block.BlockFace;
 
 public class Canes {
 
-	public void logOutput( String text ) { Vegetation.logOutput( text ); }
+	public void logOutput(String text) { Vegetation.logOutput(text); }
 	
-	private Blocks blocks;
+	private BlockCrawler blocks;
 	
-	public Canes(Blocks b)
+	/*
+	 * generates a new Canes object
+	 * @param b
+	 */
+	public Canes(BlockCrawler b)
 	{
 		blocks = b;
 	}
 	
-	public void growCanes( Block B )
+	/*
+	 * spread sugar canes from give block
+	 * @param block
+	 */
+	public void growCanes(Block block)
 	{
 		if( Vegetation.debugging ) logOutput( "Spreading plants.." );
 
-		int MaxSpreadAmount = 2;
+		int maxSpreadAmount = 2;
 
-		if( Vegetation.debugging ) logOutput( "Spreading Type of Plant: Sugar Crane " );
+		if( Vegetation.debugging ) logOutput("Spreading Type of Plant: Sugar Crane ");
 
-		Block PlantBlock = null;
+		Block plantBlock = null;
 		//Get surrounding block and place new plant
-		for( int I = 0; I < 150; I++ )
+		for( int i = 0; i < 150; i++ )
 		{
-			PlantBlock = blocks.getRandomTopBlock( B.getLocation() , Material.GRASS, Material.AIR, 5);
-			if( PlantBlock != null )
+			plantBlock = blocks.getRandomTopBlock(block.getLocation() , Material.GRASS, Material.AIR, 5);
+			if( plantBlock != null )
 			{
 				//sugar cranes can only grow near water :O
-				if( blocks.isAdjacentofBlockType1(PlantBlock, Material.STATIONARY_WATER)
-						|| blocks.isAdjacentofBlockType1(PlantBlock, Material.WATER) )
+				if( blocks.isAdjacentofBlockType1(plantBlock, Material.STATIONARY_WATER)
+						|| blocks.isAdjacentofBlockType1(plantBlock, Material.WATER) )
 				{
-					PlantBlock.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
-					if( Vegetation.debugging ) logOutput( "Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ() );
-					MaxSpreadAmount--;
+					plantBlock.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
+					if( Vegetation.debugging ) logOutput("Planting at: " + plantBlock.getX() + " " + plantBlock.getY() + " " + plantBlock.getZ());
+					maxSpreadAmount--;
 				}
 			}
 
-			if( MaxSpreadAmount <= 0 ) break;
+			if( maxSpreadAmount <= 0 ) break;
 		}
 	}
 	
-	public boolean growSingleCane(Block B)
+	/*
+	 * grows a single sugar cane on given block
+	 * @param block
+	 */
+	public boolean growSingleCane(Block block)
 	{
-		if( blocks.isAdjacentofBlockType1(B, Material.STATIONARY_WATER)
-				|| blocks.isAdjacentofBlockType1(B, Material.WATER) )
+		if( blocks.isAdjacentofBlockType1(block, Material.STATIONARY_WATER)
+				|| blocks.isAdjacentofBlockType1(block, Material.WATER) )
 		{
-			B.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
-			if( Vegetation.debugging ) logOutput( "Planting at: " + B.getX() + " " + B.getY() + " " + B.getZ() );
+			block.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
+			if( Vegetation.debugging ) logOutput("Planting at: " + block.getX() + " " + block.getY() + " " + block.getZ());
 			return true;
 		}
 		return false;

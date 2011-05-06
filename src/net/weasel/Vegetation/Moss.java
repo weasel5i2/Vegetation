@@ -7,9 +7,9 @@ public class Moss
 {
 	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	private Blocks blocks;
+	private BlockCrawler blocks;
 	
-	public Moss(Blocks b)
+	public Moss(BlockCrawler b)
 	{
 		blocks = b;
 	}

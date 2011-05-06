@@ -8,12 +8,13 @@ public class Cacti
 {
 	public void logOutput(String text) { Vegetation.logOutput(text); }
 	
-	private Blocks blocks;
+	private BlockCrawler blocks;
 	
 	/*
 	 * generates a new cacti object
+	 * @param b
 	 */
-	public Cacti(Blocks b)
+	public Cacti(BlockCrawler b)
 	{
 		blocks = b;
 	}

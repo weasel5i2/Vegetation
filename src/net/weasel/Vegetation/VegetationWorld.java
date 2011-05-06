@@ -12,7 +12,7 @@ public class VegetationWorld {
 	
 	private Settings settings;
 	public final PlayerList playerList;
-	public final Blocks blocks;
+	public final BlockCrawler blocks;
 	public final Cacti cacti;
 	public final Canes canes;
 	public final Grass grass;
@@ -31,7 +31,7 @@ public class VegetationWorld {
 		settings = new Settings("plugins/Vegetation/" + wName + ".ini");
 		playerList = new PlayerList(plugin, world);
 		playerList.getActivePlayerList();
-		blocks = new Blocks(settings);
+		blocks = new BlockCrawler(settings);
 		cacti = new Cacti(blocks);
 		canes = new Canes(blocks);
 		grass = new Grass(blocks, settings.maxGrassHeight);

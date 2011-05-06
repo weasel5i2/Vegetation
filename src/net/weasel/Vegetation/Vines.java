@@ -12,9 +12,9 @@ public class Vines
 	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 
 	private int MaxVinesOnTree = 5;
-	private Blocks blocks;
+	private BlockCrawler blocks;
 	
-	public Vines(Blocks b)
+	public Vines(BlockCrawler b)
 	{
 		blocks = b;
 	}
