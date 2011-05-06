@@ -156,8 +156,8 @@ public class GrowCommand implements CommandExecutor{
 										CB = vWorld.blocks.getRandomTopBlock( PL, Material.COBBLESTONE, Material.AIR );
 										if( CB != null )
 										{
-											if( vWorld.blocks.isAdjacentBlockofType2( CB  , Material.STATIONARY_WATER )
-													|| vWorld.blocks.isAdjacentBlockofType2( CB  , Material.WATER ) )
+											if( vWorld.blocks.isAdjacentofBlockType2( CB  , Material.STATIONARY_WATER )
+													|| vWorld.blocks.isAdjacentofBlockType2( CB  , Material.WATER ) )
 											{
 												if( vWorld.moss.growSingleMoss( CB ))
 													MaxGrowAmount--;

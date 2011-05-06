@@ -39,8 +39,8 @@ public class Moss
 				CurrentBlock = blocks.getRandomTopBlock( B.getLocation() , Material.COBBLESTONE, Material.AIR, 25 );
 				if( CurrentBlock != null )
 				{
-					if( blocks.isAdjacentBlockofType2( CurrentBlock  , Material.STATIONARY_WATER )
-							|| blocks.isAdjacentBlockofType2( CurrentBlock  , Material.WATER ) )
+					if( blocks.isAdjacentofBlockType2( CurrentBlock  , Material.STATIONARY_WATER )
+							|| blocks.isAdjacentofBlockType2( CurrentBlock  , Material.WATER ) )
 					{
 						CurrentBlock.setType(Material.MOSSY_COBBLESTONE);
 						if( Vegetation.debugging ) logOutput( "Planting at: " + B.getX() + " " + B.getY() + " " + B.getZ() );

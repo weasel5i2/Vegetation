@@ -31,8 +31,8 @@ public class Canes {
 			if( PlantBlock != null )
 			{
 				//sugar cranes can only grow near water :O
-				if( blocks.isAdjacentBlockofType1(PlantBlock, Material.STATIONARY_WATER)
-						|| blocks.isAdjacentBlockofType1(PlantBlock, Material.WATER) )
+				if( blocks.isAdjacentofBlockType1(PlantBlock, Material.STATIONARY_WATER)
+						|| blocks.isAdjacentofBlockType1(PlantBlock, Material.WATER) )
 				{
 					PlantBlock.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
 					if( Vegetation.debugging ) logOutput( "Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ() );
@@ -46,8 +46,8 @@ public class Canes {
 	
 	public boolean growSingleCane(Block B)
 	{
-		if( blocks.isAdjacentBlockofType1(B, Material.STATIONARY_WATER)
-				|| blocks.isAdjacentBlockofType1(B, Material.WATER) )
+		if( blocks.isAdjacentofBlockType1(B, Material.STATIONARY_WATER)
+				|| blocks.isAdjacentofBlockType1(B, Material.WATER) )
 		{
 			B.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
 			if( Vegetation.debugging ) logOutput( "Planting at: " + B.getX() + " " + B.getY() + " " + B.getZ() );

@@ -14,7 +14,7 @@ import org.bukkit.entity.LivingEntity;
  */
 public class Grazers
 {
-	public void logOutput( String text ) { Vegetation.logOutput( text ); }
+	public void logOutput(String text) { Vegetation.logOutput(text); }
 	
 	private Settings settings;
 	private World world;
