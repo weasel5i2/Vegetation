@@ -44,12 +44,7 @@ public class PlayerList {
 	{
 		mutex.aquire();
 		
-		/*for( int i = 0; i < players.size(); i++ )
-		{
-			logOutput(""+plugin.getServer().getPlayer(players.get( posIndex )));
-		}
-		logOutput("PlayerIndex at: " + posIndex);
-		logOutput("PlayerList size: " + players.size());*/
+		//logOutput("PlayerList: " + world.getName() + " - " + players.size());
 		
 		Player player = null;
 		

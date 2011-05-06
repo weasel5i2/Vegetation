@@ -20,15 +20,18 @@ public class MowCommand implements CommandExecutor{
 		if(sender instanceof Player)
 		{
 			Player P = (Player)sender;
+			VegetationWorld vWorld = Vegetation.vWorlds.get(P.getWorld().getName());
+			int maxActivePlayerCommands = vWorld.getSettings().maxActivePlayerCommands;
+			
 			if ( Vegetation.Permissions.has(P, "vegetation.mow") )
 			{
 				// Todo: implement command queue
-				if( Vegetation.ActivePlayerCommands < Vegetation.maxActivePlayerCommands )
+				if( vWorld.getActivePlayerCommands() < maxActivePlayerCommands )
 				{
-					Vegetation.ActivePlayerCommands++;
-					Grass.mowGrass( P.getLocation() );
+					vWorld.increaseActivePlayerCommands();
+					vWorld.grass.mowGrass( P.getLocation() );
 					sender.sendMessage( "You have cut down the grass." );
-					Vegetation.ActivePlayerCommands--;
+					vWorld.decreaseActivePlayerCommands();
 					return true;
 				}
 			}

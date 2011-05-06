@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class VegetationPlayerListener extends PlayerListener
@@ -25,7 +26,7 @@ public class VegetationPlayerListener extends PlayerListener
 		plugin = instance;
 	}
 
-	public void onPlayerInteract( PlayerInteractEvent event )
+	public void onPlayerInteract(PlayerInteractEvent event)
 	{
 		if( !(event.getAction() == Action.RIGHT_CLICK_BLOCK) ) return;
 		
@@ -56,36 +57,57 @@ public class VegetationPlayerListener extends PlayerListener
 		}
 	}
 	
-	public void onPlayerQuit( PlayerQuitEvent Event)
+	public void onPlayerQuit(PlayerQuitEvent event)
 	{
-		Vegetation.pList.removePlayer( Event.getPlayer() );
+		Player p = event.getPlayer();
+		VegetationWorld vWorld = Vegetation.vWorlds.get(p.getWorld().getName());
+		if( vWorld != null ) vWorld.playerList.removePlayer(p);
 	}
 	
-	public void onPlayerLogin ( PlayerLoginEvent Event )
+	public void onPlayerLogin (PlayerLoginEvent event)
 	{
-		Vegetation.pList.addPlayer( Event.getPlayer() );
+		Player p = event.getPlayer();
+		VegetationWorld vWorld = Vegetation.vWorlds.get(p.getWorld().getName());
+		if( vWorld != null ) vWorld.playerList.addPlayer(p);
 	}
 	
-	public void onPlayerMove( PlayerMoveEvent Event )
+	public void onPlayerMove(PlayerMoveEvent event)
 	{
-		if( !Event.getPlayer().isSneaking() )
+		Player player = event.getPlayer();
+		VegetationWorld vWorld = Vegetation.vWorlds.get(player.getWorld().getName());
+		if( vWorld != null )
 		{
-			try
+			boolean trampleGrass = vWorld.getSettings().trampleGrass;
+			if( !trampleGrass )
 			{
-				Block B = Event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN);
-				if( B.getType() == Material.GRASS )
+				if( !player.isSneaking() )
 				{
-					byte data = B.getData();
-					if( data >= 2 ) B.setData( (byte)(data - 2) );
+					Block B = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
+					if( B.getType() == Material.GRASS )
+					{
+						byte data = B.getData();
+						if( data >= 2 ) B.setData( (byte)(data - 2) );
+					}
 				}
 			}
-			catch( Exception e )
+		}
+	}
+	
+	public void onPlayerTeleport(PlayerTeleportEvent event)
+	{
+		String oldWorld = event.getFrom().getWorld().getName();
+		String currentWorld = event.getTo().getWorld().getName();
+		
+		if( !oldWorld.equals(currentWorld) )
+		{
+			Player player = event.getPlayer();
+			VegetationWorld old = Vegetation.vWorlds.get(oldWorld);
+			VegetationWorld current = Vegetation.vWorlds.get(currentWorld);
+			
+			if( old != null && current != null )
 			{
-				logOutput( "OnPlayerMove Exception: " + e );
-				logOutput( "Disabling trampleGrass");
-				Vegetation.trampleGrass = false;
-				Vegetation.plugin.getPluginLoader().disablePlugin(Vegetation.plugin);
-				Vegetation.plugin.getPluginLoader().enablePlugin(Vegetation.plugin);
+				old.playerList.removePlayer(player);
+				current.playerList.addPlayer(player);
 			}
 		}
 	}

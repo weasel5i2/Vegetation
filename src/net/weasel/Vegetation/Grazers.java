@@ -6,68 +6,64 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 
 public class Grazers
 {
 	public static Vegetation plugin;
 	
-	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
+	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static boolean isEnabledGrazer( String which )
+	private Settings settings;
+	private World world;
+	
+	public Grazers(World w, Settings s)
 	{
-		boolean retVal = false;
-
-		if( Vegetation.enableGrazers == false ) return false;
-			
-		if( which.equals( "CraftSheep" ) && Vegetation.grazingSheep == true ) retVal = true;
-		if( which.equals( "CraftChicken" ) && Vegetation.grazingChickens == true ) retVal = true;
-		if( which.equals( "CraftCow" ) && Vegetation.grazingCows == true ) retVal = true;
-		if( which.equals( "CraftPig" ) && Vegetation.grazingPigs == true ) retVal = true;
-
-	 	return( retVal );
+		world = w;
+		settings = s;
 	}
 	
-	public static void grazeAnimals()
+	public boolean isEnabledGrazer( String which )
 	{
-		if( Vegetation.enableGrazers == false ) return;
-		
-		plugin = Vegetation.plugin;
-		World world = null;
+		if( which.equals( "CraftSheep" ) && settings.grazingSheep ) return true;
+		else if( which.equals( "CraftChicken" ) && settings.grazingChickens ) return true;
+		else if( which.equals( "CraftCow" ) && settings.grazingCows ) return true;
+		else if( which.equals( "CraftPig" ) && settings.grazingPigs ) return true;
+		else return false;
+	}
+	
+	public void grazeAnimals()
+	{
 		Block targetBlock = null;
-		List<Entity> entities;
-		Entity entity = null;
+		List<LivingEntity> entities;
+		LivingEntity entity = null;
 		
 		if ( Vegetation.debugging ) logOutput("Grazing Animals...");
 		
-		for( int X = 0; X < Vegetation.plugin.getServer().getWorlds().size(); X++ )
-		{
-			world = plugin.getServer().getWorlds().get(X);
-			entities = world.getEntities();
-			
-			if( entities.size() > 0 )
-			{
-				for( int Y = 0; Y < Vegetation.maxGrazingAnimalsCount; Y++ )
-				{
-					int R = Vegetation.generator.nextInt(entities.size());
-					entity = entities.get(R);
+		entities = world.getLivingEntities();
 
-					if( Grazers.isEnabledGrazer( entity.toString() ) )
+		if( entities.size() > 0 )
+		{
+			for( int Y = 0; Y < settings.maxGrazingAnimalsCount; Y++ )
+			{
+				int R = Vegetation.generator.nextInt(entities.size());
+				entity = entities.get(R);
+
+				if( isEnabledGrazer( entity.toString() ) )
+				{
+					targetBlock = entity.getLocation().getBlock().getRelative(BlockFace.DOWN);
+
+					if( targetBlock.getType() == Material.GRASS )
 					{
-						targetBlock = entity.getLocation().getBlock().getRelative(BlockFace.DOWN);
-						
-						if( targetBlock.getType() == Material.GRASS )
+						if( targetBlock.getData() >= 2 )
 						{
-							if( targetBlock.getData() >= 2 )
-							{
-								targetBlock.setData( (byte)(targetBlock.getData()-1) );
-								if ( Vegetation.debugging ) logOutput( "Entity " + entity.toString() + " just ate some grass." );
-							}
+							targetBlock.setData( (byte)(targetBlock.getData()-1) );
+							if ( Vegetation.debugging ) logOutput( "Entity " + entity.toString() + " just ate some grass." );
 						}
-						
 					}
 
 				}
+
 			}
 		}
 	}

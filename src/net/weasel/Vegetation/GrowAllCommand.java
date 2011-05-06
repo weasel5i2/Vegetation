@@ -25,70 +25,72 @@ public class GrowAllCommand implements CommandExecutor {
 		if( sender instanceof Player )
 		{
 			Player P = (Player)sender;
-
+			VegetationWorld vWorld = Vegetation.vWorlds.get(P.getWorld().getName());
+			int maxActivePlayerCommands = vWorld.getSettings().maxActivePlayerCommands;
+			
 			if ( Vegetation.Permissions.has(P, "vegetation.growall") )
 			{
 				// Todo: implement command queue
-				if ( Vegetation.ActivePlayerCommands < Vegetation.maxActivePlayerCommands )
+				if ( vWorld.getActivePlayerCommands() < maxActivePlayerCommands )
 				{
-					Vegetation.ActivePlayerCommands++;
-					Location L = ((Player) sender).getLocation();
+					vWorld.increaseActivePlayerCommands();
+					Location L = P.getLocation();
 					sender.sendMessage( "Growing everything.." );
 					for (int I = 0; I < 500; I++)
 					{
-						Block CB = Blocks.getRandomTopBlock( L , Material.AIR );
+						Block CB = vWorld.blocks.getRandomTopBlock( L , Material.AIR );
 
 						if ( CB != null )
 						{
 							switch ( CB.getType() )
 							{
 							case GRASS:
-								Grass.growGrass( CB );
+								vWorld.grass.growGrass( CB );
 								break;
 
 							case CACTUS:
-								Cacti.growCacti( CB );
+								vWorld.cacti.growCacti( CB );
 								break;
 
 							case SUGAR_CANE_BLOCK:
-								Canes.growCanes( CB );
+								vWorld.canes.growCanes( CB );
 								break;
 
 							case YELLOW_FLOWER:
-								Plants.growPlant( CB, Material.YELLOW_FLOWER );
+								vWorld.plants.growPlant( CB, Material.YELLOW_FLOWER );
 								break;
 
 							case RED_ROSE:
-								Plants.growPlant( CB, Material.RED_ROSE );
+								vWorld.plants.growPlant( CB, Material.RED_ROSE );
 								break;
 
 							case BROWN_MUSHROOM:
-								Plants.growPlant( CB, Material.BROWN_MUSHROOM );
+								vWorld.plants.growPlant( CB, Material.BROWN_MUSHROOM );
 								break;
 
 							case RED_MUSHROOM:
-								Plants.growPlant( CB, Material.RED_MUSHROOM );
+								vWorld.plants.growPlant( CB, Material.RED_MUSHROOM );
 								break;
 
 							case PUMPKIN:
-								Plants.growPlant( CB, Material.PUMPKIN );
+								vWorld.plants.growPlant( CB, Material.PUMPKIN );
 								break;
 								
 							case COBBLESTONE:
-								Moss.growMoss( CB );
+								vWorld.moss.growMoss( CB );
 								break;
 								
 							case MOSSY_COBBLESTONE:
-								Moss.growMoss( CB );
+								vWorld.moss.growMoss( CB );
 								break;
 
 							default:
-								Vegetation.ActivePlayerCommands--;
+								vWorld.decreaseActivePlayerCommands();
 								return false;
 							}
 						}
 					}
-					Vegetation.ActivePlayerCommands--;
+					vWorld.decreaseActivePlayerCommands();
 					return true;
 				}
 			}

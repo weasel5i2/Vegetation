@@ -5,25 +5,34 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
-public final class Grass 
+public class Grass 
 {
-	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
+	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static void growGrass( Block B )
+	private Blocks blocks;
+	private int maxGrassHeight;
+	
+	public Grass(Blocks b, int height)
+	{
+		blocks = b;
+		maxGrassHeight = height;
+	}
+	
+	public void growGrass( Block B )
 	{	
 		if( Vegetation.debugging ) logOutput( "Growing grass.." );
 
 
 		int V = B.getData();
-		if( V > Vegetation.maxGrassHeight + 1 )
+		if( V > maxGrassHeight + 1 )
 		{
-			B.setData( (byte)(Vegetation.maxGrassHeight + 1) );
+			B.setData( (byte)(maxGrassHeight + 1) );
 			if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
 		}
 		else
 		{
 			V++;
-			if( V <= Vegetation.maxGrassHeight + 1 )
+			if( V <= maxGrassHeight + 1 )
 			{
 				if( V < 2 ) V = 2;
 				if( V > 10 ) V = 10;
@@ -41,7 +50,7 @@ public final class Grass
 		}*/
 	}
     
-    public static void mowGrass( Location BaseBlock )
+    public void mowGrass( Location BaseBlock )
     {    	
     	int R = Math.round( 50 / 2 );
     	double pX = BaseBlock.getX();
@@ -53,7 +62,7 @@ public final class Grass
     	{
     		for( double Z = pZ-R; Z <= pZ+R; Z++ )
     		{
-    			CurrentBlock = Blocks.getTopBlock(BaseBlock, X, Z, Material.AIR );
+    			CurrentBlock = blocks.getTopBlock(BaseBlock, X, Z, Material.AIR );
     			
     			if( CurrentBlock != null )
     			{

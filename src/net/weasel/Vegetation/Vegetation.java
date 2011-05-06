@@ -1,21 +1,15 @@
 package net.weasel.Vegetation;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.Server;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
+import org.bukkit.World.Environment;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Type;
 import org.bukkit.plugin.Plugin;
@@ -30,6 +24,12 @@ public class Vegetation extends JavaPlugin
 {
 	public static final Logger Log = Logger.getLogger("Minecraft");
 	public static PermissionHandler Permissions;
+	public static BukkitScheduler timer;
+	public static Vegetation plugin;
+	public static Server server;
+	public static VegetationPlayerListener PlayerListener;
+	public static VegetationBlockListener BlockListener;
+	public static PluginManager pm;
 	
 	// Plugin stuff..
 	public static String pluginName = "";
@@ -37,86 +37,8 @@ public class Vegetation extends JavaPlugin
 	public static boolean debugging = true;
 
 	// System stuff
+	public static HashMap<String,VegetationWorld> vWorlds = new HashMap<String,VegetationWorld>();
 	public static Random generator = new Random();
-	public static BukkitScheduler timer;
-
-	// Timer task stuff
-	public static Integer tTask;
-	public static double timerTick = 0;
-	
-	//Player related settings
-	public static PlayerList pList;
-	public static int maxActivePlayerCommands = 40;
-	public static int ActivePlayerCommands = 0;
-	public static boolean trampleGrass = false;
-	
-	// Growth-related stuff
-	//public static double grassPerGrow = 1;
-	//public static int tempGrassPerGrow = 1;
-	public static int grassPercent = 40;
-	public static int plantsPercent = 5;
-	public static int mossPercent = 5;
-	public static int vinePercent = 5;
-	public static int lilyPadPercent = 5;
-	
-	public static double grazePercent = 10;
-	
-	public static Integer growthRange = 0;
-	public static Integer verticalRadius = 5;
-
-	// On/off switches
-	public static boolean enableGrass = false;
-	public static int maxGrassHeight = 9;
-	public static boolean enablePlants = false;
-	public static boolean enablePumpkins = false;
-	public static boolean enableFlowers = false;
-	public static boolean enableFungi = false;
-	public static boolean enableCacti = false;
-	public static boolean enableCanes = false;
-	public static boolean enableMoss = false;
-	public static boolean enableLilyPads = false;
-	public static boolean enableVines = false;
-	public static boolean enableGrazers = false;
-	public static boolean waterGrowsMoss = false;
-	
-	// Plant spreading amount for player commands
-	public static int spreadAmountFlowers;
-	public static int spreadAmountCacti;
-	public static int spreadAmountFungi;
-	public static int spreadAmountSugarCane;
-	public static int spreadAmountMoss;
-
-	// Grazing-related stuff..
-	public static int maxGrazingAnimalsCount = 10;
-	public static boolean grazingSheep = true;
-	public static boolean grazingCows = true;
-	public static boolean grazingPigs = true;
-	public static boolean grazingChickens = true;
-	
-	// Biome-related stuff..
-	public static boolean growForestBiome = true;
-	public static boolean growRainforestBiome = true;
-	public static boolean growShrublandBiome = true;
-	public static boolean growSavannahBiome = true;
-	public static boolean growPlainsBiome = true;
-	public static boolean growSeasonalForestBiome = true;
-	public static boolean growIceDesertBiome = true;
-	public static boolean growHellBiome = true;
-	public static boolean growDesertBiome = true;
-	public static boolean growSwamplandBiome = true;
-	public static boolean growTaigaBiome = true;
-	public static boolean growTundraBiome = true;
-	
-	public static Player overGrower = null;
-	public static boolean overGrowingPlants = false;
-	
-	public String pluginIni = "plugins/Vegetation/Settings.ini";
-	
-	public static Vegetation plugin;
-	public static Server server;
-	public static VegetationPlayerListener PlayerListener = null;
-	public static VegetationBlockListener BlockListener = null;
-	public static PluginManager pm = null;
 	
 	@Override
     public void onEnable() 
@@ -129,10 +51,17 @@ public class Vegetation extends JavaPlugin
 		
 		pluginName = this.getDescription().getName();
 		pluginVersion = this.getDescription().getVersion();
+		timer = plugin.getServer().getScheduler();
 		
 		//pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_LOGIN, PlayerListener, Event.Priority.Normal, plugin );
+		pm.registerEvent(Type.PLAYER_TELEPORT, PlayerListener, Event.Priority.Normal, plugin );
+		pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, plugin );
+		
+		
+		//create VegetationWorld objects for loaded worlds
+		loadWorldSettings();
 		
 		//enable permission and register commands
 		if( setupPermissions() )
@@ -152,86 +81,14 @@ public class Vegetation extends JavaPlugin
 				logOutput( "Successfully created folder." );
 			else
 				logOutput( "Unable to create folder!" );
-		}	
-		
-		if( new File(pluginIni).exists() == false )
-		{
-			logOutput( "Settings file does not exist - creating a new one.. ");
-			
-			if( createIniFile() == true )
-				logOutput( "Created successfully." );
-			else
-				logOutput( "Unable to create ini file!" );
 		}
 
 		debugging = new File("plugins/Vegetation/debug.txt").exists();
 		if( debugging ) logOutput( "debugging is enabled." );
 		
         logOutput( pluginName + " v" + pluginVersion + " enabled." );
-        
-        timer = this.getServer().getScheduler();
-
-        enableGrass = getBooleanSetting( "enableGrass", false );
-        maxGrassHeight = getIntSetting( "maxGrassHeight", 9 );
-        
-        if( maxGrassHeight < 0 ) maxGrassHeight = 0;
-        else if( maxGrassHeight > 9 ) maxGrassHeight = 9;
-        
-        enablePlants = getBooleanSetting( "enablePlants", false );
-    	enablePumpkins = getBooleanSetting( "enablePumpkins", false );
-    	enableFlowers = getBooleanSetting( "enableFlowers", false );
-    	enableFungi = getBooleanSetting( "enableFungi", false );
-    	enableCacti = getBooleanSetting( "enableCacti", false );
-    	enableCanes = getBooleanSetting( "enableCanes", false );
-    	enableMoss = getBooleanSetting( "enableMoss", false );
-    	enableLilyPads = getBooleanSetting( "enableLilyPads", false );
-    	enableVines = getBooleanSetting( "enableVines", false );
-    	enableGrazers = getBooleanSetting( "enableGrazers", false );
-    	maxGrazingAnimalsCount = getIntSetting( "grazerMaxCount", 10 ) ;
-    	waterGrowsMoss = getBooleanSetting( "waterGrowsMoss", false );
     	
-    	maxActivePlayerCommands = getIntSetting( "maxActivePlayerCommands", 40 );
-    	spreadAmountFlowers = getIntSetting( "spreadAmountFlowers", 5 );
-    	spreadAmountFungi = getIntSetting( "spreadAmountFungi", 5 );
-    	spreadAmountCacti = getIntSetting( "spreadAmountCacti", 5 );
-    	spreadAmountSugarCane = getIntSetting( "spreadAmountSugarCane", 5 );
-    	spreadAmountMoss = getIntSetting( "spreadAmountMoss", 5 );
-    	trampleGrass = getBooleanSetting( "trampleGrass", false );
-
-    	grazingSheep = getBooleanSetting( "grazingSheep", true );
-    	grazingCows = getBooleanSetting( "grazingCows", true );
-    	grazingPigs = getBooleanSetting( "grazingPigs", true );
-    	grazingChickens = getBooleanSetting( "grazingChickens", true );
-
-    	growForestBiome = getBooleanSetting( "growForestBiome", true );
-    	growRainforestBiome = getBooleanSetting( "growRainforestBiome", true );
-    	growShrublandBiome = getBooleanSetting( "growShrublandBiome", true );
-    	growSavannahBiome = getBooleanSetting( "growSavannahBiome", true );;
-    	growPlainsBiome = getBooleanSetting( "growPlainsBiome", true );
-    	growSeasonalForestBiome = getBooleanSetting( "growSeasonalForestBiome", true );
-		growIceDesertBiome = getBooleanSetting( "growIceDesertBiome", true );
-		growHellBiome = getBooleanSetting( "growHellBiome", true );
-		growDesertBiome = getBooleanSetting( "growDesertBiome", true );
-		growSwamplandBiome = getBooleanSetting( "growSwamplandBiome", true );
-		growTaigaBiome = getBooleanSetting( "growTaigaBiome", true );
-		growTundraBiome = getBooleanSetting( "growTundraBiome", true );
-
-        growthRange = getIntSetting( "growthRange", 30 );
-    	verticalRadius = getIntSetting( "verticalRadius", 10 );
-    	
-    	grassPercent = getIntSetting( "grassPercent", 40 );
-    	plantsPercent = getIntSetting( "plantsPercent", 5 );
-    	mossPercent = getIntSetting( "mossPercent", 5 );
-    	vinePercent = getIntSetting( "lilyPadPercent", 5 );
-    	lilyPadPercent = getIntSetting( "lilyPadPercent", 5 );
-    	grazePercent = getIntSetting( "grazePercent", 10 );
-    	//grassPerGrow = getDblSetting( "grassPerGrow", 1 );
-    	
-    	//register event for trampleGrass
-    	if( trampleGrass )
-    		pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, plugin );
-    	
-        if( !enableGrass && !enableGrazers && !enableMoss && !enablePlants )
+        /*if( !enableGrass && !enableGrazers && !enableMoss && !enablePlants )
         {
         	logOutput( "No vegetation is enabled. Disabling plugin." );
             this.getPluginLoader().disablePlugin(this);
@@ -246,9 +103,15 @@ public class Vegetation extends JavaPlugin
         }
         else
         {
-        	pList = new PlayerList(Vegetation.plugin);
-        	pList.getActivePlayerList();
             tTask = setupTimerTask( 10, 1 );
+        }*/
+        
+        //start timers
+        Iterator<String> it = vWorlds.keySet().iterator();
+        while( it.hasNext() )
+        {
+        	vWorlds.get(it.next()).startTimer();
+        	if( debugging ) logOutput("Starting Timer");
         }
     }
     
@@ -257,6 +120,16 @@ public class Vegetation extends JavaPlugin
     {
     	timer.cancelAllTasks();
         logOutput( "Plugin disabled: "+pluginName+" version "+pluginVersion);
+    }
+    
+    public void loadWorldSettings()
+    {
+    	vWorlds.clear();
+    	for( World w: plugin.getServer().getWorlds() )
+    	{
+    		if( w.getEnvironment() == Environment.NORMAL )
+    			vWorlds.put(w.getName(), new VegetationWorld(plugin, w));
+    	}
     }
     
 	public static boolean setupPermissions()
@@ -279,147 +152,6 @@ public class Vegetation extends JavaPlugin
 	      }
 	      return false;
 	}
-    
-    public String[] getSetting( String which, String Default )
-    {
-        return( getSettingValue(pluginIni, which, Default, "" ) );
-    }
-
-    public boolean getBooleanSetting( String which, boolean dValue )
-    {
-    	boolean retVal;
-    	
-    	String dString = ( dValue ? "true" : "false" );
-    	
-        if( getSettingValue(pluginIni, which, dString, "" )[0].equalsIgnoreCase("true") )
-        	retVal = true;
-        else
-        	retVal = false;
-        
-        return( retVal );
-    }
-    
-    public int setupTimerTask( int interval, int period )
-    {
-    	//Integer task = timer.scheduleAsyncRepeatingTask(this, new TimerTasks(this), interval, period );
-    	Integer task = timer.scheduleSyncRepeatingTask(this, new Timer(this), interval, period );
-        return task;
-    }
-    
-    public Integer getIntSetting( String item, Integer dValue )
-    {
-    	Integer retVal = Integer.parseInt( getSettingValue(pluginIni, item, dValue.toString(), "" )[0]);
-    	if( retVal < 0 ) retVal = 0;
-    	return retVal;
-    }
-
-    public double getDblSetting( String item, double d )
-    {
-    	double retVal = Double.parseDouble( getSettingValue(pluginIni, item, Double.toString(d), "" )[0]);
-    	if( retVal < 0 ) retVal = 0;
-    	return retVal;
-    }
-
-    public Float getFloatSetting( String item, Float dValue )
-    {
-    	Float retVal = Float.valueOf(getSettingValue(pluginIni, item, dValue.toString(), "" )[0]);
-    	return retVal;
-    }
-
-    public boolean createIniFile()
-    {
-    	boolean retVal = false;
-    	
-    	try 
-    	{
-			FileWriter outFile = new FileWriter(pluginIni);
-			PrintWriter outP = new PrintWriter(outFile);
-			
-			outP.println( "/* Block Search Settings:" );
-			outP.println( "growthRange=30" );
-			outP.println( "verticalRadius=10" );
-			outP.println( "" );
-			outP.println( "/* Vegetation Settings:" );
-			outP.println( "enableGrass=false" );
-			outP.println( "" );
-			outP.println( "/* Set max grass height from 1-9" );
-			outP.println( "maxGrassHeight=9" );
-			outP.println( "enablePlants=false" );
-			outP.println( "enableFlowers=false" );
-			outP.println( "enableFungi=false" );
-			outP.println( "enablePumpkins=false" );
-			outP.println( "enableCacti=false" );
-			outP.println( "enableCanes=false" );
-			outP.println( "enableMoss=false" );
-			//outP.println( "enableLilyPads=false" );
-			outP.println( "enableVines=false" );
-			outP.println( "" );
-			outP.println( "/* If this option is set to true," );
-			outP.println( "/* moss will grow on any cobblestones touching water" );
-			outP.println( "/* regardless if there was a moss block to spread from or not." );
-			outP.println( "waterGrowsMoss=true" );
-			outP.println( "" );
-			outP.println( "/* Player related Settings:" );
-			outP.println( "maxActivePlayerCommands=40" );
-			outP.println( "spreadAmountFlowers=5" );
-			outP.println( "spreadAmountFungi=5" );
-			outP.println( "spreadAmountCacti=5" );
-			outP.println( "spreadAmountSugarCane=5" );
-			outP.println( "spreadAmountMoss=5" );
-			outP.println( "/* The player will trample a path through the grass if set to true." );
-			outP.println( "trampleGrass=false" );
-			outP.println( "" );
-			outP.println( "/* ENTITIES:" );
-			outP.println( "enableGrazers=true" );
-			outP.println( "/* Sets max number of grazing animals." );
-			outP.println( "/* You should decrease this number if you encounter server lag." );
-			outP.println( "grazerMaxCount=10" );
-			outP.println( "grazingSheep=true" );
-			outP.println( "grazingCows=true" );
-			outP.println( "grazingPigs=true" );
-			outP.println( "grazingChickens=true" );
-			outP.println( "" );
-			outP.println( "/* BIOMES: " );
-			outP.println( "/* Enabled/Disables the growth of vegetation on " );
-			outP.println( "/* certain biomes." );
-			outP.println( "growForestBiome=true" );
-			outP.println( "growRainforestBiome=true" );
-			outP.println( "growShrublandBiome=true" );
-			outP.println( "growSavannahBiome=true" );
-			outP.println( "growPlainsBiome=true" );
-			outP.println( "growSeasonalForestBiome=true" );
-			outP.println( "growIceDesertBiome=true" );
-			outP.println( "growDesertBiome=true" );
-			outP.println( "growHellBiome=true" );
-			outP.println( "growSwamplandBiome=true" );
-			outP.println( "growTaigaBiome=true" );
-			outP.println( "growTundraBiome=true" );
-			//outP.println( "grassPerGrow=1" );
-			outP.println( "" );
-			outP.println( "/* EVENTS: " );
-			outP.println( "/* The following parameters determine how many ticks of " );
-			outP.println( "/* 100 ticks a specific type of action is being executed. " );
-			outP.println( "/* (Example: If grassPercent is set to 60, there is the possibility " );
-			outP.println( "/*  of grass growing at 60/100 ticks if a grass block is found 60 times. " );
-			outP.println( "grassPercent=40" );
-			outP.println( "plantsPercent=5" );
-			outP.println( "mossPercent=5" );
-			//outP.println( "lilyPadPercent=5" );
-			outP.println( "vinePercent=5" );
-			outP.println( "grazePercent=10" );
-			
-			outP.close();
-			retVal = true;
-		} 
-    	catch (IOException e) 
-    	{
-			logOutput( "Error writing to ini file." );
-			retVal = false;
-			e.printStackTrace();
-		}
-		
-		return retVal;
-    }
     
 	/*public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) 
     {
@@ -724,153 +456,9 @@ public class Vegetation extends JavaPlugin
 
     	return true;
     }*/
-	            
-	public String[] getSettingValue(String fileName, String optionName, String defaultValue, String splitValue)
-    {
-    	Boolean gotLine; // Verification variable
-    	String[] returnValue = new String[100]; // Settings max at 100 values
-    	String curLine;
-    	
-    	gotLine = false; // We don't have the settings found yet
-    	
-    	if( new File(fileName).exists() == false )
-    	{
-    		return( new String("File not found.ZQX").split("ZQX") );
-    	}
-		if(splitValue.equals("")) {
-			splitValue = "afs4wfa3waawfa3dogrsijkge5ssioeguhwar3awwa3rar";
-		}
-    	
-        try {
-        	// Get the line from the file
-			FileInputStream fstream = new FileInputStream(fileName);
-			BufferedReader in = new BufferedReader(new InputStreamReader(fstream));
-			
-			while(in.ready()) 
-			{
-				curLine = in.readLine().toString();
-				if(curLine.split("=", 2)[0].equalsIgnoreCase(optionName)) {
-					returnValue = new String[100];
-					returnValue = curLine.split("=", 2)[1].split(splitValue);
-					gotLine = true;
-				}
-			}
-			
-			in.close();
-			
-			// If the line does not exist, create it
-			if(!gotLine) 
-			{
-                returnValue = defaultValue.split(splitValue);
-                FileOutputStream out;
-                PrintStream p;
-                try {
-	                out = new FileOutputStream(fileName, true);
-	                p = new PrintStream( out );
-	                p.println (optionName+"="+defaultValue);
-	                p.close();
-                } catch (Exception e) {
-                	logOutput("Error writing to file");
-                }
-			}
-		}
-        catch (Exception e) {
-        	logOutput("-=-");
-        	logOutput("File input error: "+e.toString());
-        	logOutput("File input error: "+e.getStackTrace().toString());
-        	logOutput("-=-");
-		}
-		finally {
-		}
-		
-		return returnValue;
-    }
 
     public static void logOutput(String text)
     {
     	Log.log( Level.INFO, "[" + pluginName + "]: " + text );
-    }
-
-	/*public static void getActivePlayerList()
-	{
-		World world = null;
-
-		Vegetation.playerList.clear();
-		
-		int WC = plugin.getServer().getWorlds().size();
-		int PC = 0;
-		int X, Y;
-		
-		for( X = 0; X < WC; X++ )
-		{
-			world = plugin.getServer().getWorlds().get(X);
-			PC = world.getPlayers().size();
-			
-			for( Y = 0; Y < PC; Y++ )
-			{
-				if( world.getPlayers().get(Y).isOnline() )
-					Vegetation.playerList.add(world.getPlayers().get(Y).getName());
-			}
-		}
-		
-		playerIndex = 0;
-	}
-	
-	public static void getNextPlayer()
-	{
-		for( int i = 0; i < playerList.size(); i++ )
-		{
-			logOutput(""+plugin.getServer().getPlayer(playerList.get( playerIndex )));
-		}
-		logOutput("PlayerIndex at: " + playerIndex);
-		logOutput("PlayerList size: " + playerList.size());
-		if ( playerIndex < (playerList.size() - 1) )
-		{
-			currentPlayer = plugin.getServer().getPlayer(playerList.get( playerIndex ) );
-			playerIndex++;
-		}
-		else if ( playerList.size() > 0 )
-		{
-			playerIndex = 0;
-			currentPlayer = plugin.getServer().getPlayer(playerList.get( playerIndex ) );
-		}
-		else
-		{
-			playerIndex = 0;
-			currentPlayer = null;
-		}
-	}*/
-	
-	public static Integer getPlayerCount()
-	{
-		Integer retVal = 0;
-		World w = null;
-		int X, Y;
-		
-		for( X = 0; X < plugin.getServer().getWorlds().size(); X++ )
-		{
-			w = plugin.getServer().getWorlds().get(X);
-			
-			for( Y = 0; Y < w.getPlayers().size(); Y++ )
-			{
-				if( w.getPlayers().get(Y).isOnline() ) retVal++;
-			}
-		}
-		
-		return retVal;
-	}
-
-	public static String arrayToString(String[] a, String separator) 
-    {
-        String result = "";
-        
-        if (a.length > 0) 
-        {
-            result = a[0];    // start with the first element
-            for (int i=1; i<a.length; i++) {
-                result = result + separator + a[i];
-            }
-        }
-        return result;
     }
 }

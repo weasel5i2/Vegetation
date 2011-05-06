@@ -9,16 +9,22 @@ import org.bukkit.Material;
 
 public class Blocks 
 {
-	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
+	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public static final int MaxCycle = 150;
+	private final int maxCycle = 150;
+	private Settings settings;
 	
-	public static boolean isLilyPad( Block whichBlock )
+	public Blocks(Settings s)
+	{
+		settings = s;
+	}
+	
+	public boolean isLilyPad( Block whichBlock )
 	{
 		boolean retVal = false;
 		
-		if( whichBlock.getTypeId() == 37 && Vegetation.enableLilyPads == true 
-		|| whichBlock.getTypeId() == 38 && Vegetation.enableLilyPads == true )
+		if( whichBlock.getTypeId() == 37 && settings.enableLilyPads == true 
+		|| whichBlock.getTypeId() == 38 && settings.enableLilyPads == true )
 		{
 			if( whichBlock.getRelative(BlockFace.DOWN).getTypeId() == 9 ) retVal = true;
 		}
@@ -26,24 +32,24 @@ public class Blocks
  	    return( retVal );
 	}
 	
-	public static boolean withinEnabledBiome( Biome biome )
+	public boolean withinEnabledBiome( Biome biome )
     {	
-		if( biome == Biome.FOREST && Vegetation.growForestBiome == true ) return true;
-		else if( biome == Biome.RAINFOREST && Vegetation.growRainforestBiome == true ) return true;
-		else if( biome == Biome.PLAINS && Vegetation.growPlainsBiome == true ) return true;
-		else if( biome == Biome.ICE_DESERT && Vegetation.growIceDesertBiome == true ) return true;
-		else if( biome == Biome.DESERT && Vegetation.growDesertBiome == true ) return true;
-		else if( biome == Biome.SWAMPLAND && Vegetation.growSwamplandBiome == true ) return true;
-		else if( biome == Biome.HELL && Vegetation.growHellBiome == true ) return true;
-		else if( biome == Biome.TAIGA && Vegetation.growTaigaBiome == true ) return true;
-		else if( biome == Biome.TUNDRA && Vegetation.growTundraBiome == true ) return true;
-		else if( biome == Biome.SAVANNA && Vegetation.growSavannahBiome == true ) return true;
-		else if( biome == Biome.SHRUBLAND && Vegetation.growShrublandBiome == true ) return true;
-		else if( biome == Biome.SEASONAL_FOREST && Vegetation.growSeasonalForestBiome == true ) return true;
+		if( biome == Biome.FOREST && settings.growForestBiome == true ) return true;
+		else if( biome == Biome.RAINFOREST && settings.growRainforestBiome == true ) return true;
+		else if( biome == Biome.PLAINS && settings.growPlainsBiome == true ) return true;
+		else if( biome == Biome.ICE_DESERT && settings.growIceDesertBiome == true ) return true;
+		else if( biome == Biome.DESERT && settings.growDesertBiome == true ) return true;
+		else if( biome == Biome.SWAMPLAND && settings.growSwamplandBiome == true ) return true;
+		else if( biome == Biome.HELL && settings.growHellBiome == true ) return true;
+		else if( biome == Biome.TAIGA && settings.growTaigaBiome == true ) return true;
+		else if( biome == Biome.TUNDRA && settings.growTundraBiome == true ) return true;
+		else if( biome == Biome.SAVANNA && settings.growSavannahBiome == true ) return true;
+		else if( biome == Biome.SHRUBLAND && settings.growShrublandBiome == true ) return true;
+		else if( biome == Biome.SEASONAL_FOREST && settings.growSeasonalForestBiome == true ) return true;
 		else return false;
     }
     
-    public static Block getTopBlock( Location BaseBlock, double X, double Z, Material Surface )
+    public Block getTopBlock( Location BaseBlock, double X, double Z, Material Surface )
     {
     	Block retVal = null, current = null;
     	World W = BaseBlock.getWorld();
@@ -54,7 +60,7 @@ public class Blocks
     	if ( current.getType() == Surface )
     	{
     		//Assume we're above the ground and decrease Y
-    		for( int I = 1; I < Vegetation.verticalRadius; I++ )
+    		for( int I = 1; I < settings.verticalRadius; I++ )
     		{
     			if( ((int)Y - I) < 0 )
     			{
@@ -83,7 +89,7 @@ public class Blocks
     		else
     		{
     			//Assume we're Underground and increase Y
-    			for( int I = 1; I < Vegetation.verticalRadius; I++ )
+    			for( int I = 1; I < settings.verticalRadius; I++ )
     			{
     				if( ((int)Y + I) >= MaxY )
     				{
@@ -105,12 +111,12 @@ public class Blocks
     	return retVal;
     }
     
-    public static Block getRandomBlock(Location BaseBlock, Material M)
+    public Block getRandomBlock(Location BaseBlock, Material M)
     {
     	Block retVal = null;
     	World W = BaseBlock.getWorld();
-    	int hRange = Vegetation.growthRange;
-    	int vRange = Vegetation.verticalRadius;
+    	int hRange = settings.growthRange;
+    	int vRange = settings.verticalRadius;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
@@ -119,7 +125,7 @@ public class Blocks
     	Block currentBlock;
     	double tX, tY, tZ;
 
-    	for( int I = 0; I < MaxCycle; I++ )
+    	for( int I = 0; I < maxCycle; I++ )
     	{
        		tX = pX + getRandomRangeValue( hRange );
        		tY = pY + getRandomRangeValue( vRange );
@@ -136,10 +142,10 @@ public class Blocks
     	return retVal;
     }
     
-	public static Block getRandomTopBlock( Location BaseBlock, Material Surface )
+	public Block getRandomTopBlock( Location BaseBlock, Material Surface )
     {
     	Block retVal = null;
-    	int Range = Vegetation.growthRange;
+    	int Range = settings.growthRange;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
@@ -147,7 +153,7 @@ public class Blocks
     	Block currentBlock;
     	double tX, tZ;
 
-    	for( int I = 0; I < MaxCycle; I++ )
+    	for( int I = 0; I < maxCycle; I++ )
     	{
        		tX = pX + getRandomRangeValue( Range );
     		tZ = pZ + getRandomRangeValue( Range );
@@ -163,10 +169,10 @@ public class Blocks
     	return retVal;
     }
     
-	public static Block getRandomTopBlock( Location BaseBlock, Material M, Material Surface )
+	public Block getRandomTopBlock( Location BaseBlock, Material M, Material Surface )
     {
     	Block retVal = null;
-    	int Range = Vegetation.growthRange;
+    	int Range = settings.growthRange;
     	
     	double pX = BaseBlock.getX();
     	double pZ = BaseBlock.getZ();
@@ -174,7 +180,7 @@ public class Blocks
     	Block currentBlock;
     	double tX, tZ;
 
-    	for( int I = 0; I < MaxCycle; I++ )
+    	for( int I = 0; I < maxCycle; I++ )
     	{
        		tX = pX + getRandomRangeValue( Range );
     		tZ = pZ + getRandomRangeValue( Range );
@@ -190,7 +196,7 @@ public class Blocks
     	return retVal;
     }
 	
-	public static Block getRandomTopBlock( Location BaseBlock, Material M, Material Surface, int Range )
+	public Block getRandomTopBlock( Location BaseBlock, Material M, Material Surface, int Range )
     {
     	Block retVal = null;
     	
@@ -200,7 +206,7 @@ public class Blocks
     	Block currentBlock;
     	double tX, tZ;
 
-    	for( int I = 0; I < MaxCycle; I++ )
+    	for( int I = 0; I < maxCycle; I++ )
     	{
        		tX = pX + getRandomRangeValue( Range );
     		tZ = pZ + getRandomRangeValue( Range );
@@ -216,7 +222,7 @@ public class Blocks
     	return retVal;
     }
 	
-	public static Block getRandomTopBlock( Location BaseBlock, Material M, Material Surface, int MinRange, int MaxRange )
+	public Block getRandomTopBlock( Location BaseBlock, Material M, Material Surface, int MinRange, int MaxRange )
     {
     	Block retVal = null;
     	
@@ -226,7 +232,7 @@ public class Blocks
     	Block currentBlock;
     	double tX, tZ;
 
-    	for( int I = 0; I < MaxCycle; I++ )
+    	for( int I = 0; I < maxCycle; I++ )
     	{
        		tX = pX + getRandomRangeValue( MaxRange );
     		tZ = pZ + getRandomRangeValue( MaxRange );
@@ -246,7 +252,7 @@ public class Blocks
     	return retVal;
     }
 
-    public static boolean isAdjacentBlockofType1( Block B, Material M )
+    public boolean isAdjacentBlockofType1( Block B, Material M )
     {
     	if( B.getRelative(BlockFace.NORTH).getType() == M )
     	{
@@ -270,7 +276,7 @@ public class Blocks
     	}
     }
     
-    public static boolean isAdjacentBlockofType2( Block B, Material M )
+    public boolean isAdjacentBlockofType2( Block B, Material M )
     {
     	if( B.getRelative(BlockFace.NORTH).getType() == M )
     	{
@@ -298,7 +304,7 @@ public class Blocks
     	}
     }
     
-    public static boolean isSurroundedByBlockType1( Block B, Material M )
+    public boolean isSurroundedByBlockType1( Block B, Material M )
     {
     	if( ( B.getRelative(BlockFace.NORTH).getType() == M )
     			&& ( B.getRelative(BlockFace.EAST).getType() == M )
@@ -309,7 +315,7 @@ public class Blocks
     	return false;
     }
     
-    public static boolean isSurroundedByBlockType2( Block B, Material M )
+    public boolean isSurroundedByBlockType2( Block B, Material M )
     {
     	if( ( B.getRelative(BlockFace.NORTH).getType() == M )
     			&& ( B.getRelative(BlockFace.NORTH_EAST).getType() == M )
@@ -324,7 +330,7 @@ public class Blocks
     	return false;
     }
     
-    public static double getRandomRangeValue(int Range)
+    public double getRandomRangeValue(int Range)
     {
     	int retVal = 0;
     	int V = Vegetation.generator.nextInt(6);
@@ -364,7 +370,7 @@ public class Blocks
     
     //returns density value from 0.0 - 1.0
     //range is (2*Range+1)^2 blocks
-    public static float getFieldDensity(Block CenterBlock, int Range, Material[] M)
+    public float getFieldDensity(Block CenterBlock, int Range, Material[] M)
     {
     	Location L = CenterBlock.getLocation();
     	double pX = CenterBlock.getX();
@@ -380,7 +386,7 @@ public class Blocks
     	{
     		for( double Z = pZ-Range; Z <= pZ+Range; Z++ )
     		{
-    			CurrentBlock = Blocks.getTopBlock( L, X, Z, Material.AIR );
+    			CurrentBlock = getTopBlock( L, X, Z, Material.AIR );
     			if( CurrentBlock != null )
     			{
     				CurrentM = CurrentBlock.getType();

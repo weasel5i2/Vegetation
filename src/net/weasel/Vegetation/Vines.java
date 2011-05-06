@@ -7,13 +7,19 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
-public final class Vines 
+public class Vines 
 {
-	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
+	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 
-	public static short MaxVinesOnTree = 5;
+	private int MaxVinesOnTree = 5;
+	private Blocks blocks;
 	
-	public static void growVines(Block Log)
+	public Vines(Blocks b)
+	{
+		blocks = b;
+	}
+	
+	public void growVines(Block Log)
 	{
 		ArrayList<Block> LowerLeaves = getLowerLeafBlocks( getTreeTrunk(Log) );
 		
@@ -32,7 +38,7 @@ public final class Vines
 					Leaf = Leaf.getRelative( BlockFace.DOWN );
 					if( Leaf.getType() == Material.AIR )
 					{
-						if( Leaf.getRelative(BlockFace.DOWN).getType() == Material.AIR && Blocks.isSurroundedByBlockType1( Leaf, Material.AIR ) )
+						if( Leaf.getRelative(BlockFace.DOWN).getType() == Material.AIR && blocks.isSurroundedByBlockType1( Leaf, Material.AIR ) )
 							Leaf.setTypeIdAndData( 83, (byte)15, true );
 					}
 					else break;
@@ -41,7 +47,7 @@ public final class Vines
 		}
 	}
 	
-	public static ArrayList<Block> getTreeTrunk(Block BaseBlock)
+	public ArrayList<Block> getTreeTrunk(Block BaseBlock)
 	{
 		if( BaseBlock.getType() != Material.LOG ) return null;
 		
@@ -86,7 +92,7 @@ public final class Vines
 		return TreeTrunk.size() > 1 ? TreeTrunk : null;
 	}
 	
-	public static ArrayList<Block> getLowerLeafBlocks(ArrayList<Block> TreeTrunk)
+	public ArrayList<Block> getLowerLeafBlocks(ArrayList<Block> TreeTrunk)
 	{
 		if( TreeTrunk == null ) return null;
 		
@@ -132,7 +138,7 @@ public final class Vines
 	    			if( CurrentBlock != null && CurrentBlock.getType() == Material.LEAVES )
 	    			{
 	    				if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.AIR 
-	    						&& Blocks.isSurroundedByBlockType1( CurrentBlock.getRelative(BlockFace.DOWN), Material.AIR) )
+	    						&& blocks.isSurroundedByBlockType1( CurrentBlock.getRelative(BlockFace.DOWN), Material.AIR) )
 	    				{
 	    					LowerLeaves.add( CurrentBlock );
 	    				}
