@@ -15,30 +15,31 @@ public class Plants
 		blockCrawler = b;
 	}
 	
-	public void growPlant(Block block, Material plantType)
+	public void growPlant(Block plantBlock, Material plantType)
 	{
-		Material[] M = { Material.YELLOW_FLOWER, Material.RED_ROSE, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.PUMPKIN };
-		if( blockCrawler.getFieldDensity(block, 3, M) > 0.1 ) return;
+		Material[] material = { Material.YELLOW_FLOWER, Material.RED_ROSE, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.PUMPKIN };
+		if( blockCrawler.getFieldDensity(plantBlock, 3, material) > 0.1 ) return;
 		
 		if( Vegetation.debugging ) logOutput("Spreading plants..");
 
-		int MaxSpreadAmount = 2;
+		int maxSpreadAmount = 2;
 		
 		if( Vegetation.debugging ) logOutput("Spreading Type of Plant: " + plantType.toString());
 		
-		Block PlantBlock = null;
+		Block emptyBlock = null;
+		Material plantBlockMaterial = plantBlock.getRelative(BlockFace.DOWN).getType();
 		//Get surrounding block and place new plant
 		for( int I = 0; I < 150; I++ )
 		{
-			PlantBlock = blockCrawler.getRandomTopBlock(block.getLocation() , Material.GRASS, Material.AIR, 3);
-			if( PlantBlock != null )
+			emptyBlock = blockCrawler.getRandomTopBlock(plantBlock.getLocation() , plantBlockMaterial, Material.AIR, 3);
+			if( emptyBlock != null )
 			{
-				PlantBlock.getRelative(BlockFace.UP).setType(plantType);
-				if( Vegetation.debugging ) logOutput("Planting at: " + PlantBlock.getX() + " " + PlantBlock.getY() + " " + PlantBlock.getZ());
-				MaxSpreadAmount--;
+				emptyBlock.getRelative(BlockFace.UP).setType(plantType);
+				if( Vegetation.debugging ) logOutput("Planting at: " + emptyBlock.getX() + " " + emptyBlock.getY() + " " + emptyBlock.getZ());
+				maxSpreadAmount--;
 			}
 
-			if( MaxSpreadAmount <= 0 ) break;
+			if( maxSpreadAmount <= 0 ) break;
 		}
 	}
 	

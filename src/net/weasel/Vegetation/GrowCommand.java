@@ -40,30 +40,66 @@ public class GrowCommand implements CommandExecutor{
 					if( args.length == 1 )
 					{
 						String Arg = args[0];
-						int MaxGrowAmount = 0;
-						Location PL = ((Player) sender).getLocation();
+						int maxGrowAmount = 0;
+						Location playerLocation = ((Player) sender).getLocation();
 
 						if( Arg.equals("flower") )
 						{
-							sender.sendMessage( "Growing flowers.." );
-							MaxGrowAmount = settings.spreadAmountFlowers;
+							sender.sendMessage("Growing flowers..");
+							maxGrowAmount = settings.spreadAmountFlowers;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( PL, Material.GRASS, Material.AIR );
-								if( CB != null )
+								Block currentBlock = vWorld.blocks.getRandomTopBlock(playerLocation, Material.GRASS, Material.AIR);
+								if( currentBlock != null )
 								{
 									if( I%2 == 0 )
 									{
-										if( vWorld.plants.growSinglePlant( CB, Material.YELLOW_FLOWER ) )
-											MaxGrowAmount--;
+										if( vWorld.plants.growSinglePlant(currentBlock, Material.YELLOW_FLOWER) )
+											maxGrowAmount--;
 									}
 									else
 									{
-										if( vWorld.plants.growSinglePlant( CB, Material.RED_ROSE ) )
-											MaxGrowAmount--;
+										if( vWorld.plants.growSinglePlant(currentBlock, Material.RED_ROSE) )
+											maxGrowAmount--;
 									}
 
-									if( MaxGrowAmount <= 0 ) break;
+									if( maxGrowAmount <= 0 ) break;
+								}
+								currentBlock = null;
+								
+								currentBlock = vWorld.blocks.getRandomTopBlock(playerLocation, Material.SAND, Material.AIR);
+								if( currentBlock != null )
+								{
+									if( I%2 == 0 )
+									{
+										if( vWorld.plants.growSinglePlant(currentBlock, Material.YELLOW_FLOWER) )
+											maxGrowAmount--;
+									}
+									else
+									{
+										if( vWorld.plants.growSinglePlant(currentBlock, Material.RED_ROSE) )
+											maxGrowAmount--;
+									}
+
+									if( maxGrowAmount <= 0 ) break;
+								}
+								currentBlock = null;
+								
+								currentBlock = vWorld.blocks.getRandomTopBlock(playerLocation, Material.STATIONARY_WATER, Material.AIR);
+								if( currentBlock != null )
+								{
+									if( I%2 == 0 )
+									{
+										if( vWorld.plants.growSinglePlant(currentBlock, Material.YELLOW_FLOWER) )
+											maxGrowAmount--;
+									}
+									else
+									{
+										if( vWorld.plants.growSinglePlant(currentBlock, Material.RED_ROSE) )
+											maxGrowAmount--;
+									}
+
+									if( maxGrowAmount <= 0 ) break;
 								}
 							}
 							vWorld.decreaseActivePlayerCommands();
@@ -72,25 +108,25 @@ public class GrowCommand implements CommandExecutor{
 						else if( Arg.equals("mushroom") )
 						{
 							sender.sendMessage( "Growing mushrooms.." );
-							MaxGrowAmount = settings.spreadAmountFungi;
+							maxGrowAmount = settings.spreadAmountFungi;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( PL, Material.GRASS, Material.AIR );
+								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.GRASS, Material.AIR );
 								if( CB != null )
 								{
 									if( I%2 == 0 )
 									{
 										if( vWorld.plants.growSinglePlant( CB, Material.BROWN_MUSHROOM ) )
-											MaxGrowAmount--;
+											maxGrowAmount--;
 									}
 									else
 									{
 										if( vWorld.plants.growSinglePlant( CB, Material.RED_MUSHROOM ) )
-											MaxGrowAmount--;
+											maxGrowAmount--;
 									}
 								}
 
-								if( MaxGrowAmount <= 0 ) break;
+								if( maxGrowAmount <= 0 ) break;
 							}
 							vWorld.decreaseActivePlayerCommands();
 							return true;
@@ -98,17 +134,17 @@ public class GrowCommand implements CommandExecutor{
 						else if( Arg.equals("cactus") )
 						{
 							sender.sendMessage( "Growing cacti.." );
-							MaxGrowAmount = settings.spreadAmountCacti;
+							maxGrowAmount = settings.spreadAmountCacti;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( PL, Material.SAND, Material.AIR );
+								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.SAND, Material.AIR );
 								if( CB != null )
 								{
 									if( vWorld.cacti.growSingleCacti( CB ) )
-										MaxGrowAmount--;
+										maxGrowAmount--;
 								}
 
-								if( MaxGrowAmount <= 0 ) break;
+								if( maxGrowAmount <= 0 ) break;
 							}
 							vWorld.decreaseActivePlayerCommands();
 							return true;
@@ -116,17 +152,17 @@ public class GrowCommand implements CommandExecutor{
 						else if( Arg.equals("sugar_cane") )
 						{
 							sender.sendMessage( "Growing sugar canes.." );
-							MaxGrowAmount = settings.spreadAmountSugarCane;
+							maxGrowAmount = settings.spreadAmountSugarCane;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( PL, Material.GRASS, Material.AIR );
+								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.GRASS, Material.AIR );
 								if( CB != null )
 								{
 									if( vWorld.canes.growSingleCane( CB ) )
-										MaxGrowAmount--;
+										maxGrowAmount--;
 								}
 
-								if( MaxGrowAmount <= 0 ) break;
+								if( maxGrowAmount <= 0 ) break;
 							}
 							vWorld.decreaseActivePlayerCommands();
 							return true;
@@ -134,39 +170,39 @@ public class GrowCommand implements CommandExecutor{
 						else if( Arg.equals("moss") )
 						{
 							sender.sendMessage( "Growing moss.." );
-							MaxGrowAmount = settings.spreadAmountMoss;
+							maxGrowAmount = settings.spreadAmountMoss;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( PL, Material.COBBLESTONE, Material.STATIONARY_WATER );
+								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.COBBLESTONE, Material.STATIONARY_WATER );
 								if( CB != null )
 								{
 									if( vWorld.moss.growSingleMoss( CB ))
-										MaxGrowAmount--;
+										maxGrowAmount--;
 								}
 								else
 								{
-									CB = vWorld.blocks.getRandomTopBlock( PL, Material.COBBLESTONE, Material.WATER );
+									CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.COBBLESTONE, Material.WATER );
 									if( CB != null )
 									{
 										if( vWorld.moss.growSingleMoss( CB ))
-											MaxGrowAmount--;
+											maxGrowAmount--;
 									}
 									else
 									{
-										CB = vWorld.blocks.getRandomTopBlock( PL, Material.COBBLESTONE, Material.AIR );
+										CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.COBBLESTONE, Material.AIR );
 										if( CB != null )
 										{
 											if( vWorld.blocks.isAdjacentofBlockType2( CB  , Material.STATIONARY_WATER )
 													|| vWorld.blocks.isAdjacentofBlockType2( CB  , Material.WATER ) )
 											{
 												if( vWorld.moss.growSingleMoss( CB ))
-													MaxGrowAmount--;
+													maxGrowAmount--;
 											}
 										}
 									}
 								}
 
-								if( MaxGrowAmount <= 0 ) break;
+								if( maxGrowAmount <= 0 ) break;
 							}
 							vWorld.decreaseActivePlayerCommands();
 							return true;
