@@ -33,23 +33,22 @@ public class VegetationPlayerListener extends PlayerListener
 		Player player = event.getPlayer();
 		ItemStack heldItems = player.getItemInHand();
 		HashSet<Byte> transparentBlocks = new HashSet<Byte>();
-		transparentBlocks.add( (byte)9 ); //stationary water 
+		transparentBlocks.add((byte)Material.AIR.getId());
+		transparentBlocks.add((byte)Material.STATIONARY_WATER.getId()); 
 		Block targetBlock = player.getTargetBlock(transparentBlocks, 100);
 		
-		logOutput(""+targetBlock.getType());
-		
-		if( targetBlock.getType() == Material.DIRT && targetBlock.getRelative(BlockFace.UP).getType() == Material.STATIONARY_WATER )
+		if( targetBlock.getRelative(BlockFace.UP).getType() == Material.STATIONARY_WATER )
 		{
 			if( heldItems.getType() == Material.YELLOW_FLOWER || heldItems.getType() == Material.RED_ROSE )
 			{
 				event.setCancelled(true);
-				for( int I = 0; I < 5; I++ )
+				for( int i = 0; i < 5; i++ )
 				{
 					targetBlock = targetBlock.getRelative(BlockFace.UP);
 					if( targetBlock.getRelative(BlockFace.UP).getType() == Material.AIR )
 					{
-						targetBlock.getRelative(BlockFace.UP).setType( heldItems.getType() );
-						heldItems.setAmount( heldItems.getAmount() - 1 );
+						targetBlock.getRelative(BlockFace.UP).setType(heldItems.getType());
+						heldItems.setAmount(heldItems.getAmount() - 1);
 						break;
 					}
 				}

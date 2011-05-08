@@ -53,7 +53,7 @@ public class Vegetation extends JavaPlugin
 		pluginVersion = this.getDescription().getVersion();
 		timer = plugin.getServer().getScheduler();
 		
-		//pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener, Event.Priority.Normal, plugin );
+		pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_LOGIN, PlayerListener, Event.Priority.Normal, plugin );
 		pm.registerEvent(Type.PLAYER_TELEPORT, PlayerListener, Event.Priority.Normal, plugin );
