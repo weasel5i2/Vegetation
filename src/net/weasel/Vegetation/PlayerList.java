@@ -12,7 +12,6 @@ public class PlayerList {
 	private Vegetation plugin;
 	private World world;
 	private ArrayList<String> players;
-	private Mutex mutex;
 	private int posIndex;
 	
 	public PlayerList(Vegetation p, World w)
@@ -20,14 +19,11 @@ public class PlayerList {
 		plugin = p;
 		world = w;
 		players = new ArrayList<String>();
-		mutex = new Mutex();
 		posIndex = 0;
 	}
 	
-	public void getActivePlayerList()
+	public synchronized void getActivePlayerList()
 	{
-		mutex.aquire();
-		
 		players.clear();
 		
 		for( Player p: world.getPlayers() )
@@ -36,14 +32,10 @@ public class PlayerList {
 		}
 		
 		posIndex = 0;
-		
-		mutex.release();
 	}
 	
-	public Player getNextPlayer()
+	public synchronized Player getNextPlayer()
 	{
-		mutex.aquire();
-		
 		//logOutput("PlayerList: " + world.getName() + " - " + players.size());
 		
 		Player player = null;
@@ -62,33 +54,23 @@ public class PlayerList {
 		{
 			posIndex = 0;
 		}
-		
-		mutex.release();
 		return player;
 	}
 	
-	public void addPlayer(Player player)
+	public synchronized void addPlayer(Player player)
 	{
-		mutex.aquire();
-		
 		if( !(players.contains(player.getName())) )
 		{
 			players.add(player.getName());
 		}
-		
-		mutex.release();
 	}
 	
-	public void removePlayer(Player player)
+	public synchronized void removePlayer(Player player)
 	{
-		mutex.aquire();
-		
 		if( players.contains(player.getName()) )
 		{
 			players.remove(player.getName());
 			players.trimToSize();
 		}
-		
-		mutex.release();
 	}
 }

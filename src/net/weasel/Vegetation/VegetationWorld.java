@@ -8,7 +8,6 @@ public class VegetationWorld {
 	
 	private World world;
 	private Vegetation plugin;
-	private Mutex mutex;
 	
 	private Settings settings;
 	public final PlayerList playerList;
@@ -39,7 +38,6 @@ public class VegetationWorld {
 		grazers = new Grazers(world, settings);
 		moss = new Moss(blocks);
 		vines = new Vines(blocks);
-		mutex = new Mutex();
 	}
 	
 	public Settings getSettings()
@@ -57,18 +55,15 @@ public class VegetationWorld {
 		return world;
 	}
 	
-	public void increaseActivePlayerCommands()
+	public synchronized void increaseActivePlayerCommands()
 	{
-		mutex.aquire();
 		activePlayerCommands++;
-		mutex.release();
 	}
 	
-	public void decreaseActivePlayerCommands()
+	public synchronized void decreaseActivePlayerCommands()
 	{
-		mutex.aquire();
-		if( activePlayerCommands > 0 ) activePlayerCommands--;
-		mutex.release();
+		if( activePlayerCommands > 0 )
+			activePlayerCommands--;
 	}
 	
 	public int getActivePlayerCommands()
