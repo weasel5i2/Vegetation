@@ -38,6 +38,8 @@ public class VegetationWorld {
 		grazers = new Grazers(world, settings);
 		moss = new Moss(blocks);
 		vines = new Vines(blocks);
+		
+		logOutput("Settings for world [" + w.getName() + "] loaded.");
 	}
 	
 	public Settings getSettings()

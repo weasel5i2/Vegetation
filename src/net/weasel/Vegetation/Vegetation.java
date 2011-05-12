@@ -111,7 +111,6 @@ public class Vegetation extends JavaPlugin
         while( it.hasNext() )
         {
         	vWorlds.get(it.next()).startTimer();
-        	if( debugging ) logOutput("Starting Timer");
         }
     }
     

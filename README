@@ -9,6 +9,12 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.2 12-May-2011
+* separate settings for world added
+* lily pads added
+* sand flowers added
+* performance improved
+
 Version 3.1.2 6-May-2011
 * Implemented thread-safe playerlist as preparation for multi world support
 * changed default settings for first plugin run

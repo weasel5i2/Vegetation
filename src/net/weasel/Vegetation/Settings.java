@@ -162,35 +162,66 @@ public class Settings {
 
     public boolean getBooleanSetting( String which, boolean dValue )
     {
-    	boolean retVal;
+    	boolean retVal = false;
     	
-    	String dString = ( dValue ? "true" : "false" );
+    	String dString = (dValue ? "true" : "false");
     	
         if( getSettingValue(settingsFile, which, dString, "" )[0].equalsIgnoreCase("true") )
         	retVal = true;
         else
         	retVal = false;
         
-        return( retVal );
+        return retVal;
     }
 	
-    public Integer getIntSetting( String item, Integer dValue )
+    public int getIntSetting( String item, Integer dValue )
     {
-    	Integer retVal = Integer.parseInt( getSettingValue(settingsFile, item, dValue.toString(), "" )[0]);
-    	if( retVal < 0 ) retVal = 0;
+    	int retVal;
+    	
+    	try
+    	{
+        	retVal = Integer.parseInt( getSettingValue(settingsFile, item, dValue.toString(), "" )[0]);
+
+    	}
+    	catch(NumberFormatException e)
+    	{
+    		retVal = 0;
+    		logOutput("Error while reading [" + item + "] field. Option set to 0.");
+    	}
+
     	return retVal;
     }
 
     public double getDblSetting( String item, double d )
     {
-    	double retVal = Double.parseDouble( getSettingValue(settingsFile, item, Double.toString(d), "" )[0]);
-    	if( retVal < 0 ) retVal = 0;
+    	double retVal;
+    	
+    	try
+    	{
+        	retVal = Double.parseDouble( getSettingValue(settingsFile, item, Double.toString(d), "" )[0]);
+    	}
+    	catch(NumberFormatException e)
+    	{
+    		retVal = 0;
+    		logOutput("Error while reading [" + item + "] field. Option set to 0.");
+    	}
     	return retVal;
     }
 
-    public Float getFloatSetting( String item, Float dValue )
+    public float getFloatSetting( String item, Float dValue )
     {
-    	Float retVal = Float.valueOf(getSettingValue(settingsFile, item, dValue.toString(), "" )[0]);
+    	float retVal;
+    	
+    	try
+    	{
+        	retVal = Float.valueOf(getSettingValue(settingsFile, item, dValue.toString(), "" )[0]);
+
+    	}
+    	catch(NumberFormatException e)
+    	{
+    		retVal = 0;
+    		logOutput("Error while reading [" + item + "] field. Option set to 0.");
+    	}
     	return retVal;
     }
     
@@ -265,8 +296,8 @@ public class Settings {
 			PrintWriter outP = new PrintWriter(outFile);
 			
 			outP.println( "/* Block Search Settings:" );
-			outP.println( "growthRange=30" );
-			outP.println( "verticalRadius=10" );
+			outP.println( "growthRange=20" );
+			outP.println( "verticalRadius=5" );
 			outP.println( "" );
 			outP.println( "/* Vegetation Settings:" );
 			outP.println( "enableGrass=false" );
@@ -286,7 +317,7 @@ public class Settings {
 			outP.println( "/* If this option is set to true," );
 			outP.println( "/* moss will grow on any cobblestones touching water" );
 			outP.println( "/* regardless if there was a moss block to spread from or not." );
-			outP.println( "waterGrowsMoss=true" );
+			outP.println( "waterGrowsMoss=false" );
 			outP.println( "" );
 			outP.println( "/* Player related Settings:" );
 			outP.println( "maxActivePlayerCommands=40" );
@@ -299,7 +330,7 @@ public class Settings {
 			outP.println( "trampleGrass=false" );
 			outP.println( "" );
 			outP.println( "/* ENTITIES:" );
-			outP.println( "enableGrazers=true" );
+			outP.println( "enableGrazers=false" );
 			outP.println( "/* Sets max number of grazing animals." );
 			outP.println( "/* You should decrease this number if you encounter server lag." );
 			outP.println( "grazerMaxCount=10" );

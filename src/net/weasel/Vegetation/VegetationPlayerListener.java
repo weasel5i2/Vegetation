@@ -2,7 +2,9 @@ package net.weasel.Vegetation;
 
 import java.util.HashSet;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -31,24 +33,38 @@ public class VegetationPlayerListener extends PlayerListener
 		if( !(event.getAction() == Action.RIGHT_CLICK_BLOCK) ) return;
 		
 		Player player = event.getPlayer();
-		ItemStack heldItems = player.getItemInHand();
+		World world = player.getWorld();
+		ItemStack heldItem = player.getItemInHand();
 		HashSet<Byte> transparentBlocks = new HashSet<Byte>();
 		transparentBlocks.add((byte)Material.AIR.getId());
 		transparentBlocks.add((byte)Material.STATIONARY_WATER.getId()); 
 		Block targetBlock = player.getTargetBlock(transparentBlocks, 100);
+		Location location = targetBlock.getLocation();
 		
-		if( targetBlock.getRelative(BlockFace.UP).getType() == Material.STATIONARY_WATER )
+		int x = (int)location.getX();
+		int y = (int)location.getY();
+		int z = (int)location.getZ();
+		
+		if( world.getBlockTypeIdAt(x, y + 1, z) == Material.STATIONARY_WATER.getId() )
 		{
-			if( heldItems.getType() == Material.YELLOW_FLOWER || heldItems.getType() == Material.RED_ROSE )
+			if( heldItem.getType() == Material.YELLOW_FLOWER || heldItem.getType() == Material.RED_ROSE )
 			{
 				event.setCancelled(true);
-				for( int i = 0; i < 3; i++ )
+				int currentBlockType;
+				//event.setCancelled(true);
+				for( int i = 2; i < 5; i++ )
 				{
-					targetBlock = targetBlock.getRelative(BlockFace.UP);
-					if( targetBlock.getRelative(BlockFace.UP).getType() == Material.AIR )
+					currentBlockType = world.getBlockTypeIdAt(x, y + i, z);
+					if( currentBlockType == Material.AIR.getId() )
 					{
-						targetBlock.getRelative(BlockFace.UP).setType(heldItems.getType());
-						heldItems.setAmount(heldItems.getAmount() - 1);
+						targetBlock = world.getBlockAt(x, y + i, z);
+						targetBlock.setType(heldItem.getType());
+						heldItem.setAmount(heldItem.getAmount() - 1);
+						if( heldItem.getAmount() == 0) player.setItemInHand(null);
+						break;
+					}
+					else if( currentBlockType != Material.STATIONARY_WATER.getId() )
+					{
 						break;
 					}
 				}
@@ -77,7 +93,7 @@ public class VegetationPlayerListener extends PlayerListener
 		if( vWorld != null )
 		{
 			boolean trampleGrass = vWorld.getSettings().trampleGrass;
-			if( !trampleGrass )
+			if( trampleGrass )
 			{
 				if( !player.isSneaking() )
 				{
