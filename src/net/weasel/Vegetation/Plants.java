@@ -26,20 +26,18 @@ public class Plants
 		
 		if( Vegetation.debugging ) logOutput("Spreading Type of Plant: " + plantType.toString());
 		
-		Block emptyBlock = null;
+		Block emptyBlock;
 		Material plantBlockMaterial = plantBlock.getRelative(BlockFace.DOWN).getType();
 		//Get surrounding block and place new plant
-		for( int I = 0; I < 150; I++ )
+		for( int i = 0; i < maxSpreadAmount; i++ )
 		{
 			emptyBlock = blockCrawler.getRandomTopBlock(plantBlock.getLocation() , plantBlockMaterial, Material.AIR, 3);
 			if( emptyBlock != null )
 			{
 				emptyBlock.getRelative(BlockFace.UP).setType(plantType);
 				if( Vegetation.debugging ) logOutput("Planting at: " + emptyBlock.getX() + " " + emptyBlock.getY() + " " + emptyBlock.getZ());
-				maxSpreadAmount--;
 			}
 
-			if( maxSpreadAmount <= 0 ) break;
 		}
 	}
 	

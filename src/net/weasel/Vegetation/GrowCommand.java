@@ -39,9 +39,9 @@ public class GrowCommand implements CommandExecutor{
 					
 					if( args.length == 1 )
 					{
-						String Arg = args[0];
-						int maxGrowAmount = 0;
 						Location playerLocation = ((Player) sender).getLocation();
+						int maxGrowAmount = 0;
+						String Arg = args[0];
 
 						if( Arg.equals("flower") )
 						{

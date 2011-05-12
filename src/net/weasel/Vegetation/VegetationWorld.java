@@ -6,7 +6,7 @@ public class VegetationWorld {
 	
 	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	private World world;
+	public final World world;
 	private Vegetation plugin;
 	
 	private Settings settings;

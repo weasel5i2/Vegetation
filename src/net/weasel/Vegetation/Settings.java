@@ -111,7 +111,7 @@ public class Settings {
 	    	enableCacti = getBooleanSetting( "enableCacti", false );
 	    	enableCanes = getBooleanSetting( "enableCanes", false );
 	    	enableMoss = getBooleanSetting( "enableMoss", false );
-	    	//enableLilyPads = getBooleanSetting( "enableLilyPads", false );
+	    	enableLilyPads = getBooleanSetting( "enableLilyPads", false );
 	    	enableVines = getBooleanSetting( "enableVines", false );
 	    	enableGrazers = getBooleanSetting( "enableGrazers", false );
 	    	maxGrazingAnimalsCount = getIntSetting( "grazerMaxCount", 10 ) ;
@@ -151,7 +151,7 @@ public class Settings {
 	    	plantsPercent = getIntSetting( "plantsPercent", 5 );
 	    	mossPercent = getIntSetting( "mossPercent", 5 );
 	    	vinePercent = getIntSetting( "vinePercent", 5 );
-	    	//lilyPadPercent = getIntSetting( "lilyPadPercent", 5 );
+	    	lilyPadPercent = getIntSetting( "lilyPadPercent", 5 );
 	    	grazePercent = getIntSetting( "grazePercent", 10 );
 	}
 	
@@ -280,7 +280,7 @@ public class Settings {
 			outP.println( "enableCacti=false" );
 			outP.println( "enableCanes=false" );
 			outP.println( "enableMoss=false" );
-			//outP.println( "enableLilyPads=false" );
+			outP.println( "enableLilyPads=false" );
 			outP.println( "enableVines=false" );
 			outP.println( "" );
 			outP.println( "/* If this option is set to true," );
@@ -323,7 +323,6 @@ public class Settings {
 			outP.println( "growSwamplandBiome=true" );
 			outP.println( "growTaigaBiome=true" );
 			outP.println( "growTundraBiome=true" );
-			//outP.println( "grassPerGrow=1" );
 			outP.println( "" );
 			outP.println( "/* EVENTS: " );
 			outP.println( "/* The following parameters determine how many ticks of " );
@@ -333,7 +332,7 @@ public class Settings {
 			outP.println( "grassPercent=40" );
 			outP.println( "plantsPercent=5" );
 			outP.println( "mossPercent=5" );
-			//outP.println( "lilyPadPercent=5" );
+			outP.println( "lilyPadPercent=5" );
 			outP.println( "vinePercent=5" );
 			outP.println( "grazePercent=10" );
 			

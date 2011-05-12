@@ -69,16 +69,16 @@ public class Grass
     public void mowGrass(Location baseBlock)
     {    	
     	int r = Math.round( 50 / 2 );
-    	double pX = baseBlock.getX();
-    	double pZ = baseBlock.getZ();
+    	int pX = (int)baseBlock.getX();
+    	int pZ = (int)baseBlock.getZ();
     	    	
     	Block currentBlock = null;
     	
-    	for( double x = pX-r; x <= pX+r; x++ )
+    	for( int x = pX-r; x <= pX+r; x++ )
     	{
-    		for( double Z = pZ-r; Z <= pZ+r; Z++ )
+    		for( int z = pZ-r; z <= pZ+r; z++ )
     		{
-    			currentBlock = blockCrawler.getTopBlock(baseBlock, x, Z, Material.AIR);
+    			currentBlock = blockCrawler.getTopBlock(baseBlock, x, z, Material.AIR);
     			
     			if( currentBlock != null )
     			{

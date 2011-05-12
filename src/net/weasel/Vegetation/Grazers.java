@@ -2,10 +2,10 @@ package net.weasel.Vegetation;
 
 import java.util.List;
 
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.LivingEntity;
 
 /*
@@ -46,9 +46,7 @@ public class Grazers
 	 */
 	public void grazeAnimals()
 	{
-		Block targetBlock = null;
 		List<LivingEntity> entities;
-		LivingEntity entity = null;
 		
 		if ( Vegetation.debugging ) logOutput("Grazing Animals...");
 		
@@ -56,17 +54,24 @@ public class Grazers
 
 		if( entities.size() > 0 )
 		{
+			Block targetBlock;
+			LivingEntity entity;
+			Location locationOfEntity;
+			int r;
+			int grass = Material.GRASS.getId();
+			
 			for( int i = 0; i < settings.maxGrazingAnimalsCount; i++ )
 			{
-				int r = Vegetation.generator.nextInt(entities.size());
+				r = Vegetation.generator.nextInt(entities.size());
 				entity = entities.get(r);
 
 				if( isEnabledGrazer( entity.toString() ) )
 				{
-					targetBlock = entity.getLocation().getBlock().getRelative(BlockFace.DOWN);
+					locationOfEntity = entity.getLocation();
 
-					if( targetBlock.getType() == Material.GRASS )
+					if( world.getBlockTypeIdAt((int)locationOfEntity.getX(), (int)locationOfEntity.getY() - 1, (int)locationOfEntity.getZ()) == grass )
 					{
+						targetBlock = world.getBlockAt((int)locationOfEntity.getX(), (int)locationOfEntity.getY() - 1, (int)locationOfEntity.getZ());
 						if( targetBlock.getData() >= 2 )
 						{
 							targetBlock.setData( (byte)(targetBlock.getData()-1) );

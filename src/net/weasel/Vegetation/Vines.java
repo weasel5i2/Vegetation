@@ -92,21 +92,21 @@ public class Vines
 		return TreeTrunk.size() > 1 ? TreeTrunk : null;
 	}
 	
-	public ArrayList<Block> getLowerLeafBlocks(ArrayList<Block> TreeTrunk)
+	public ArrayList<Block> getLowerLeafBlocks(ArrayList<Block> treeTrunk)
 	{
-		if( TreeTrunk == null ) return null;
+		if( treeTrunk == null ) return null;
 		
-		ArrayList<Block> LowerLeaves = new ArrayList<Block>();
-    	double pX, pY, pZ;
-    	int Range = 0;
+		ArrayList<Block> lowerLeaves = new ArrayList<Block>();
+    	int pX, pY, pZ;
+    	int range = 0;
     	
-    	if( TreeTrunk.size() > 6 )
+    	if( treeTrunk.size() > 6 )
     	{
     		//big tree
-    		Range = 5;
+    		range = 5;
     		MaxVinesOnTree = 6;
     	}
-    	else if( TreeTrunk.size() < 5 )
+    	else if( treeTrunk.size() < 5 )
     	{
     		//tree is too small to grow vines (only one block between leaves and ground
     		return null;
@@ -114,38 +114,40 @@ public class Vines
     	else
     	{
     		//normal sized tree
-    		Range = 2;
+    		range = 2;
     		MaxVinesOnTree = 3;
     	}
 
     	//double blockCountInRange = Math.pow(2*Range + 1, 2);
-    	int VineCount = 0;
+    	int vineCount = 0;
     	//int count = 0;
-    	Block CurrentBlock = null;
-    	World W = TreeTrunk.get(0).getWorld();
+    	Block currentBlock;
+    	Block first = treeTrunk.get(0);
+    	World W = first.getWorld();
     	
-		for( Block B: TreeTrunk )
+		pX = (int)first.getLocation().getX();
+		pZ = (int)first.getLocation().getZ();
+    	
+		for( Block B: treeTrunk )
 		{
-			pX = B.getLocation().getX();
-			pY = B.getLocation().getY();
-			pZ = B.getLocation().getZ();
+			pY = (int)B.getLocation().getY();
 			
-	       	for( double X = pX-Range; X <= pX+Range; X++ )
+	       	for( int x = pX-range; x <= pX+range; x++ )
 	    	{
-	    		for( double Z = pZ-Range; Z <= pZ+Range; Z++ )
+	    		for( int z = pZ-range; z <= pZ+range; z++ )
 	    		{
-	    			CurrentBlock = W.getBlockAt((int)X , (int)pY , (int)Z );
-	    			if( CurrentBlock != null && CurrentBlock.getType() == Material.LEAVES )
+	    			if( W.getBlockTypeIdAt(x, pY, z) == Material.LEAVES.getId() )
 	    			{
-	    				if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.AIR 
-	    						&& blocks.isSurroundedByBlockType1( CurrentBlock.getRelative(BlockFace.DOWN), Material.AIR) )
+	    				currentBlock = W.getBlockAt(x , pY , z );
+	    				if( W.getBlockTypeIdAt(x, pY - 1, z) == Material.AIR.getId() 
+	    						&& blocks.isSurroundedByBlockType1( currentBlock.getRelative(BlockFace.DOWN), Material.AIR) )
 	    				{
-	    					LowerLeaves.add( CurrentBlock );
+	    					lowerLeaves.add(currentBlock);
 	    				}
-	    				else if( CurrentBlock.getRelative(BlockFace.DOWN).getType() == Material.SUGAR_CANE_BLOCK )
+	    				else if( W.getBlockTypeIdAt(x, pY - 1, z) == Material.SUGAR_CANE_BLOCK.getId() )
 	    				{
-	    					VineCount++;
-	    					if( VineCount >= MaxVinesOnTree ) return null;
+	    					vineCount++;
+	    					if( vineCount >= MaxVinesOnTree ) return null;
 	    				}
 	    			}
 	    			//count++;
@@ -155,6 +157,6 @@ public class Vines
 		}
 		//logOutput("Tree Leaves scanned field of " + blockCountInRange + " " + count + " was: " + LowerLeaves.size() );
 		
-		return !LowerLeaves.isEmpty() ? LowerLeaves : null;
+		return !lowerLeaves.isEmpty() ? lowerLeaves : null;
 	}
 }

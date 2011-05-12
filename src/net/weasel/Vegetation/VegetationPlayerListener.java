@@ -42,7 +42,7 @@ public class VegetationPlayerListener extends PlayerListener
 			if( heldItems.getType() == Material.YELLOW_FLOWER || heldItems.getType() == Material.RED_ROSE )
 			{
 				event.setCancelled(true);
-				for( int i = 0; i < 5; i++ )
+				for( int i = 0; i < 3; i++ )
 				{
 					targetBlock = targetBlock.getRelative(BlockFace.UP);
 					if( targetBlock.getRelative(BlockFace.UP).getType() == Material.AIR )

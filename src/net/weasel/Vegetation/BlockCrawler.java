@@ -1,5 +1,7 @@
 package net.weasel.Vegetation;
 
+import java.util.ArrayList;
+
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
@@ -45,7 +47,7 @@ public class BlockCrawler
 		else if( biome == Biome.SEASONAL_FOREST && settings.growSeasonalForestBiome ) return true;
 		else return false;
     }
-    
+	
 	/*
 	 * gets a block right under the specified surface material block
 	 * @param baseBlock Location of the block the player is currently standing on
@@ -54,66 +56,131 @@ public class BlockCrawler
 	 * @param surface
 	 * @return Block
 	 */
-    public Block getTopBlock(Location baseBlock, double x, double z, Material surface)
-    {
-    	Block retVal = null, current = null;
+    public Block getTopBlock(Location baseBlock, int x, int z,  Material surface)
+    {   	
+    	Block currentBlock = null;
     	World world = baseBlock.getWorld();
     	int maxY = 127;
-    	double y = baseBlock.getY();
+    	int y = (int)baseBlock.getY();
+    	int currentMaterial;
+    	int surfaceId = surface.getId();
     	
-    	current = world.getBlockAt((int)x, (int)y, (int)z);
-    	if ( current.getType() == surface )
+    	currentMaterial = world.getBlockTypeIdAt(x, y, z);
+    	if( currentMaterial == surfaceId )
     	{
     		//Assume we're above the ground and decrease Y
     		for( int i = 1; i < settings.verticalRadius; i++ )
     		{
-    			if( ((int)y - i) < 0 )
+    			if( (y - i) < 0 )
     			{
     				break;
     			}
-    			current = world.getBlockAt((int)x, (int)y - i,(int)z);
-    			//we need at least two blocks of air on top of a block
-    			if( current.getType() != surface && i <= 2 )
+    			currentMaterial = world.getBlockTypeIdAt(x, y - i, z);
+    			if( currentMaterial != surfaceId )
     			{
-    				retVal = current;
-    				break;
+    				currentBlock = world.getBlockAt(x, y - i, z);
+    				if( withinEnabledBiome(currentBlock) ) break;
+    				else currentBlock = null;
     			}
     		}
     	}
-    	else if ( current.getType() != surface )
+    	else if( currentMaterial != surfaceId )
     	{
-    		//Assume we're already on top, thus check for air
-    		if ( world.getBlockAt((int)x, (int)y + 1, (int)z).getType() == surface )
+    		//Assume we're already on top, thus check for surface material
+    		if( world.getBlockTypeIdAt(x, y + 1, z) == surfaceId )
     		{
-    			//we need at least two blocks of air on top of a block
-    			if ( world.getBlockAt((int)x, (int)y + 2, (int)z).getType() == surface )
-    			{
-    				retVal = current;
-    			}
+    			currentBlock = world.getBlockAt(x, y, z);
     		}
     		else
     		{
     			//Assume we're Underground and increase Y
     			for( int i = 1; i < settings.verticalRadius; i++ )
     			{
-    				if( ((int)y + i) >= maxY )
+    				if( (y + i) >= maxY )
     				{
     					break;
     				}
-    				current = world.getBlockAt((int)x, (int)y + i,(int)z);
-    				if( current.getType() == surface )
+    				currentMaterial = world.getBlockTypeIdAt(x, y + i, z);
+    				if( currentMaterial == surfaceId )
     				{
-    					//we need at least two blocks of air on top of a block
-    					if( current.getRelative(BlockFace.UP).getType() == surface )
-    					{
-        					retVal = current.getRelative(BlockFace.DOWN);
-        					break;
-    					}
+        				currentBlock = world.getBlockAt(x, y + i, z).getRelative(BlockFace.DOWN);
+        				if( withinEnabledBiome(currentBlock) ) break;
+        				else currentBlock = null;
     				}
     			}
     		}
     	}
-    	return retVal;
+    	return currentBlock;
+    }
+    
+	/*
+	 * gets a block right under the specified surface material block
+	 * @param baseBlock Location of the block the player is currently standing on
+	 * @param x
+	 * @param z
+	 * @param ground
+	 * @param surface
+	 * @return Block
+	 */
+    public Block getTopBlock(Location baseBlock, int x, int z, Material ground, Material surface)
+    {
+    	//surface and ground can't be of the same material
+    	if( ground == surface ) return null;
+    	
+    	Block currentBlock = null;
+    	World world = baseBlock.getWorld();
+    	int maxY = 127;
+    	int y = (int)baseBlock.getY();
+    	int currentMaterial;
+    	int surfaceId = surface.getId();
+    	int groundId = ground.getId();
+    	
+    	currentMaterial = world.getBlockTypeIdAt(x, y, z);
+    	if( currentMaterial == surfaceId )
+    	{
+    		//Assume we're above the ground and decrease Y
+    		for( int i = 1; i < settings.verticalRadius; i++ )
+    		{
+    			if( (y - i) < 0 )
+    			{
+    				break;
+    			}
+    			currentMaterial = world.getBlockTypeIdAt(x, y - i, z);
+    			if( currentMaterial == groundId )
+    			{
+    				currentBlock = world.getBlockAt(x, y - i, z);
+    				if( withinEnabledBiome(currentBlock) ) break;
+    				else currentBlock = null;
+    			}
+    		}
+    	}
+    	else if( currentMaterial == groundId )
+    	{
+    		//Assume we're already on top, thus check for surface material
+    		if( world.getBlockTypeIdAt(x, y + 1, z) == surfaceId )
+    		{
+    			currentBlock = world.getBlockAt(x, y, z);
+    		}
+    		else
+    		{
+    			//Assume we're Underground and increase Y
+    			for( int i = 1; i < settings.verticalRadius; i++ )
+    			{
+    				if( (y + i) >= maxY )
+    				{
+    					break;
+    				}
+    				currentMaterial = world.getBlockTypeIdAt(x, y + i, z);
+    				if( currentMaterial == surfaceId )
+    				{
+        				currentBlock = world.getBlockAt(x, y + i, z).getRelative(BlockFace.DOWN);
+        				if( withinEnabledBiome(currentBlock) ) break;
+        				else currentBlock = null;
+    				}
+    			}
+    		}
+    	}
+    	return currentBlock;
     }
     
     /*
@@ -124,17 +191,18 @@ public class BlockCrawler
      */
     public Block getRandomBlock(Location baseBlock, Material material)
     {
-    	Block retVal = null;
     	World world = baseBlock.getWorld();
     	int hRange = settings.growthRange;
     	int vRange = settings.verticalRadius;
     	
-    	double pX = baseBlock.getX();
-    	double pZ = baseBlock.getZ();
-    	double pY = baseBlock.getY();
+    	int pX = (int)baseBlock.getX();
+    	int pZ = (int)baseBlock.getZ();
+    	int pY = (int)baseBlock.getY();
 
-    	Block currentBlock;
-    	double tX, tY, tZ;
+    	Block currentBlock = null;
+    	int materialId = material.getId();
+    	int currentMaterial;
+    	int tX, tY, tZ;
 
     	for( int i = 0; i < maxCycle; i++ )
     	{
@@ -142,15 +210,18 @@ public class BlockCrawler
        		tY = pY + getRandomRangeValue(vRange);
     		tZ = pZ + getRandomRangeValue(hRange);
 
-    		currentBlock = world.getBlockAt((int)tX, (int)tY , (int)tZ);
-    		if( currentBlock != null && withinEnabledBiome(currentBlock) && currentBlock.getType() == material )
+    		currentMaterial = world.getBlockTypeIdAt(tX, tY , tZ);
+    		if( currentMaterial == materialId )
     		{
-    			retVal = currentBlock;
-    			if( Vegetation.debugging ) logOutput("Found random block of material: " + currentBlock.getType().toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ());
-    			break;
+    			currentBlock = world.getBlockAt(tX, tY, tZ);
+    			if( withinEnabledBiome(currentBlock) )
+    			{
+        			if( Vegetation.debugging ) logOutput("Found random block of material: " + currentBlock.getType().toString() + " " + currentBlock.getX() + "," + currentBlock.getY() + "," + currentBlock.getZ());
+        			break;
+    			}
     		}
     	}
-    	return retVal;
+    	return currentBlock;
     }
     
     /*
@@ -161,14 +232,13 @@ public class BlockCrawler
      */
 	public Block getRandomTopBlock(Location baseBlock, Material surface)
     {
-    	Block retVal = null;
     	int range = settings.growthRange;
     	
-    	double pX = baseBlock.getX();
-    	double pZ = baseBlock.getZ();
+    	int pX = (int)baseBlock.getX();
+    	int pZ = (int)baseBlock.getZ();
 
-    	Block currentBlock;
-    	double tX, tZ;
+    	Block currentBlock = null;
+    	int tX, tZ;
 
     	for( int i = 0; i < maxCycle; i++ )
     	{
@@ -176,14 +246,13 @@ public class BlockCrawler
     		tZ = pZ + getRandomRangeValue(range);
 
     		currentBlock = getTopBlock(baseBlock, tX, tZ, surface);
-    		if( currentBlock != null && withinEnabledBiome(currentBlock) )
+    		if( currentBlock != null )
     		{
-    			retVal = currentBlock;
-    			if( Vegetation.debugging ) logOutput("Found random block of material: " + currentBlock.getType().toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ());
+    			if( Vegetation.debugging ) logOutput("Found random block of material: " + currentBlock.getType().toString() + " " + currentBlock.getX() + "," + currentBlock.getY() + "," + currentBlock.getZ());
     			break;
     		}
     	}
-    	return retVal;
+    	return currentBlock;
     }
     
     /*
@@ -195,29 +264,27 @@ public class BlockCrawler
      */
 	public Block getRandomTopBlock(Location baseBlock, Material material, Material surface)
     {
-    	Block retVal = null;
     	int range = settings.growthRange;
     	
-    	double pX = baseBlock.getX();
-    	double pZ = baseBlock.getZ();
+    	int pX = (int)baseBlock.getX();
+    	int pZ = (int)baseBlock.getZ();
 
-    	Block currentBlock;
-    	double tX, tZ;
+    	Block currentBlock = null;
+    	int tX, tZ;
 
     	for( int i = 0; i < maxCycle; i++ )
     	{
        		tX = pX + getRandomRangeValue(range);
     		tZ = pZ + getRandomRangeValue(range);
 
-    		currentBlock = getTopBlock(baseBlock, tX, tZ, surface);
-    		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( withinEnabledBiome(currentBlock) ) )
+    		currentBlock = getTopBlock(baseBlock, tX, tZ, material, surface);
+    		if( currentBlock != null )
     		{
-    			retVal = currentBlock;
-    			if( Vegetation.debugging ) logOutput("Found random block of material: " + material.toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ());
+    			if( Vegetation.debugging ) logOutput("Found random block of material: " + material.toString() + " " + currentBlock.getX() + "," + currentBlock.getY() + "," + currentBlock.getZ());
     			break;
     		}
     	}
-    	return retVal;
+    	return currentBlock;
     }
 	
     /*
@@ -230,28 +297,25 @@ public class BlockCrawler
      */
 	public Block getRandomTopBlock(Location baseBlock, Material material, Material surface, int range)
     {
-    	Block retVal = null;
-    	
-    	double pX = baseBlock.getX();
-    	double pZ = baseBlock.getZ();
+    	int pX = (int)baseBlock.getX();
+    	int pZ = (int)baseBlock.getZ();
 
-    	Block currentBlock;
-    	double tX, tZ;
+    	Block currentBlock = null;
+    	int tX, tZ;
 
     	for( int i = 0; i < maxCycle; i++ )
     	{
        		tX = pX + getRandomRangeValue(range);
     		tZ = pZ + getRandomRangeValue(range);
 
-    		currentBlock = getTopBlock(baseBlock, tX, tZ, surface);
-    		if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( withinEnabledBiome(currentBlock) ) )
+    		currentBlock = getTopBlock(baseBlock, tX, tZ, material, surface);
+    		if( currentBlock != null )
     		{
-    			retVal = currentBlock;
-    			if( Vegetation.debugging ) logOutput("Found random block of material: " + material.toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ());
+    			if( Vegetation.debugging ) logOutput("Found random block of material: " + material.toString() + " " + currentBlock.getX() + "," + currentBlock.getY() + "," + currentBlock.getZ());
     			break;
     		}
     	}
-    	return retVal;
+    	return currentBlock;
     }
 	
     /*
@@ -265,32 +329,29 @@ public class BlockCrawler
      */
 	public Block getRandomTopBlock(Location baseBlock, Material material, Material surface, int minRange, int maxRange)
     {
-    	Block retVal = null;
-    	
-    	double pX = baseBlock.getX();
-    	double pZ = baseBlock.getZ();
+    	int pX = (int)baseBlock.getX();
+    	int pZ = (int)baseBlock.getZ();
 
-    	Block currentBlock;
-    	double tX, tZ;
+    	Block currentBlock = null;
+    	int tX, tZ;
 
     	for( int i = 0; i < maxCycle; i++ )
     	{
        		tX = pX + getRandomRangeValue(maxRange);
     		tZ = pZ + getRandomRangeValue(maxRange);
 
-    		//Cacti destroy each other if they are too close togehter
+    		//Cacti destroy each other if they are too close together
     		if( (tX - pX >= minRange ) && (tZ - pZ) >= minRange )
     		{
-    			currentBlock = getTopBlock(baseBlock, tX, tZ, surface);
-    			if( ( currentBlock != null ) && ( currentBlock.getType() == material ) && ( withinEnabledBiome(currentBlock) ) )
+    			currentBlock = getTopBlock(baseBlock, tX, tZ, material, surface);
+    			if( currentBlock != null )
     			{
-    				retVal = currentBlock;
-    				if( Vegetation.debugging ) logOutput("Found random block of material: " + material.toString() + " " + retVal.getX() + "," + retVal.getY() + "," + retVal.getZ());
+    				if( Vegetation.debugging ) logOutput("Found random block of material: " + material.toString() + " " + currentBlock.getX() + "," + currentBlock.getY() + "," + currentBlock.getZ());
     				break;
     			}
     		}
     	}
-    	return retVal;
+    	return currentBlock;
     }
 
 	/*
@@ -353,6 +414,10 @@ public class BlockCrawler
     	{
     		return true;
     	}
+    	else if( block.getRelative(BlockFace.DOWN).getType() == material )
+    	{
+    		return true;
+    	}
     	else
     	{
     		return false;
@@ -402,9 +467,9 @@ public class BlockCrawler
      * @param range
      * @return
      */
-    public double getRandomRangeValue(int range)
+    public int getRandomRangeValue(int range)
     {
-    	int retVal = 0;
+    	int retVal;
     	int V = Vegetation.generator.nextInt(6);
     	
     	switch(V)
@@ -450,26 +515,26 @@ public class BlockCrawler
     public float getFieldDensity(Block centerBlock, int range, Material[] material)
     {
     	Location location = centerBlock.getLocation();
-    	double pX = centerBlock.getX();
-    	double pZ = centerBlock.getZ();
+    	int pX = centerBlock.getX();
+    	int pZ = centerBlock.getZ();
     	double blockCountInRange = Math.pow(2*range + 1, 2);
     	int populatedBlocks = 0;
     	float density = 0.0f;
     	Block currentBlock = null;
-    	Material CurrentM;
+    	Material currentMaterial;
     	
-       	for( double x = pX-range; x <= pX+range; x++ )
+       	for( int x = pX-range; x <= pX+range; x++ )
     	{
-    		for( double z = pZ-range; z <= pZ+range; z++ )
+    		for( int z = pZ-range; z <= pZ+range; z++ )
     		{
     			currentBlock = getTopBlock(location, x, z, Material.AIR);
     			if( currentBlock != null )
     			{
-    				CurrentM = currentBlock.getType();
+    				currentMaterial = currentBlock.getType();
     				
     				for( int i = 0; i < material.length; i++ )
     				{
-    					if( CurrentM == material[i] )
+    					if( currentMaterial == material[i] )
     					{
     						populatedBlocks++;
     						break;
@@ -483,5 +548,31 @@ public class BlockCrawler
        		density = (float)populatedBlocks / (float)blockCountInRange;
        	}
     	return density;
+    }
+    
+    public ArrayList<Block> getBlocksInRange(Block centerBlock, Material material, int range)
+    {
+    	ArrayList<Block> blocks = new ArrayList<Block>();
+    	World world = centerBlock.getWorld();
+    	Location center = centerBlock.getLocation();
+    	int materialId = material.getId();
+    	int cX = (int)center.getX();
+    	int cY = (int)center.getY();
+    	int cZ = (int)center.getZ();
+    	
+    	for( int y = cY-range; y <= cY+range; y++ )
+    	{
+           	for( int x = cX-range; x <= cX+range; x++ )
+        	{
+        		for( int z = cZ-range; z <= cZ+range; z++ )
+        		{
+        			if( world.getBlockTypeIdAt(x, y, z) == materialId )
+        			{
+        				blocks.add(world.getBlockAt(x, y, z));
+        			}
+        		}
+        	}
+    	}
+    	return blocks;
     }
 }
