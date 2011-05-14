@@ -130,7 +130,7 @@ public class Timer implements Runnable {
 						{
 							if ( settings.enablePlants && settings.enableFlowers && ( plantTicks > 0 ) )
 							{
-								vWorld.plants.growPlant( currentBlock , Material.YELLOW_FLOWER );
+								vWorld.plants.growPlant( currentBlock , Material.RED_ROSE );
 								plantTicks--;
 							}
 							
@@ -148,7 +148,7 @@ public class Timer implements Runnable {
 						{
 							if ( settings.enablePlants && settings.enableFlowers && ( plantTicks > 0 ) )
 							{
-								vWorld.plants.growPlant( currentBlock , Material.YELLOW_FLOWER );
+								vWorld.plants.growPlant( currentBlock , Material.RED_ROSE );
 								plantTicks--;
 							}
 							break;
@@ -157,7 +157,7 @@ public class Timer implements Runnable {
 						{
 							if ( settings.enablePlants && settings.enableLilyPads && ( lilyPadTicks > 0 ) )
 							{
-								vWorld.plants.growPlant( currentBlock , Material.YELLOW_FLOWER );
+								vWorld.plants.growPlant( currentBlock , Material.RED_ROSE );
 								lilyPadTicks--;
 							}
 							break;
