@@ -19,15 +19,16 @@ import org.bukkit.inventory.ItemStack;
 
 public class VegetationPlayerListener extends PlayerListener
 {
-	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
+	public void logOutput( String text ) { Vegetation.logOutput( text ); }
 
-	public static Vegetation plugin;
+	private final Vegetation plugin;
 	
-	public VegetationPlayerListener( Vegetation instance ) 
+	public VegetationPlayerListener(final Vegetation instance) 
 	{
 		plugin = instance;
 	}
 
+	@Override
 	public void onPlayerInteract(PlayerInteractEvent event)
 	{
 		if( !(event.getAction() == Action.RIGHT_CLICK_BLOCK) ) return;
@@ -74,6 +75,7 @@ public class VegetationPlayerListener extends PlayerListener
 		}
 	}
 	
+	@Override
 	public void onPlayerQuit(PlayerQuitEvent event)
 	{
 		Player p = event.getPlayer();
@@ -81,6 +83,7 @@ public class VegetationPlayerListener extends PlayerListener
 		if( vWorld != null ) vWorld.playerList.removePlayer(p);
 	}
 	
+	@Override
 	public void onPlayerLogin (PlayerLoginEvent event)
 	{
 		Player p = event.getPlayer();
@@ -88,6 +91,7 @@ public class VegetationPlayerListener extends PlayerListener
 		if( vWorld != null ) vWorld.playerList.addPlayer(p);
 	}
 	
+	@Override
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
 		Player player = event.getPlayer();
@@ -110,6 +114,7 @@ public class VegetationPlayerListener extends PlayerListener
 		}
 	}
 	
+	@Override
 	public void onPlayerTeleport(PlayerTeleportEvent event)
 	{
 		String oldWorld = event.getFrom().getWorld().getName();
