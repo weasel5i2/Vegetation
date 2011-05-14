@@ -139,7 +139,7 @@ public class BlockCrawler
     	if( currentMaterial == surfaceId )
     	{
     		//Assume we're above the ground and decrease Y
-    		for( int i = 1; i < settings.verticalRadius; i++ )
+    		for( int i = 1; i <= settings.verticalRadius; i++ )
     		{
     			if( (y - i) < 0 )
     			{
@@ -167,7 +167,7 @@ public class BlockCrawler
     	else if( currentMaterial == groundId )
     	{
     		//Assume we're Underground and increase Y
-    		for( int i = 1; i < settings.verticalRadius; i++ )
+    		for( int i = 1; i <= settings.verticalRadius; i++ )
     		{
     			if( (y + i) > maxY )
     			{
