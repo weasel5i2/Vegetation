@@ -51,7 +51,6 @@ public class VegetationPlayerListener extends PlayerListener
 			{
 				event.setCancelled(true);
 				int currentBlockType;
-				//event.setCancelled(true);
 				for( int i = 2; i < 5; i++ )
 				{
 					currentBlockType = world.getBlockTypeIdAt(x, y + i, z);
