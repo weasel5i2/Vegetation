@@ -37,7 +37,10 @@ public class VegetationPlayerListener extends PlayerListener
 		ItemStack heldItem = player.getItemInHand();
 		HashSet<Byte> transparentBlocks = new HashSet<Byte>();
 		transparentBlocks.add((byte)Material.AIR.getId());
-		transparentBlocks.add((byte)Material.STATIONARY_WATER.getId()); 
+		transparentBlocks.add((byte)Material.STATIONARY_WATER.getId());
+		transparentBlocks.add((byte)Material.YELLOW_FLOWER.getId());
+		transparentBlocks.add((byte)Material.RED_ROSE.getId());
+		
 		Block targetBlock = player.getTargetBlock(transparentBlocks, 100);
 		Location location = targetBlock.getLocation();
 		
