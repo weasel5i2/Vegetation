@@ -29,13 +29,18 @@ public class Plants
 		Block emptyBlock;
 		Material plantBlockMaterial = plantBlock.getRelative(BlockFace.DOWN).getType();
 		//Get surrounding block and place new plant
-		for( int i = 0; i < maxSpreadAmount; i++ )
+		for( int i = 0; i < 150; i++ )
 		{
 			emptyBlock = blockCrawler.getRandomTopBlock(plantBlock.getLocation() , plantBlockMaterial, Material.AIR, 3);
 			if( emptyBlock != null )
 			{
 				emptyBlock.getRelative(BlockFace.UP).setType(plantType);
+				if( growSinglePlant(emptyBlock, plantType) )
+				{
+					maxSpreadAmount--;
+				}
 				if( Vegetation.debugging ) logOutput("Planting at: " + emptyBlock.getX() + " " + emptyBlock.getY() + " " + emptyBlock.getZ());
+				if( maxSpreadAmount <= 0 ) break;
 			}
 
 		}
@@ -43,8 +48,45 @@ public class Plants
 	
 	public boolean growSinglePlant(Block block, Material plantType)
 	{
-		block.getRelative(BlockFace.UP).setType(plantType);
-		if( Vegetation.debugging ) logOutput("Planting at: " + block.getX() + " " + block.getY() + " " + block.getZ());
-		return true;
+		int lightLevel = block.getRelative(BlockFace.UP).getLightLevel();
+		switch( plantType )
+		{
+		case YELLOW_FLOWER:
+			if( lightLevel > 7 )
+			{
+				block.getRelative(BlockFace.UP).setType(plantType);
+				return true;
+			}
+			break;
+			
+		case RED_ROSE:
+			if( lightLevel > 7 )
+			{
+				block.getRelative(BlockFace.UP).setType(plantType);
+				return true;
+			}
+			break;
+			
+		case RED_MUSHROOM:
+			if( lightLevel < 2 )
+			{
+				block.getRelative(BlockFace.UP).setType(plantType);
+				return true;
+			}
+			break;
+			
+		case BROWN_MUSHROOM:
+			if( lightLevel < 2 )
+			{
+				block.getRelative(BlockFace.UP).setType(plantType);
+				return true;
+			}
+			break;
+		
+		default:
+			block.getRelative(BlockFace.UP).setType(plantType);
+			return true;
+		}
+		return false;
 	}
 }
