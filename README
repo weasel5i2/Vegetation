@@ -9,6 +9,11 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.2.1 14-May-2011
+* fixed a nasty bug where plants, especially lilies would sometime replace a block instead of growing on one
+* flowers and mushrooms now only grow if the light level is appropriate
+* fixed a bug with planting flowers on water
+
 Version 3.2 12-May-2011
 * separate settings for world added
 * lily pads added
