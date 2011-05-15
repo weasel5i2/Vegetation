@@ -13,7 +13,7 @@ public class Timer implements Runnable {
 	private VegetationWorld vWorld;
 	private Settings settings;
 	private long LastTick = System.currentTimeMillis();
-	private long UpdateTicks = 400;
+	private long UpdateTicks = 200;
 	private int ActiveTickCount = 100;
 	
 	private int plantTicks;

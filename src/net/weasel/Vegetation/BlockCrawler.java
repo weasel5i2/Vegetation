@@ -73,6 +73,7 @@ public class BlockCrawler
     		{
     			if( (y - i) < 0 )
     			{
+    				currentBlock = null;
     				break;
     			}
     			currentMaterial = world.getBlockTypeIdAt(x, y - i, z);
@@ -86,27 +87,20 @@ public class BlockCrawler
     	}
     	else if( currentMaterial != surfaceId )
     	{
-    		//Assume we're already on top, thus check for surface material
-    		if( world.getBlockTypeIdAt(x, y + 1, z) == surfaceId )
+    		//Assume we're Underground and increase Y
+    		for( int i = 1; i < settings.verticalRadius; i++ )
     		{
-    			currentBlock = world.getBlockAt(x, y, z);
-    		}
-    		else
-    		{
-    			//Assume we're Underground and increase Y
-    			for( int i = 1; i < settings.verticalRadius; i++ )
+    			if( (y + i) > maxY )
     			{
-    				if( (y + i) >= maxY )
-    				{
-    					break;
-    				}
-    				currentMaterial = world.getBlockTypeIdAt(x, y + i, z);
-    				if( currentMaterial == surfaceId )
-    				{
-        				currentBlock = world.getBlockAt(x, y + i, z).getRelative(BlockFace.DOWN);
-        				if( withinEnabledBiome(currentBlock) ) break;
-        				else currentBlock = null;
-    				}
+    				currentBlock = null;
+    				break;
+    			}
+    			currentMaterial = world.getBlockTypeIdAt(x, y + i, z);
+    			if( currentMaterial == surfaceId )
+    			{
+    				currentBlock = world.getBlockAt(x, y + i - 1, z);
+    				if( withinEnabledBiome(currentBlock) ) break;
+    				else currentBlock = null;
     			}
     		}
     	}
