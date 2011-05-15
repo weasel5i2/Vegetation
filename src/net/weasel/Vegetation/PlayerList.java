@@ -13,6 +13,7 @@ public class PlayerList {
 	private World world;
 	private ArrayList<String> players;
 	private int posIndex;
+	private Mutex mutex;
 	
 	public PlayerList(Vegetation p, World w)
 	{
@@ -20,10 +21,13 @@ public class PlayerList {
 		world = w;
 		players = new ArrayList<String>();
 		posIndex = 0;
+		mutex = new Mutex();
 	}
 	
-	public synchronized void getActivePlayerList()
+	public void getActivePlayerList()
 	{
+		mutex.aquire();
+		
 		players.clear();
 		
 		for( Player p: world.getPlayers() )
@@ -32,11 +36,15 @@ public class PlayerList {
 		}
 		
 		posIndex = 0;
+		
+		mutex.release();
 	}
 	
-	public synchronized Player getNextPlayer()
+	public Player getNextPlayer()
 	{
-		//logOutput("PlayerList: " + world.getName() + " - " + players.size());
+		mutex.aquire();
+		
+		if( posIndex > (players.size() - 1) ) posIndex = 0;
 		
 		Player player = null;
 		
@@ -46,40 +54,38 @@ public class PlayerList {
 			player = plugin.getServer().getPlayer(players.get(posIndex));
 			posIndex++;
 		}
-		// reset to first position and return that player
-		else if( posIndex > (players.size() - 1))
-		{
-			posIndex = 0;
-			player = plugin.getServer().getPlayer(players.get(posIndex));
-			posIndex++;
-		}
 		// return nothing
 		else if( players.size() == 0 )
 		{
 			posIndex = 0;
 		}
-		//default
-		else
-		{
-			posIndex = 0;
-		}
+		
+		mutex.release();
 		return player;
 	}
 	
-	public synchronized void addPlayer(Player player)
+	public void addPlayer(Player player)
 	{
+		mutex.aquire();
+		
 		if( !(players.contains(player.getName())) )
 		{
 			players.add(player.getName());
 		}
+		
+		mutex.release();
 	}
 	
-	public synchronized void removePlayer(Player player)
+	public void removePlayer(Player player)
 	{
+		mutex.aquire();
+		
 		if( players.contains(player.getName()) )
 		{
 			players.remove(player.getName());
 			players.trimToSize();
 		}
+		
+		mutex.release();
 	}
 }
