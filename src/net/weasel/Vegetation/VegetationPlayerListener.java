@@ -9,9 +9,9 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -84,7 +84,7 @@ public class VegetationPlayerListener extends PlayerListener
 	}
 	
 	@Override
-	public void onPlayerLogin (PlayerLoginEvent event)
+	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		Player p = event.getPlayer();
 		VegetationWorld vWorld = Vegetation.vWorlds.get(p.getWorld().getName());
