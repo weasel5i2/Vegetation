@@ -68,7 +68,7 @@ public class Plants
 			break;
 			
 		case RED_MUSHROOM:
-			if( lightLevel < 2 )
+			if( lightLevel < 1 )
 			{
 				block.getRelative(BlockFace.UP).setType(plantType);
 				return true;
@@ -76,7 +76,7 @@ public class Plants
 			break;
 			
 		case BROWN_MUSHROOM:
-			if( lightLevel < 2 )
+			if( lightLevel < 1 )
 			{
 				block.getRelative(BlockFace.UP).setType(plantType);
 				return true;
