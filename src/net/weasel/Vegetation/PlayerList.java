@@ -40,16 +40,25 @@ public class PlayerList {
 		
 		Player player = null;
 		
-		if ( posIndex < (players.size() - 1) )
+		//get next position
+		if( posIndex <= (players.size() - 1) )
 		{
 			player = plugin.getServer().getPlayer(players.get(posIndex));
 			posIndex++;
 		}
-		else if ( players.size() > 0 )
+		// reset to first position and return that player
+		else if( posIndex > (players.size() - 1))
 		{
 			posIndex = 0;
 			player = plugin.getServer().getPlayer(players.get(posIndex));
+			posIndex++;
 		}
+		// return nothing
+		else if( players.size() == 0 )
+		{
+			posIndex = 0;
+		}
+		//default
 		else
 		{
 			posIndex = 0;
