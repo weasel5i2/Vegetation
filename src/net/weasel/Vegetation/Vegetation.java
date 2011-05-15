@@ -60,10 +60,6 @@ public class Vegetation extends JavaPlugin
 		pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, plugin);
 		//pm.registerEvent(Type.BLOCK_BREAK, BlockListener, Event.Priority.Normal, plugin);
 		
-		
-		//create VegetationWorld objects for loaded worlds
-		loadWorldSettings();
-		
 		//enable permission and register commands
 		if( setupPermissions() )
 		{
@@ -83,6 +79,9 @@ public class Vegetation extends JavaPlugin
 			else
 				logOutput( "Unable to create folder!" );
 		}
+		
+		//create VegetationWorld objects for loaded worlds
+		loadWorldSettings();
 
 		debugging = new File("plugins/Vegetation/debug.txt").exists();
 		if( debugging ) logOutput( "debugging is enabled." );
