@@ -36,23 +36,42 @@ public class VegetationPlayerListener extends PlayerListener
 		Player player = event.getPlayer();
 		World world = player.getWorld();
 		ItemStack heldItem = player.getItemInHand();
-		HashSet<Byte> transparentBlocks = new HashSet<Byte>();
-		transparentBlocks.add((byte)Material.AIR.getId());
-		transparentBlocks.add((byte)Material.STATIONARY_WATER.getId());
-		transparentBlocks.add((byte)Material.YELLOW_FLOWER.getId());
-		transparentBlocks.add((byte)Material.RED_ROSE.getId());
-		
-		Block targetBlock = player.getTargetBlock(transparentBlocks, 100);
-		Location location = targetBlock.getLocation();
-		
-		int x = (int)location.getX();
-		int y = (int)location.getY();
-		int z = (int)location.getZ();
-		
-		if( world.getBlockTypeIdAt(x, y + 1, z) == Material.STATIONARY_WATER.getId() )
+		Material heldItemType = heldItem.getType();
+		if( heldItemType == Material.WOOD_HOE || heldItemType == Material.STONE_HOE || heldItemType == Material.IRON_HOE
+				|| heldItemType == Material.GOLD_HOE || heldItemType == Material.DIAMOND_HOE )
 		{
-			if( heldItem.getType() == Material.YELLOW_FLOWER || heldItem.getType() == Material.RED_ROSE )
+			Block targetBlock = player.getTargetBlock(null, 100);
+			byte data = targetBlock.getData();
+			if( targetBlock.getType() == Material.GRASS && data > 1 )
 			{
+				event.setCancelled(true);
+				if( data - 3 < 0 )
+				{
+					targetBlock.setData((byte)0);
+				}
+				else
+				{
+					targetBlock.setData((byte)(data - 3));
+				}
+			}
+		}
+		else if( heldItemType == Material.YELLOW_FLOWER || heldItemType == Material.RED_ROSE )
+		{
+			HashSet<Byte> transparentBlocks = new HashSet<Byte>();
+			transparentBlocks.add((byte)Material.AIR.getId());
+			transparentBlocks.add((byte)Material.STATIONARY_WATER.getId());
+			transparentBlocks.add((byte)Material.YELLOW_FLOWER.getId());
+			transparentBlocks.add((byte)Material.RED_ROSE.getId());
+			
+			Block targetBlock = player.getTargetBlock(transparentBlocks, 100);
+			Location location = targetBlock.getLocation();
+			
+			int x = (int)location.getX();
+			int y = (int)location.getY();
+			int z = (int)location.getZ();
+			
+			if( world.getBlockTypeIdAt(x, y + 1, z) == Material.STATIONARY_WATER.getId() )
+			{	
 				event.setCancelled(true);
 				int currentBlockType;
 				for( int i = 2; i < 5; i++ )
@@ -61,7 +80,7 @@ public class VegetationPlayerListener extends PlayerListener
 					if( currentBlockType == Material.AIR.getId() )
 					{
 						targetBlock = world.getBlockAt(x, y + i, z);
-						targetBlock.setType(heldItem.getType());
+						targetBlock.setType(heldItemType);
 						heldItem.setAmount(heldItem.getAmount() - 1);
 						if( heldItem.getAmount() == 0) player.setItemInHand(null);
 						break;
@@ -103,11 +122,15 @@ public class VegetationPlayerListener extends PlayerListener
 			{
 				if( !player.isSneaking() )
 				{
-					Block B = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
-					if( B.getType() == Material.GRASS )
+					Block block = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
+					int r = Vegetation.generator.nextInt(10);
+					if( r > 6 )
 					{
-						byte data = B.getData();
-						if( data >= 2 ) B.setData( (byte)(data - 2) );
+						if( block.getType() == Material.GRASS )
+						{
+							byte data = block.getData();
+							if( data > 0 ) block.setData( (byte)(data - 1) );
+						}
 					}
 				}
 			}
