@@ -58,7 +58,9 @@ public class Vegetation extends JavaPlugin
 		pm.registerEvent(Type.PLAYER_JOIN, PlayerListener, Event.Priority.Normal, plugin);
 		pm.registerEvent(Type.PLAYER_TELEPORT, PlayerListener, Event.Priority.Normal, plugin);
 		pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, plugin);
-		//pm.registerEvent(Type.BLOCK_BREAK, BlockListener, Event.Priority.Normal, plugin);
+		pm.registerEvent(Type.BLOCK_BREAK, BlockListener, Event.Priority.Normal, plugin);
+		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener, Event.Priority.Normal, plugin);
+
 		
 		//enable permission and register commands
 		if( setupPermissions() )

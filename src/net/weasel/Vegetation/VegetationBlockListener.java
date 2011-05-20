@@ -6,6 +6,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockListener;
+import org.bukkit.event.block.BlockPhysicsEvent;
 
 public class VegetationBlockListener extends BlockListener
 {
@@ -33,18 +34,8 @@ public class VegetationBlockListener extends BlockListener
 			int y = (int)location.getY();
 			int z = (int)location.getZ();
 			
-			block.setType(Material.AIR);
-			
-			for( int i = 0; i < 2; i++ )
-			{
-				if( world.getBlockTypeIdAt(x, y + i, z) == Material.SUGAR_CANE_BLOCK.getId() )
-				{
-					world.getBlockAt(x, y + i, z).setType(Material.AIR);
-				}
-				else break;
-			}
-			
-			for( int i = 0; i < 2; i++ )
+			// Get the sugar cane block nearest to ground
+			for( int i = 0; i < 3; i++ )
 			{
 				if( world.getBlockTypeIdAt(x, y - i, z) == Material.SUGAR_CANE_BLOCK.getId() )
 				{
@@ -52,6 +43,25 @@ public class VegetationBlockListener extends BlockListener
 				}
 				else break;
 			}
+			
+			for( int i = 0; i < 3; i++ )
+			{
+				if( world.getBlockTypeIdAt(x, y + i, z) == Material.SUGAR_CANE_BLOCK.getId() )
+				{
+					world.getBlockAt(x, y + i, z).setType(Material.AIR);
+				}
+				else break;
+			}
+		}
+	}
+	
+	@Override
+	public void onBlockPhysics(BlockPhysicsEvent event)
+	{
+		Block block = event.getBlock();
+		if( block.getType() == Material.SUGAR_CANE_BLOCK && block.getData() == 15 )
+		{
+			event.setCancelled(true);
 		}
 	}
 	
