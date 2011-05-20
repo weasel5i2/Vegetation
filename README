@@ -9,6 +9,11 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.2.2 20-May-2011
+* vines will no longer drop sugar canes
+* player can now mow grass with hoes
+* trampleGrass changed so that it appears more natural
+
 Version 3.2.1 14-May-2011
 * fixed a nasty bug where plants, especially lilies would sometime replace a block instead of growing on one
 * flowers and mushrooms now only grow if the light level is appropriate
