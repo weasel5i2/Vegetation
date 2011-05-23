@@ -18,7 +18,14 @@ public class Plants
 	public void growPlant(Block plantBlock, Material plantType)
 	{
 		Material[] material = { Material.YELLOW_FLOWER, Material.RED_ROSE, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.PUMPKIN };
-		if( blockCrawler.getFieldDensity(plantBlock, 3, material) > 0.1 ) return;
+		if( plantType == Material.RED_ROSE || plantType == Material.YELLOW_FLOWER )
+		{
+			if( blockCrawler.getFieldDensity(plantBlock, 3, material) > 0.1 ) return;
+		}
+		else if( plantType == Material.RED_MUSHROOM || plantType == Material.BROWN_MUSHROOM )
+		{
+			if( blockCrawler.getFieldDensity(plantBlock, 3, material) > 0.05 ) return;
+		}
 		
 		if( Vegetation.debugging ) logOutput("Spreading plants..");
 
@@ -26,7 +33,7 @@ public class Plants
 		
 		if( Vegetation.debugging ) logOutput("Spreading Type of Plant: " + plantType.toString());
 		
-		Block emptyBlock;
+		Block emptyBlock = null;
 		Material plantBlockMaterial = plantBlock.getRelative(BlockFace.DOWN).getType();
 		//Get surrounding block and place new plant
 		for( int i = 0; i < 150; i++ )
@@ -34,7 +41,7 @@ public class Plants
 			emptyBlock = blockCrawler.getRandomTopBlock(plantBlock.getLocation() , plantBlockMaterial, Material.AIR, 3);
 			if( emptyBlock != null )
 			{
-				emptyBlock.getRelative(BlockFace.UP).setType(plantType);
+				//emptyBlock.getRelative(BlockFace.UP).setType(plantType);
 				if( growSinglePlant(emptyBlock, plantType) )
 				{
 					maxSpreadAmount--;
@@ -52,7 +59,7 @@ public class Plants
 		switch( plantType )
 		{
 		case YELLOW_FLOWER:
-			if( lightLevel > 7 )
+			if( lightLevel >= 8 )
 			{
 				block.getRelative(BlockFace.UP).setType(plantType);
 				return true;
@@ -60,7 +67,7 @@ public class Plants
 			break;
 			
 		case RED_ROSE:
-			if( lightLevel > 7 )
+			if( lightLevel >= 8 )
 			{
 				block.getRelative(BlockFace.UP).setType(plantType);
 				return true;
@@ -68,7 +75,7 @@ public class Plants
 			break;
 			
 		case RED_MUSHROOM:
-			if( lightLevel < 1 )
+			if( lightLevel <= 13 )
 			{
 				block.getRelative(BlockFace.UP).setType(plantType);
 				return true;
@@ -76,7 +83,7 @@ public class Plants
 			break;
 			
 		case BROWN_MUSHROOM:
-			if( lightLevel < 1 )
+			if( lightLevel <= 13 )
 			{
 				block.getRelative(BlockFace.UP).setType(plantType);
 				return true;
