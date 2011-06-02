@@ -35,7 +35,11 @@ public class Grass
 
 
 		int V = block.getData();
-		if( V > maxGrassHeight + 1 )
+		if( V > 0 ) block.setData((byte)0);
+		
+		// 0 = dead bush, 1 = green grass, 2 = tall green grass
+		block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
+		/*if( V > maxGrassHeight + 1 )
 		{
 			block.setData((byte)(maxGrassHeight + 1));
 			if( Vegetation.debugging ) logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + V);
@@ -50,14 +54,6 @@ public class Grass
 				block.setData((byte)V);
 				if( Vegetation.debugging ) logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + V);
 			}
-		}
-
-		/*if( (int)B.getData() == 0 )
-		{
-			int V = Vegetation.generator.nextInt(10);
-			if( V < 2 ) V = 2;
-			if( Vegetation.debugging ) logOutput( "Adjusting block " + B.getX() + "," + B.getY() + "," + B.getZ() + "V:" + V );
-			B.setData( (byte)V );
 		}*/
 	}
     
