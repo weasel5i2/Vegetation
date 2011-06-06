@@ -62,7 +62,7 @@ public class Vegetation extends JavaPlugin
 		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, plugin);
 		pm.registerEvent(Type.PLAYER_JOIN, PlayerListener, Event.Priority.Normal, plugin);
 		pm.registerEvent(Type.PLAYER_TELEPORT, PlayerListener, Event.Priority.Normal, plugin);
-		pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, plugin);
+		//pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, plugin);
 		pm.registerEvent(Type.BLOCK_BREAK, BlockListener, Event.Priority.Normal, plugin);
 		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener, Event.Priority.Normal, plugin);
 
@@ -99,24 +99,6 @@ public class Vegetation extends JavaPlugin
 		if( debugging ) logOutput( "debugging is enabled." );
 		
         logOutput( pluginName + " v" + pluginVersion + " enabled." );
-    	
-        /*if( !enableGrass && !enableGrazers && !enableMoss && !enablePlants )
-        {
-        	logOutput( "No vegetation is enabled. Disabling plugin." );
-            this.getPluginLoader().disablePlugin(this);
-        }
-        else if( !growForestBiome && !growRainforestBiome && ! growShrublandBiome &&
-        		 !growSavannahBiome && !growPlainsBiome && !growSeasonalForestBiome &&
-        		 !growIceDesertBiome && !growHellBiome && !growDesertBiome &&
-        		 !growDesertBiome && !growSwamplandBiome && !growTaigaBiome && !growTundraBiome )
-        {
-        	logOutput( "No Biome Type is enabled. Disabling plugin." );
-        	this.getPluginLoader().disablePlugin(this);
-        }
-        else
-        {
-            tTask = setupTimerTask( 10, 1 );
-        }*/
         
         //start timers
         Iterator<String> it = vWorlds.keySet().iterator();

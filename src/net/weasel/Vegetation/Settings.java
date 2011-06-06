@@ -99,10 +99,10 @@ public class Settings {
 	{
 	
 			enableGrass = getBooleanSetting( "enableGrass" , false );
-	        maxGrassHeight = getIntSetting( "maxGrassHeight", 9 );
+	        //maxGrassHeight = getIntSetting( "maxGrassHeight", 9 );
 	        
-	        if( maxGrassHeight < 0 ) maxGrassHeight = 0;
-	        else if( maxGrassHeight > 9 ) maxGrassHeight = 9;
+	        //if( maxGrassHeight < 0 ) maxGrassHeight = 0;
+	        //else if( maxGrassHeight > 9 ) maxGrassHeight = 9;
 	        
 	        enablePlants = getBooleanSetting( "enablePlants", false );
 	    	enablePumpkins = getBooleanSetting( "enablePumpkins", false );
@@ -124,7 +124,7 @@ public class Settings {
 	    	spreadAmountCacti = getIntSetting( "spreadAmountCacti", 5 );
 	    	spreadAmountSugarCane = getIntSetting( "spreadAmountSugarCane", 5 );
 	    	spreadAmountMoss = getIntSetting( "spreadAmountMoss", 5 );
-	    	trampleGrass = getBooleanSetting( "trampleGrass", false );
+	    	//trampleGrass = getBooleanSetting( "trampleGrass", false );
 
 	    	grazingSheep = getBooleanSetting( "grazingSheep", true );
 	    	grazingCows = getBooleanSetting( "grazingCows", true );
