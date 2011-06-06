@@ -39,7 +39,6 @@ public class BlockCrawler
 		else if( biome == Biome.ICE_DESERT && settings.growIceDesertBiome ) return true;
 		else if( biome == Biome.DESERT && settings.growDesertBiome ) return true;
 		else if( biome == Biome.SWAMPLAND && settings.growSwamplandBiome ) return true;
-		else if( biome == Biome.HELL && settings.growHellBiome ) return true;
 		else if( biome == Biome.TAIGA && settings.growTaigaBiome ) return true;
 		else if( biome == Biome.TUNDRA && settings.growTundraBiome ) return true;
 		else if( biome == Biome.SAVANNA && settings.growSavannahBiome ) return true;

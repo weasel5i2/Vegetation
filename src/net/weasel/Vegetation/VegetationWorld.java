@@ -33,7 +33,8 @@ public class VegetationWorld {
 		blocks = new BlockCrawler(settings);
 		cacti = new Cacti(blocks);
 		canes = new Canes(blocks);
-		grass = new Grass(blocks, settings.maxGrassHeight);
+		//grass = new Grass(blocks, settings.maxGrassHeight);
+		grass = new Grass(blocks, 0);
 		plants = new Plants(blocks);
 		grazers = new Grazers(world, settings);
 		moss = new Moss(blocks);

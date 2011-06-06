@@ -72,7 +72,6 @@ public class Settings {
 	public boolean growPlainsBiome;
 	public boolean growSeasonalForestBiome;
 	public boolean growIceDesertBiome;
-	public boolean growHellBiome;
 	public boolean growDesertBiome;
 	public boolean growSwamplandBiome;
 	public boolean growTaigaBiome;
@@ -99,10 +98,11 @@ public class Settings {
 	{
 	
 			enableGrass = getBooleanSetting( "enableGrass" , false );
-	        //maxGrassHeight = getIntSetting( "maxGrassHeight", 9 );
+			enableGrass = false;
+	        maxGrassHeight = getIntSetting( "maxGrassHeight", 9 );
 	        
-	        //if( maxGrassHeight < 0 ) maxGrassHeight = 0;
-	        //else if( maxGrassHeight > 9 ) maxGrassHeight = 9;
+	        if( maxGrassHeight < 0 ) maxGrassHeight = 0;
+	        else if( maxGrassHeight > 9 ) maxGrassHeight = 9;
 	        
 	        enablePlants = getBooleanSetting( "enablePlants", false );
 	    	enablePumpkins = getBooleanSetting( "enablePumpkins", false );
@@ -138,7 +138,6 @@ public class Settings {
 	    	growPlainsBiome = getBooleanSetting( "growPlainsBiome", true );
 	    	growSeasonalForestBiome = getBooleanSetting( "growSeasonalForestBiome", true );
 			growIceDesertBiome = getBooleanSetting( "growIceDesertBiome", true );
-			growHellBiome = getBooleanSetting( "growHellBiome", true );
 			growDesertBiome = getBooleanSetting( "growDesertBiome", true );
 			growSwamplandBiome = getBooleanSetting( "growSwamplandBiome", true );
 			growTaigaBiome = getBooleanSetting( "growTaigaBiome", true );

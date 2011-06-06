@@ -2,6 +2,7 @@ package net.weasel.Vegetation;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
@@ -34,11 +35,49 @@ public class Grass
 		if( Vegetation.debugging ) logOutput( "Growing grass.." );
 
 
-		int V = block.getData();
-		if( V > 0 ) block.setData((byte)0);
+		// clear meta data of grass blocks on the fly
+		int grassMeta = block.getData();
+		if( grassMeta > 0 ) block.setData((byte)0);
 		
-		// 0 = dead bush, 1 = green grass, 2 = tall green grass
-		block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
+		// 31 - Tall Grass Block
+		// 0 = dead bush, 1 = tall grass, 2 = bush
+		switch( block.getBiome() )
+		{
+		case FOREST:
+			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
+			break;
+			
+		case RAINFOREST:
+			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
+			break;
+			
+		case PLAINS:
+			break;
+			
+		case SWAMPLAND:
+			break;
+			
+		case TAIGA:
+			break;
+			
+		case TUNDRA:
+			break;
+			
+		case SAVANNA:
+			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
+			break;
+		
+		case SHRUBLAND:
+			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
+			break;
+			
+		case SEASONAL_FOREST:
+			break;
+			
+		default:
+			break;
+		}
+		
 		/*if( V > maxGrassHeight + 1 )
 		{
 			block.setData((byte)(maxGrassHeight + 1));

@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.weasel.Vegetation.commands.BiomeInfoCommand;
 import net.weasel.Vegetation.commands.GrowCommand;
 import net.weasel.Vegetation.commands.MowCommand;
 import net.weasel.Vegetation.commands.OpGrowCommand;
@@ -79,6 +80,8 @@ public class Vegetation extends JavaPlugin
 			getCommand("grow").setExecutor(new OpGrowCommand(this));
 	        getCommand("mow").setExecutor(new OpMowCommand(this));
 		}
+		
+		getCommand("biome").setExecutor(new BiomeInfoCommand(this));
 		
 		if( new File("plugins/Vegetation/").exists() == false )
 		{
