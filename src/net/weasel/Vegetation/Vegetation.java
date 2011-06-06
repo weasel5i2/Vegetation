@@ -75,7 +75,7 @@ public class Vegetation extends JavaPlugin
 		}
 		else
 		{
-			logOutput("Switching to OP commands");
+			logOutput("Switching to OP commands!");
 			getCommand("grow").setExecutor(new OpGrowCommand(this));
 	        getCommand("mow").setExecutor(new OpMowCommand(this));
 		}
@@ -157,7 +157,7 @@ public class Vegetation extends JavaPlugin
 	          }
 	          else
 	          {
-	              logOutput( "Permission system not detected. Commands won't work like this!" );
+	              logOutput( "Permission system not detected." );
 	              return false;
 	          }
 	      }

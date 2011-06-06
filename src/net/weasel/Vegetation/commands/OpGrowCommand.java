@@ -43,13 +43,13 @@ public class OpGrowCommand implements CommandExecutor{
 					
 					if( args.length == 1 )
 					{
-						Location playerLocation = ((Player) sender).getLocation();
+						Location playerLocation = P.getLocation();
 						int maxGrowAmount = 0;
 						String Arg = args[0];
 
 						if( Arg.equals("flower") )
 						{
-							sender.sendMessage("Growing flowers..");
+							P.sendMessage("Growing flowers..");
 							maxGrowAmount = settings.spreadAmountFlowers;
 							Material[] plantableBlocks = { Material.GRASS, Material.SAND, Material.STATIONARY_WATER };
 							int r = 0;
@@ -79,7 +79,7 @@ public class OpGrowCommand implements CommandExecutor{
 						}
 						else if( Arg.equals("mushroom") )
 						{
-							sender.sendMessage( "Growing mushrooms.." );
+							P.sendMessage( "Growing mushrooms.." );
 							maxGrowAmount = settings.spreadAmountFungi;
 							for (int I = 0; I < MaxCycle; I++)
 							{
@@ -105,7 +105,7 @@ public class OpGrowCommand implements CommandExecutor{
 						}
 						else if( Arg.equals("cactus") )
 						{
-							sender.sendMessage( "Growing cacti.." );
+							P.sendMessage( "Growing cacti.." );
 							maxGrowAmount = settings.spreadAmountCacti;
 							for (int I = 0; I < MaxCycle; I++)
 							{
@@ -123,7 +123,7 @@ public class OpGrowCommand implements CommandExecutor{
 						}
 						else if( Arg.equals("sugar_cane") )
 						{
-							sender.sendMessage( "Growing sugar canes.." );
+							P.sendMessage( "Growing sugar canes.." );
 							maxGrowAmount = settings.spreadAmountSugarCane;
 							for (int I = 0; I < MaxCycle; I++)
 							{
@@ -141,7 +141,7 @@ public class OpGrowCommand implements CommandExecutor{
 						}
 						else if( Arg.equals("moss") )
 						{
-							sender.sendMessage( "Growing moss.." );
+							P.sendMessage( "Growing moss.." );
 							maxGrowAmount = settings.spreadAmountMoss;
 							for (int I = 0; I < MaxCycle; I++)
 							{
@@ -186,6 +186,11 @@ public class OpGrowCommand implements CommandExecutor{
 						}
 					}
 				}
+			}
+			else
+			{
+				P.sendMessage("You don't have permission to use this command!");
+				return true;
 			}
 		}
 		return false;

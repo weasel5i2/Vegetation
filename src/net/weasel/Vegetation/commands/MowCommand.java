@@ -33,10 +33,15 @@ public class MowCommand implements CommandExecutor{
 				{
 					vWorld.increaseActivePlayerCommands();
 					vWorld.grass.mowGrass( P.getLocation() );
-					sender.sendMessage( "You have cut down the grass." );
+					P.sendMessage( "You have cut down the grass." );
 					vWorld.decreaseActivePlayerCommands();
 					return true;
 				}
+			}
+			else
+			{
+				P.sendMessage("You don't have permission to use this command!");
+				return true;
 			}
 		}
 		return false;
