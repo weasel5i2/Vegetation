@@ -1,4 +1,8 @@
-package net.weasel.Vegetation;
+package net.weasel.Vegetation.commands;
+
+import net.weasel.Vegetation.Settings;
+import net.weasel.Vegetation.Vegetation;
+import net.weasel.Vegetation.VegetationWorld;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

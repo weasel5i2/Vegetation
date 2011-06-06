@@ -7,6 +7,11 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.weasel.Vegetation.commands.GrowCommand;
+import net.weasel.Vegetation.commands.MowCommand;
+import net.weasel.Vegetation.commands.OpGrowCommand;
+import net.weasel.Vegetation.commands.OpMowCommand;
+
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
@@ -66,8 +71,13 @@ public class Vegetation extends JavaPlugin
 		if( setupPermissions() )
 		{
 			getCommand("grow").setExecutor(new GrowCommand(this));
-	        //getCommand("growall").setExecutor(new GrowAllCommand(this));
 	        getCommand("mow").setExecutor(new MowCommand(this));
+		}
+		else
+		{
+			logOutput("Switching to OP commands");
+			getCommand("grow").setExecutor(new OpGrowCommand(this));
+	        getCommand("mow").setExecutor(new OpMowCommand(this));
 		}
 		
 		if( new File("plugins/Vegetation/").exists() == false )
