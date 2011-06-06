@@ -47,45 +47,13 @@ public class GrowCommand implements CommandExecutor{
 						{
 							sender.sendMessage("Growing flowers..");
 							maxGrowAmount = settings.spreadAmountFlowers;
+							Material[] plantableBlocks = { Material.GRASS, Material.SAND, Material.STATIONARY_WATER };
+							int r = 0;
+							
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block currentBlock = vWorld.blocks.getRandomTopBlock(playerLocation, Material.GRASS, Material.AIR);
-								if( currentBlock != null )
-								{
-									if( I%2 == 0 )
-									{
-										if( vWorld.plants.growSinglePlant(currentBlock, Material.YELLOW_FLOWER) )
-											maxGrowAmount--;
-									}
-									else
-									{
-										if( vWorld.plants.growSinglePlant(currentBlock, Material.RED_ROSE) )
-											maxGrowAmount--;
-									}
-
-									if( maxGrowAmount <= 0 ) break;
-								}
-								currentBlock = null;
-								
-								currentBlock = vWorld.blocks.getRandomTopBlock(playerLocation, Material.SAND, Material.AIR);
-								if( currentBlock != null )
-								{
-									if( I%2 == 0 )
-									{
-										if( vWorld.plants.growSinglePlant(currentBlock, Material.YELLOW_FLOWER) )
-											maxGrowAmount--;
-									}
-									else
-									{
-										if( vWorld.plants.growSinglePlant(currentBlock, Material.RED_ROSE) )
-											maxGrowAmount--;
-									}
-
-									if( maxGrowAmount <= 0 ) break;
-								}
-								currentBlock = null;
-								
-								currentBlock = vWorld.blocks.getRandomTopBlock(playerLocation, Material.STATIONARY_WATER, Material.AIR);
+								r = Vegetation.generator.nextInt(plantableBlocks.length);
+								Block currentBlock = vWorld.blocks.getRandomTopBlock(playerLocation, plantableBlocks[r], Material.AIR);
 								if( currentBlock != null )
 								{
 									if( I%2 == 0 )
