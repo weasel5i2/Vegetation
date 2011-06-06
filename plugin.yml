@@ -1,6 +1,6 @@
 name: Vegetation
 main: net.weasel.Vegetation.Vegetation
-version: 3.2.2
+version: 3.3
 commands:
   mow:
     description: Mow the grass!

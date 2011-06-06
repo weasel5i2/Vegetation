@@ -9,6 +9,12 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.3 06-June-2011
+* implemented Operator commands for those who don't have Permissions installed on their server
+* disabled grass for now, pending investigation
+* fixed plant growth explosion
+* added "biome" player command, which will just tell you in which type of biome you currently in
+
 Version 3.2.2 20-May-2011
 * vines will no longer drop sugar canes
 * player can now mow grass with hoes
