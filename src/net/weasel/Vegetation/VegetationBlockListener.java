@@ -39,7 +39,7 @@ public class VegetationBlockListener extends BlockListener
 			{
 				if( world.getBlockTypeIdAt(x, y - i, z) == Material.SUGAR_CANE_BLOCK.getId() )
 				{
-					world.getBlockAt(x, y - i, z).setType(Material.AIR);
+					world.getBlockAt(x, y - i, z).setTypeIdAndData(Material.AIR.getId(), (byte)0, true);
 				}
 				else break;
 			}
@@ -48,7 +48,7 @@ public class VegetationBlockListener extends BlockListener
 			{
 				if( world.getBlockTypeIdAt(x, y + i, z) == Material.SUGAR_CANE_BLOCK.getId() )
 				{
-					world.getBlockAt(x, y + i, z).setType(Material.AIR);
+					world.getBlockAt(x, y - i, z).setTypeIdAndData(Material.AIR.getId(), (byte)0, true);
 				}
 				else break;
 			}
