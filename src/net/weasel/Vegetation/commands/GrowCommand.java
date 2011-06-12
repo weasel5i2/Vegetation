@@ -13,16 +13,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 
-public class GrowCommand implements CommandExecutor{
+public class GrowCommand implements CommandExecutor {
 
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
 	public static final int MaxCycle = 150;
 	
+	private Vegetation plugin;
 	
-	public GrowCommand( Vegetation Plugin )
+	
+	public GrowCommand(Vegetation instance)
 	{
-
+		this.plugin = instance;
 	}
 	
 	@Override

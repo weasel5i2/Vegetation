@@ -8,13 +8,15 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 
-public class MowCommand implements CommandExecutor{
+public class MowCommand implements CommandExecutor {
 
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
-	public MowCommand( Vegetation Plugin )
+	private Vegetation plugin;
+	
+	public MowCommand(Vegetation instance)
 	{
-
+		this.plugin = instance;
 	}
 	
 	@Override
