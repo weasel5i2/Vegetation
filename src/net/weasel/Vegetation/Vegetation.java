@@ -12,6 +12,8 @@ import net.weasel.Vegetation.commands.GrowCommand;
 import net.weasel.Vegetation.commands.MowCommand;
 import net.weasel.Vegetation.commands.OpGrowCommand;
 import net.weasel.Vegetation.commands.OpMowCommand;
+import net.weasel.Vegetation.commands.OpPurgeCommand;
+import net.weasel.Vegetation.commands.PurgeCommand;
 
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -31,7 +33,6 @@ public class Vegetation extends JavaPlugin
 	public static final Logger Log = Logger.getLogger("Minecraft");
 	public static PermissionHandler Permissions;
 	public static BukkitScheduler timer;
-	public static Vegetation plugin;
 	public static Server server;
 	public static VegetationPlayerListener PlayerListener;
 	public static VegetationBlockListener BlockListener;
@@ -49,23 +50,22 @@ public class Vegetation extends JavaPlugin
 	@Override
     public void onEnable() 
     {
-		plugin = this;
-		server = plugin.getServer();
+		server = getServer();
 		pm = server.getPluginManager();
-		PlayerListener = new VegetationPlayerListener(plugin);
-		BlockListener = new VegetationBlockListener(plugin);
+		PlayerListener = new VegetationPlayerListener(this);
+		BlockListener = new VegetationBlockListener(this);
 		
 		pluginName = this.getDescription().getName();
 		pluginVersion = this.getDescription().getVersion();
-		timer = plugin.getServer().getScheduler();
+		timer = getServer().getScheduler();
 		
-		pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener, Event.Priority.Normal, plugin);
-		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, plugin);
-		pm.registerEvent(Type.PLAYER_JOIN, PlayerListener, Event.Priority.Normal, plugin);
-		pm.registerEvent(Type.PLAYER_TELEPORT, PlayerListener, Event.Priority.Normal, plugin);
+		pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_JOIN, PlayerListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_TELEPORT, PlayerListener, Event.Priority.Normal, this);
 		//pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, plugin);
-		pm.registerEvent(Type.BLOCK_BREAK, BlockListener, Event.Priority.Normal, plugin);
-		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener, Event.Priority.Normal, plugin);
+		pm.registerEvent(Type.BLOCK_BREAK, BlockListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener, Event.Priority.Normal, this);
 
 		
 		//enable permission and register commands
@@ -73,12 +73,14 @@ public class Vegetation extends JavaPlugin
 		{
 			getCommand("grow").setExecutor(new GrowCommand(this));
 	        getCommand("mow").setExecutor(new MowCommand(this));
+	        getCommand("purge").setExecutor(new PurgeCommand(this));
 		}
 		else
 		{
 			logOutput("Switching to OP commands!");
 			getCommand("grow").setExecutor(new OpGrowCommand(this));
 	        getCommand("mow").setExecutor(new OpMowCommand(this));
+	        getCommand("purge").setExecutor(new OpPurgeCommand(this));
 		}
 		
 		getCommand("biome").setExecutor(new BiomeInfoCommand(this));
@@ -121,16 +123,16 @@ public class Vegetation extends JavaPlugin
     public void loadWorldSettings()
     {
     	vWorlds.clear();
-    	for( World w: plugin.getServer().getWorlds() )
+    	for( World w: this.getServer().getWorlds() )
     	{
     		if( w.getEnvironment() == Environment.NORMAL )
-    			vWorlds.put(w.getName(), new VegetationWorld(plugin, w));
+    			vWorlds.put(w.getName(), new VegetationWorld(this, w));
     	}
     }
     
-	public static boolean setupPermissions()
+	public boolean setupPermissions()
 	{
-	      Plugin test = plugin.getServer().getPluginManager().getPlugin("Permissions");
+	      Plugin test = this.getServer().getPluginManager().getPlugin("Permissions");
 
 	      if(Permissions == null)
 	      {

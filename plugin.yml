@@ -11,3 +11,6 @@ commands:
   biome:
     description: Returns the biome type the player is currently standing on
     usage: "Usage: /biome"
+  purge:
+    description: Purges the data of grass and vine blocks
+    usage: 

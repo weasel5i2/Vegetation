@@ -12,13 +12,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class OpPurgeCommand implements CommandExecutor {
+public class PurgeCommand implements CommandExecutor {
 
 	public static void logOutput( String text ) { Vegetation.logOutput( text ); }
 	
 	private Vegetation plugin;
 	
-	public OpPurgeCommand( Vegetation instance )
+	public PurgeCommand( Vegetation instance )
 	{
 		this.plugin = instance;
 	}
@@ -32,7 +32,7 @@ public class OpPurgeCommand implements CommandExecutor {
 			VegetationWorld vWorld = Vegetation.vWorlds.get(player.getWorld().getName());
 			Settings settings = vWorld.getSettings();
 			
-			if ( player.isOp() )
+			if ( Vegetation.Permissions.has(player, "vegetation.purge") )
 			{
 				if ( vWorld.getActivePlayerCommands() < settings.maxActivePlayerCommands )
 				{
@@ -99,3 +99,4 @@ public class OpPurgeCommand implements CommandExecutor {
 		return false;
 	}
 }
+
