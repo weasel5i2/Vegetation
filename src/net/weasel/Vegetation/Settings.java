@@ -124,7 +124,7 @@ public class Settings {
 	    	spreadAmountCacti = getIntSetting( "spreadAmountCacti", 5 );
 	    	spreadAmountSugarCane = getIntSetting( "spreadAmountSugarCane", 5 );
 	    	spreadAmountMoss = getIntSetting( "spreadAmountMoss", 5 );
-	    	//trampleGrass = getBooleanSetting( "trampleGrass", false );
+	    	trampleGrass = getBooleanSetting( "trampleGrass", false );
 
 	    	grazingSheep = getBooleanSetting( "grazingSheep", true );
 	    	grazingCows = getBooleanSetting( "grazingCows", true );

@@ -33,67 +33,25 @@ public class Grass
 	public void growGrass(Block block)
 	{	
 		if( Vegetation.debugging ) logOutput( "Growing grass.." );
-
-
-		// clear meta data of grass blocks on the fly
-		int grassMeta = block.getData();
-		if( grassMeta > 0 ) block.setData((byte)0);
 		
-		// 31 - Tall Grass Block
-		// 0 = dead bush, 1 = tall grass, 2 = bush
-		switch( block.getBiome() )
-		{
-		case FOREST:
-			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
-			break;
-			
-		case RAINFOREST:
-			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
-			break;
-			
-		case PLAINS:
-			break;
-			
-		case SWAMPLAND:
-			break;
-			
-		case TAIGA:
-			break;
-			
-		case TUNDRA:
-			break;
-			
-		case SAVANNA:
-			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
-			break;
+		int data = block.getData();
 		
-		case SHRUBLAND:
-			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
-			break;
-			
-		case SEASONAL_FOREST:
-			break;
-			
-		default:
-			break;
-		}
-		
-		/*if( V > maxGrassHeight + 1 )
+		if( data > maxGrassHeight + 1 )
 		{
 			block.setData((byte)(maxGrassHeight + 1));
-			if( Vegetation.debugging ) logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + V);
+			if( Vegetation.debugging ) logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + data);
 		}
 		else
 		{
-			V++;
-			if( V <= maxGrassHeight + 1 )
+			data++;
+			if( data <= maxGrassHeight + 1 )
 			{
-				if( V < 2 ) V = 2;
-				if( V > 10 ) V = 10;
-				block.setData((byte)V);
-				if( Vegetation.debugging ) logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + V);
+				if( data < 2 ) data = 2;
+				if( data > 10 ) data = 10;
+				block.setData((byte)data);
+				if( Vegetation.debugging ) logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + data);
 			}
-		}*/
+		}
 	}
     
 	/*

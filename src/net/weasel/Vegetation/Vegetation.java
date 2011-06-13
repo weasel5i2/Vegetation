@@ -15,7 +15,6 @@ import net.weasel.Vegetation.commands.OpMowCommand;
 import net.weasel.Vegetation.commands.OpPurgeCommand;
 import net.weasel.Vegetation.commands.PurgeCommand;
 
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.event.Event;
@@ -33,7 +32,6 @@ public class Vegetation extends JavaPlugin
 	public static final Logger Log = Logger.getLogger("Minecraft");
 	public static PermissionHandler Permissions;
 	public static BukkitScheduler timer;
-	public static Server server;
 	public static VegetationPlayerListener PlayerListener;
 	public static VegetationBlockListener BlockListener;
 	public static PluginManager pm;
@@ -50,8 +48,7 @@ public class Vegetation extends JavaPlugin
 	@Override
     public void onEnable() 
     {
-		server = getServer();
-		pm = server.getPluginManager();
+		pm = getServer().getPluginManager();
 		PlayerListener = new VegetationPlayerListener(this);
 		BlockListener = new VegetationBlockListener(this);
 		
@@ -63,7 +60,7 @@ public class Vegetation extends JavaPlugin
 		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.PLAYER_JOIN, PlayerListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.PLAYER_TELEPORT, PlayerListener, Event.Priority.Normal, this);
-		//pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, plugin);
+		pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, this);
 		pm.registerEvent(Type.BLOCK_BREAK, BlockListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener, Event.Priority.Normal, this);
 
