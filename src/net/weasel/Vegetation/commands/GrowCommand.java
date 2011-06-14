@@ -54,6 +54,7 @@ public class GrowCommand implements CommandExecutor {
 							if( !settings.enableFlowers )
 							{
 								P.sendMessage("Flower growth has been disabled. You can't grow them at this time.");
+								return true;
 							}
 							
 							P.sendMessage("Growing flowers..");
@@ -89,6 +90,7 @@ public class GrowCommand implements CommandExecutor {
 							if( !settings.enableFungi )
 							{
 								P.sendMessage("Mushroom growth has been disabled. You can't grow them at this time.");
+								return true;
 							}
 							
 							P.sendMessage( "Growing mushrooms.." );
@@ -120,6 +122,7 @@ public class GrowCommand implements CommandExecutor {
 							if( !settings.enableCacti )
 							{
 								P.sendMessage("Cactus growth has been disabled. You can't grow them at this time.");
+								return true;
 							}
 							
 							P.sendMessage( "Growing cacti.." );
@@ -143,6 +146,7 @@ public class GrowCommand implements CommandExecutor {
 							if( !settings.enableCanes )
 							{
 								P.sendMessage("Sugar Cane growth has been disabled. You can't grow them at this time.");
+								return true;
 							}
 							
 							P.sendMessage( "Growing sugar canes.." );
@@ -166,6 +170,7 @@ public class GrowCommand implements CommandExecutor {
 							if( !settings.enableMoss )
 							{
 								P.sendMessage("Moss growth has been disabled. You can't grow them at this time.");
+								return true;
 							}
 							
 							P.sendMessage( "Growing moss.." );
@@ -211,6 +216,7 @@ public class GrowCommand implements CommandExecutor {
 							if( !settings.enableTallGrass )
 							{
 								P.sendMessage("Scrub growth has been disabled. You can't grow them at this time.");
+								return true;
 							}
 							
 							P.sendMessage( "Growing scrubs.." );
