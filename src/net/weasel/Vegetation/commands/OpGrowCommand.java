@@ -50,6 +50,11 @@ public class OpGrowCommand implements CommandExecutor {
 
 						if( Arg.equals("flower") )
 						{
+							if( !settings.enableFlowers )
+							{
+								P.sendMessage("Flower growth has been disabled. You can't grow them at this time.");
+							}
+							
 							P.sendMessage("Growing flowers..");
 							maxGrowAmount = settings.spreadAmountFlowers;
 							Material[] plantableBlocks = { Material.GRASS, Material.SAND, Material.STATIONARY_WATER };
@@ -80,6 +85,11 @@ public class OpGrowCommand implements CommandExecutor {
 						}
 						else if( Arg.equals("mushroom") )
 						{
+							if( !settings.enableFungi )
+							{
+								P.sendMessage("Mushroom growth has been disabled. You can't grow them at this time.");
+							}
+							
 							P.sendMessage( "Growing mushrooms.." );
 							maxGrowAmount = settings.spreadAmountFungi;
 							for (int I = 0; I < MaxCycle; I++)
@@ -106,6 +116,11 @@ public class OpGrowCommand implements CommandExecutor {
 						}
 						else if( Arg.equals("cactus") )
 						{
+							if( !settings.enableCacti )
+							{
+								P.sendMessage("Cactus growth has been disabled. You can't grow them at this time.");
+							}
+							
 							P.sendMessage( "Growing cacti.." );
 							maxGrowAmount = settings.spreadAmountCacti;
 							for (int I = 0; I < MaxCycle; I++)
@@ -124,6 +139,11 @@ public class OpGrowCommand implements CommandExecutor {
 						}
 						else if( Arg.equals("sugar_cane") )
 						{
+							if( !settings.enableCanes )
+							{
+								P.sendMessage("Sugar Cane growth has been disabled. You can't grow them at this time.");
+							}
+							
 							P.sendMessage( "Growing sugar canes.." );
 							maxGrowAmount = settings.spreadAmountSugarCane;
 							for (int I = 0; I < MaxCycle; I++)
@@ -142,6 +162,11 @@ public class OpGrowCommand implements CommandExecutor {
 						}
 						else if( Arg.equals("moss") )
 						{
+							if( !settings.enableMoss )
+							{
+								P.sendMessage("Moss growth has been disabled. You can't grow them at this time.");
+							}
+							
 							P.sendMessage( "Growing moss.." );
 							maxGrowAmount = settings.spreadAmountMoss;
 							for (int I = 0; I < MaxCycle; I++)
@@ -175,6 +200,37 @@ public class OpGrowCommand implements CommandExecutor {
 									}
 								}
 
+								if( maxGrowAmount <= 0 ) break;
+							}
+							vWorld.decreaseActivePlayerCommands();
+							return true;
+						}
+						else if( Arg.equals("scrub"))
+						{
+							if( !settings.enableTallGrass )
+							{
+								P.sendMessage("Scrub growth has been disabled. You can't grow them at this time.");
+							}
+							
+							P.sendMessage( "Growing scrubs.." );
+							maxGrowAmount = settings.spreadAmountTallGrass;
+							for (int I = 0; I < MaxCycle; I++)
+							{
+								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.GRASS, Material.AIR );
+								if( CB != null )
+								{
+									vWorld.tGrass.growTallGrass( CB );
+									maxGrowAmount--;
+								}
+								if( maxGrowAmount <= 0 ) break;
+								
+								CB = null;
+								CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.SAND, Material.AIR );
+								if( CB != null )
+								{
+									vWorld.tGrass.growTallGrass( CB );
+									maxGrowAmount--;
+								}
 								if( maxGrowAmount <= 0 ) break;
 							}
 							vWorld.decreaseActivePlayerCommands();
