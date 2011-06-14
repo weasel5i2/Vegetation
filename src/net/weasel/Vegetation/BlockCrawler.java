@@ -555,6 +555,48 @@ public class BlockCrawler
     	return density;
     }
     
+    /*
+     * generates a density variable for give field of blocks
+     * formula is: (2*Range+1)^2 blocks
+     * @param centerBlock
+     * @param material
+     * @return float value between 0.0 and 1.0
+     */
+    public float getFieldDensity(Block centerBlock, int range, Material material)
+    {
+    	Location location = centerBlock.getLocation();
+    	int pX = centerBlock.getX();
+    	int pZ = centerBlock.getZ();
+    	double blockCountInRange = Math.pow(2*range + 1, 2);
+    	int populatedBlocks = 0;
+    	float density = 0.0f;
+    	Block currentBlock = null;
+    	Material currentMaterial;
+    	
+       	for( int x = pX-range; x <= pX+range; x++ )
+    	{
+    		for( int z = pZ-range; z <= pZ+range; z++ )
+    		{
+    			currentBlock = getTopBlock(location, x, z, Material.AIR);
+    			if( currentBlock != null )
+    			{
+    				currentMaterial = currentBlock.getType();
+    				
+    				if( currentMaterial == material )
+    				{
+    					populatedBlocks++;
+    					break;
+    				}
+    			}
+    		}
+    	}
+       	if( populatedBlocks > 0 )
+       	{
+       		density = (float)populatedBlocks / (float)blockCountInRange;
+       	}
+    	return density;
+    }
+    
     public ArrayList<Block> getBlocksInRange(Block centerBlock, Material material, int range)
     {
     	ArrayList<Block> blocks = new ArrayList<Block>();
