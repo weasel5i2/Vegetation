@@ -1,5 +1,6 @@
 package net.weasel.Vegetation;
 
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.Material;
@@ -30,6 +31,7 @@ public class Plants
 		if( Vegetation.debugging ) logOutput("Spreading plants..");
 
 		int maxSpreadAmount = 2;
+		Biome biome = plantBlock.getBiome();
 		
 		if( Vegetation.debugging ) logOutput("Spreading Type of Plant: " + plantType.toString());
 		
@@ -39,9 +41,8 @@ public class Plants
 		for( int i = 0; i < 150; i++ )
 		{
 			emptyBlock = blockCrawler.getRandomTopBlock(plantBlock.getLocation() , plantBlockMaterial, Material.AIR, 3);
-			if( emptyBlock != null )
+			if( emptyBlock != null && emptyBlock.getBiome() == biome )
 			{
-				//emptyBlock.getRelative(BlockFace.UP).setType(plantType);
 				if( growSinglePlant(emptyBlock, plantType) )
 				{
 					maxSpreadAmount--;
