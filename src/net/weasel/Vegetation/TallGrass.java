@@ -18,7 +18,8 @@ public class TallGrass {
 	
 	public void growTallGrass(Block block)
 	{
-		// 31 - Tall Grass Block
+		// 31 - Material.LONG_GRASS
+		// 32 - Material.DEAD_BUSH
 		// 0 = dead bush, 1 = tall grass, 2 = green bush
 		switch( block.getBiome() )
 		{

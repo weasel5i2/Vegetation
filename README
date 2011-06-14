@@ -9,6 +9,14 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.4 14-June-2011
+* added new purge command which removes vine blocks and resets grass blocks meta data (removes grass)
+* vines will only grow on normal trees
+* added Tall Grass aka Dead Scrubs, Tall Grass and Green Scrubs
+* added settings check for the grow command, players now only can grow plants which are also enabled in the settings
+* plants now only spread within their biome type
+* enabled wild grass and trample grass again
+
 Version 3.3 06-June-2011
 * implemented Operator commands for those who don't have Permissions installed on their server
 * disabled grass for now, pending investigation

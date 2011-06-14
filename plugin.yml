@@ -1,6 +1,6 @@
 name: Vegetation
 main: net.weasel.Vegetation.Vegetation
-version: 3.3
+version: 3.4
 commands:
   mow:
     description: Mow the grass!
@@ -13,4 +13,4 @@ commands:
     usage: "Usage: /biome"
   purge:
     description: Purges the data of grass and vine blocks
-    usage: 
+    usage: "usage: /purge"
