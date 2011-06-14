@@ -1,7 +1,6 @@
 package net.weasel.Vegetation.commands;
 
 import net.weasel.Vegetation.Vegetation;
-import net.weasel.Vegetation.VegetationWorld;
 
 import org.bukkit.block.Biome;
 import org.bukkit.command.Command;
