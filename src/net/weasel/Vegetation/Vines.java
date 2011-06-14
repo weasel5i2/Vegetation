@@ -48,9 +48,7 @@ public class Vines
 	}
 	
 	public ArrayList<Block> getTreeTrunk(Block baseBlock)
-	{
-		if(baseBlock.getData() != 0) return null;
-		
+	{	
 		ArrayList<Block> treeTrunk = new ArrayList<Block>();
 		treeTrunk.add(baseBlock);
 		
