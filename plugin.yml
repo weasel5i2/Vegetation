@@ -7,7 +7,7 @@ commands:
     usage:
   grow:
     description: Grows the specified type of plant
-    usage: "Usage: /grow [type]  (type = flower/mushroom/cactus/sugar_cane/moss)"
+    usage: "Usage: /grow [type]  (type = flower/mushroom/cactus/sugar_cane/moss/scrub)"
   biome:
     description: Returns the biome type the player is currently standing on
     usage: "Usage: /biome"
