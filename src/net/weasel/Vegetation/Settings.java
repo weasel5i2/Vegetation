@@ -24,6 +24,7 @@ public class Settings {
 	
 	// Growth-related stuff
 	public int grassPercent;
+	public int tallGrassPercent;
 	public int plantsPercent;
 	public int mossPercent;
 	public int vinePercent;
@@ -38,6 +39,7 @@ public class Settings {
 
 	// On/off switches
 	public boolean enableGrass;
+	public boolean enableTallGrass;
 	public boolean enablePlants;
 	public boolean enablePumpkins;
 	public boolean enableFlowers;
@@ -56,6 +58,7 @@ public class Settings {
 	public int spreadAmountFungi;
 	public int spreadAmountSugarCane;
 	public int spreadAmountMoss;
+	public int spreadAmountTallGrass;
 
 	// Grazing-related stuff..
 	public int maxGrazingAnimalsCount;
@@ -97,8 +100,8 @@ public class Settings {
 	public void readSettings()
 	{
 	
-			enableGrass = getBooleanSetting( "enableGrass" , false );
-			enableGrass = false;
+			enableGrass = getBooleanSetting( "enableGrass", false );
+			enableTallGrass = getBooleanSetting( "enableTallGrass", false );
 	        maxGrassHeight = getIntSetting( "maxGrassHeight", 9 );
 	        
 	        if( maxGrassHeight < 0 ) maxGrassHeight = 0;
@@ -124,6 +127,7 @@ public class Settings {
 	    	spreadAmountCacti = getIntSetting( "spreadAmountCacti", 5 );
 	    	spreadAmountSugarCane = getIntSetting( "spreadAmountSugarCane", 5 );
 	    	spreadAmountMoss = getIntSetting( "spreadAmountMoss", 5 );
+	    	spreadAmountTallGrass = getIntSetting( "spreadAmountTallGrass", 5 );
 	    	trampleGrass = getBooleanSetting( "trampleGrass", false );
 
 	    	grazingSheep = getBooleanSetting( "grazingSheep", true );
@@ -147,6 +151,7 @@ public class Settings {
 	    	verticalRadius = getIntSetting( "verticalRadius", 10 );
 	    	
 	    	grassPercent = getIntSetting( "grassPercent", 40 );
+	    	tallGrassPercent = getIntSetting( "tallGrassPercent", 20 );
 	    	plantsPercent = getIntSetting( "plantsPercent", 5 );
 	    	mossPercent = getIntSetting( "mossPercent", 5 );
 	    	vinePercent = getIntSetting( "vinePercent", 5 );
@@ -300,6 +305,7 @@ public class Settings {
 			outP.println( "" );
 			outP.println( "/* Vegetation Settings:" );
 			outP.println( "enableGrass=false" );
+			outP.println( "enableTallGrass=false" );
 			outP.println( "" );
 			outP.println( "/* Set max grass height from 1-9" );
 			outP.println( "maxGrassHeight=9" );
@@ -325,6 +331,7 @@ public class Settings {
 			outP.println( "spreadAmountCacti=5" );
 			outP.println( "spreadAmountSugarCane=5" );
 			outP.println( "spreadAmountMoss=5" );
+			outP.println( "spreadAmountTallGrass=5" );
 			outP.println( "/* The player will trample a path through the grass if set to true." );
 			outP.println( "trampleGrass=false" );
 			outP.println( "" );
@@ -360,6 +367,7 @@ public class Settings {
 			outP.println( "/* (Example: If grassPercent is set to 60, there is the possibility " );
 			outP.println( "/*  of grass growing at 60/100 ticks if a grass block is found 60 times. " );
 			outP.println( "grassPercent=40" );
+			outP.println( "tallGrassPercent=20" );
 			outP.println( "plantsPercent=5" );
 			outP.println( "mossPercent=5" );
 			outP.println( "lilyPadPercent=5" );

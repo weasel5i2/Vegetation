@@ -19,6 +19,7 @@ public class VegetationWorld {
 	public final Grazers grazers;
 	public final Moss moss;
 	public final Vines vines;
+	public final TallGrass tGrass;
 	
 	private int activePlayerCommands = 0;
 	
@@ -26,8 +27,7 @@ public class VegetationWorld {
 	{
 		plugin = p;
 		world = w;
-		String wName = w.getName();
-		settings = new Settings("plugins/Vegetation/" + wName + ".ini");
+		settings = new Settings("plugins/Vegetation/" + w.getName() + ".ini");
 		playerList = new PlayerList(plugin, world);
 		playerList.getActivePlayerList();
 		blocks = new BlockCrawler(settings);
@@ -38,6 +38,7 @@ public class VegetationWorld {
 		grazers = new Grazers(world, settings);
 		moss = new Moss(blocks);
 		vines = new Vines(blocks);
+		tGrass = new TallGrass(blocks);
 		
 		logOutput("Settings for world [" + w.getName() + "] loaded.");
 	}

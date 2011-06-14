@@ -22,6 +22,7 @@ public class Timer implements Runnable {
 	private int mossTicks;
 	private int vineTicks;
 	private int grazeTicks;
+	private int tallGrassTicks;
 	
 	public Timer(VegetationWorld vw)
 	{
@@ -42,6 +43,7 @@ public class Timer implements Runnable {
 			mossTicks = settings.mossPercent;
 			grazeTicks = settings.grazePercent;
 			vineTicks = settings.vinePercent;
+			tallGrassTicks = settings.tallGrassPercent;
 			ActiveTickCount = 0;
 		}
 		
@@ -221,18 +223,39 @@ public class Timer implements Runnable {
 						}
 						break;
 						
+					case LONG_GRASS:
+						if( settings.enableTallGrass && ( tallGrassTicks > 0 ) )
+						{
+							vWorld.tGrass.spreadTallGrass(currentBlock);
+							tallGrassTicks--;
+						}
+						break;
+						
+					case DEAD_BUSH:
+						if( settings.enableTallGrass && ( tallGrassTicks > 0 ) )
+						{
+							vWorld.tGrass.spreadTallGrass(currentBlock);
+							tallGrassTicks--;
+						}
+						break;
+						
 					default:
 						break;
 					}
 				}
 				currentBlock = null;
 				
+				// Vines
 				currentBlock = vWorld.blocks.getRandomBlock( playerLocation, Material.LOG );
 				if( currentBlock != null )
 				{
 					if ( settings.enableVines && ( vineTicks > 0 ) )
 					{
-						vWorld.vines.growVines( currentBlock );
+						// only grow vines on normal trees
+						if( currentBlock.getData() == 0 )
+						{
+							vWorld.vines.growVines( currentBlock );
+						}
 						vineTicks--;
 					}
 				}
