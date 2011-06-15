@@ -71,9 +71,7 @@ public class OpPurgeCommand implements CommandExecutor {
 									{
 										if( snapChunk.getBlockData(x, y, z) == 15 )
 										{
-											chunks[i].getBlock(x, y, z).setType(Material.AIR);
-											chunks[i].getBlock(x, y, z).setData((byte)0);
-											world.refreshChunk(chunks[i].getX(), chunks[i].getZ());
+											chunks[i].getBlock(x, y, z).setTypeIdAndData(Material.AIR.getId(), (byte)0, true);
 											blockCount++;
 										}
 									}
