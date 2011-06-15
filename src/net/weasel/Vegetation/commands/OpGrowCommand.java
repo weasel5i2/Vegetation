@@ -39,11 +39,11 @@ public class OpGrowCommand implements CommandExecutor {
 			{
 				// Todo: implement command queue
 				if ( vWorld.getActivePlayerCommands() < settings.maxActivePlayerCommands )
-				{
-					vWorld.increaseActivePlayerCommands();
-					
+				{	
 					if( args.length == 1 )
 					{
+						vWorld.increaseActivePlayerCommands();
+						
 						Location playerLocation = P.getLocation();
 						int maxGrowAmount = 0;
 						String Arg = args[0];
@@ -64,7 +64,7 @@ public class OpGrowCommand implements CommandExecutor {
 							for (int I = 0; I < MaxCycle; I++)
 							{
 								r = Vegetation.generator.nextInt(plantableBlocks.length);
-								Block currentBlock = vWorld.blocks.getRandomTopBlock(playerLocation, plantableBlocks[r], Material.AIR);
+								Block currentBlock = vWorld.blockCrawler.getRandomTopBlock(playerLocation, plantableBlocks[r], Material.AIR);
 								if( currentBlock != null )
 								{
 									if( I%2 == 0 )
@@ -96,7 +96,7 @@ public class OpGrowCommand implements CommandExecutor {
 							maxGrowAmount = settings.spreadAmountFungi;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.GRASS, Material.AIR );
+								Block CB = vWorld.blockCrawler.getRandomTopBlock( playerLocation, Material.GRASS, Material.AIR );
 								if( CB != null )
 								{
 									if( I%2 == 0 )
@@ -128,7 +128,7 @@ public class OpGrowCommand implements CommandExecutor {
 							maxGrowAmount = settings.spreadAmountCacti;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.SAND, Material.AIR );
+								Block CB = vWorld.blockCrawler.getRandomTopBlock( playerLocation, Material.SAND, Material.AIR );
 								if( CB != null )
 								{
 									if( vWorld.cacti.growSingleCacti( CB ) )
@@ -152,7 +152,7 @@ public class OpGrowCommand implements CommandExecutor {
 							maxGrowAmount = settings.spreadAmountSugarCane;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.GRASS, Material.AIR );
+								Block CB = vWorld.blockCrawler.getRandomTopBlock( playerLocation, Material.GRASS, Material.AIR );
 								if( CB != null )
 								{
 									if( vWorld.canes.growSingleCane( CB ) )
@@ -176,7 +176,7 @@ public class OpGrowCommand implements CommandExecutor {
 							maxGrowAmount = settings.spreadAmountMoss;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.COBBLESTONE, Material.STATIONARY_WATER );
+								Block CB = vWorld.blockCrawler.getRandomTopBlock( playerLocation, Material.COBBLESTONE, Material.STATIONARY_WATER );
 								if( CB != null )
 								{
 									if( vWorld.moss.growSingleMoss( CB ))
@@ -184,7 +184,7 @@ public class OpGrowCommand implements CommandExecutor {
 								}
 								else
 								{
-									CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.COBBLESTONE, Material.WATER );
+									CB = vWorld.blockCrawler.getRandomTopBlock( playerLocation, Material.COBBLESTONE, Material.WATER );
 									if( CB != null )
 									{
 										if( vWorld.moss.growSingleMoss( CB ))
@@ -192,11 +192,11 @@ public class OpGrowCommand implements CommandExecutor {
 									}
 									else
 									{
-										CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.COBBLESTONE, Material.AIR );
+										CB = vWorld.blockCrawler.getRandomTopBlock( playerLocation, Material.COBBLESTONE, Material.AIR );
 										if( CB != null )
 										{
-											if( vWorld.blocks.isAdjacentofBlockType2( CB  , Material.STATIONARY_WATER )
-													|| vWorld.blocks.isAdjacentofBlockType2( CB  , Material.WATER ) )
+											if( vWorld.blockCrawler.isAdjacentofBlockType2( CB  , Material.STATIONARY_WATER )
+													|| vWorld.blockCrawler.isAdjacentofBlockType2( CB  , Material.WATER ) )
 											{
 												if( vWorld.moss.growSingleMoss( CB ))
 													maxGrowAmount--;
@@ -222,7 +222,7 @@ public class OpGrowCommand implements CommandExecutor {
 							maxGrowAmount = settings.spreadAmountTallGrass;
 							for (int I = 0; I < MaxCycle; I++)
 							{
-								Block CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.GRASS, Material.AIR );
+								Block CB = vWorld.blockCrawler.getRandomTopBlock( playerLocation, Material.GRASS, Material.AIR );
 								if( CB != null )
 								{
 									vWorld.tGrass.growTallGrass( CB );
@@ -231,7 +231,7 @@ public class OpGrowCommand implements CommandExecutor {
 								if( maxGrowAmount <= 0 ) break;
 								
 								CB = null;
-								CB = vWorld.blocks.getRandomTopBlock( playerLocation, Material.SAND, Material.AIR );
+								CB = vWorld.blockCrawler.getRandomTopBlock( playerLocation, Material.SAND, Material.AIR );
 								if( CB != null )
 								{
 									vWorld.tGrass.growTallGrass( CB );
