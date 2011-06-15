@@ -7,6 +7,7 @@ import net.weasel.Vegetation.VegetationWorld;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,7 +30,8 @@ public class OpPurgeCommand implements CommandExecutor {
 		if(sender instanceof Player)
 		{
 			Player player = (Player)sender;
-			VegetationWorld vWorld = Vegetation.vWorlds.get(player.getWorld().getName());
+			World world = player.getWorld();
+			VegetationWorld vWorld = Vegetation.vWorlds.get(world.getName());
 			Settings settings = vWorld.getSettings();
 			
 			if ( player.isOp() )
@@ -61,6 +63,7 @@ public class OpPurgeCommand implements CommandExecutor {
 										if( snapChunk.getBlockData(x, y, z) > 0 )
 										{
 											chunks[i].getBlock(x, y, z).setData((byte)0);
+											world.refreshChunk(chunks[i].getX(), chunks[i].getZ());
 											blockCount++;
 										}
 									}
@@ -70,6 +73,7 @@ public class OpPurgeCommand implements CommandExecutor {
 										{
 											chunks[i].getBlock(x, y, z).setType(Material.AIR);
 											chunks[i].getBlock(x, y, z).setData((byte)0);
+											world.refreshChunk(chunks[i].getX(), chunks[i].getZ());
 											blockCount++;
 										}
 									}

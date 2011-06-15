@@ -2,6 +2,7 @@ package net.weasel.Vegetation;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
@@ -9,6 +10,7 @@ public class Grass
 {
 	public void logOutput(String text) { Vegetation.logOutput(text); }
 	
+	private World world;
 	private BlockCrawler blockCrawler;
 	private int maxGrassHeight;
 	
@@ -18,10 +20,11 @@ public class Grass
 	 * @param b
 	 * @param maxHeight
 	 */
-	public Grass(BlockCrawler b, int maxHeight)
+	public Grass(World world, BlockCrawler blockCrawler, int maxGrassHeight)
 	{
-		blockCrawler = b;
-		maxGrassHeight = maxHeight;
+		this.world = world;
+		this.blockCrawler = blockCrawler;
+		this.maxGrassHeight = maxGrassHeight;
 	}
 	
 	/*
@@ -35,6 +38,8 @@ public class Grass
 		
 		int data = block.getData();
 		
+		if( data < 2 ) data = 2;
+		
 		if( data > maxGrassHeight + 1 )
 		{
 			block.setData((byte)(maxGrassHeight + 1));
@@ -43,11 +48,11 @@ public class Grass
 		else
 		{
 			data++;
-			if( data <= maxGrassHeight + 1 )
+			if( data < maxGrassHeight + 1 )
 			{
-				if( data < 2 ) data = 2;
-				if( data > 10 ) data = 10;
 				block.setData((byte)data);
+				// we only need to refresh the chunk if the grass is growing
+				world.refreshChunk(block.getChunk().getX(), block.getChunk().getZ());
 				if( Vegetation.debugging ) logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + data);
 			}
 		}
@@ -85,6 +90,7 @@ public class Grass
 	    			{
 	    				if( currentBlock.getRelative(BlockFace.DOWN).getType() == Material.GRASS )
 	    					currentBlock.getRelative(BlockFace.DOWN).setData((byte)0);
+	    				world.refreshChunk(currentBlock.getChunk().getX(), currentBlock.getChunk().getZ());
 	    			}
     			}
     		}

@@ -11,7 +11,7 @@ public class VegetationWorld {
 	
 	private Settings settings;
 	public final PlayerList playerList;
-	public final BlockCrawler blocks;
+	public final BlockCrawler blockCrawler;
 	public final Cacti cacti;
 	public final Canes canes;
 	public final Grass grass;
@@ -30,15 +30,15 @@ public class VegetationWorld {
 		settings = new Settings("plugins/Vegetation/" + w.getName() + ".ini");
 		playerList = new PlayerList(plugin, world);
 		playerList.getActivePlayerList();
-		blocks = new BlockCrawler(settings);
-		cacti = new Cacti(blocks);
-		canes = new Canes(blocks);
-		grass = new Grass(blocks, settings.maxGrassHeight);
-		plants = new Plants(blocks);
+		blockCrawler = new BlockCrawler(settings);
+		cacti = new Cacti(blockCrawler);
+		canes = new Canes(blockCrawler);
+		grass = new Grass(world, blockCrawler, settings.maxGrassHeight);
+		plants = new Plants(blockCrawler);
 		grazers = new Grazers(world, settings);
-		moss = new Moss(blocks);
-		vines = new Vines(blocks);
-		tGrass = new TallGrass(blocks);
+		moss = new Moss(blockCrawler);
+		vines = new Vines(blockCrawler);
+		tGrass = new TallGrass(blockCrawler);
 		
 		logOutput("Settings for world [" + w.getName() + "] loaded.");
 	}
