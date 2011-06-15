@@ -25,14 +25,17 @@ public class TallGrass {
 		{
 		case FOREST:
 			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
+			block.setData((byte)0);
 			break;
 			
 		case RAINFOREST:
 			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
+			block.setData((byte)0);
 			break;
 			
 		case PLAINS:
 			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
+			block.setData((byte)0);
 			break;
 			
 		case SWAMPLAND:
@@ -50,14 +53,17 @@ public class TallGrass {
 		
 		case SHRUBLAND:
 			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
+			block.setData((byte)0);
 			break;
 			
 		case SEASONAL_FOREST:
 			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
+			block.setData((byte)0);
 			break;
 			
 		case DESERT:
 			block.getRelative(BlockFace.UP).setTypeIdAndData(32, (byte) 0, false);
+			block.setData((byte)0);
 			break;
 			
 		default:
@@ -75,7 +81,7 @@ public class TallGrass {
 		}
 		else if( bushType == Material.DEAD_BUSH )
 		{
-			if( blockCrawler.getFieldDensity(bushBlock, 3, bushType) > 0.05 ) return;
+			if( blockCrawler.getFieldDensity(bushBlock, 3, bushType) > 0.03 ) return;
 		}
 		
 		Biome biome = bushBlock.getBiome();
@@ -91,6 +97,8 @@ public class TallGrass {
 			if( emptyBlock != null && emptyBlock.getBiome() == biome)
 			{
 				emptyBlock.getRelative(BlockFace.UP).setTypeIdAndData(bushType.getId(), (byte)data, true);
+				// remove wild grass
+				emptyBlock.setData((byte)0);
 				maxSpreadAmount--;
 
 				if( maxSpreadAmount <= 0 ) break;
