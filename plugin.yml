@@ -13,4 +13,4 @@ commands:
     usage: "Usage: /biome"
   purge:
     description: Purges the data of grass and vine blocks
-    usage: "usage: /purge"
+    usage: "Usage: /purge [type] (type = wild_grass, vines, tall_grass)"
