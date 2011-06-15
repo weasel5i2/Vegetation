@@ -54,7 +54,7 @@ public class Timer implements Runnable {
 			if( currentPlayer != null )
 			{
 				Location playerLocation = currentPlayer.getLocation();
-				Block currentBlock = vWorld.blocks.getRandomTopBlock( playerLocation, Material.AIR );
+				Block currentBlock = vWorld.blockCrawler.getRandomTopBlock( playerLocation, Material.AIR );
 				
 				//Todo: Implement delegates instead of switch case
 				if ( currentBlock != null )
@@ -246,7 +246,7 @@ public class Timer implements Runnable {
 				currentBlock = null;
 				
 				// Vines
-				currentBlock = vWorld.blocks.getRandomBlock( playerLocation, Material.LOG );
+				currentBlock = vWorld.blockCrawler.getRandomBlock( playerLocation, Material.LOG );
 				if( currentBlock != null )
 				{
 					if ( settings.enableVines && ( vineTicks > 0 ) )
