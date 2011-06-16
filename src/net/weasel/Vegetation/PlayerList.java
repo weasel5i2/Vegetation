@@ -11,7 +11,7 @@ public class PlayerList {
 	
 	private Vegetation plugin;
 	private World world;
-	private ArrayList<String> players;
+	private ArrayList<VegetationPlayer> players;
 	private int posIndex;
 	private Mutex mutex;
 	
@@ -19,7 +19,7 @@ public class PlayerList {
 	{
 		plugin = p;
 		world = w;
-		players = new ArrayList<String>();
+		players = new ArrayList<VegetationPlayer>();
 		posIndex = 0;
 		mutex = new Mutex();
 	}
@@ -30,9 +30,9 @@ public class PlayerList {
 		
 		players.clear();
 		
-		for( Player p: world.getPlayers() )
+		for( Player player: world.getPlayers() )
 		{
-			players.add(p.getName());
+			players.add(new VegetationPlayer(player.getName()));
 		}
 		
 		posIndex = 0;
@@ -51,7 +51,7 @@ public class PlayerList {
 		//get next position
 		if( posIndex <= (players.size() - 1) )
 		{
-			player = plugin.getServer().getPlayer(players.get(posIndex));
+			player = plugin.getServer().getPlayer(players.get(posIndex).getName());
 			posIndex++;
 		}
 		// return nothing
@@ -64,13 +64,25 @@ public class PlayerList {
 		return player;
 	}
 	
+	public VegetationPlayer getVegetationplayer(String name)
+	{
+		for(VegetationPlayer player: players)
+		{
+			if( name.equals(player.getName()) )
+			{
+				return player;
+			}
+		}
+		return null;
+	}
+	
 	public void addPlayer(Player player)
 	{
 		mutex.aquire();
 		
-		if( !(players.contains(player.getName())) )
+		if( !(contains(player.getName())) )
 		{
-			players.add(player.getName());
+			players.add(new VegetationPlayer(player.getName()));
 		}
 		
 		mutex.release();
@@ -80,12 +92,40 @@ public class PlayerList {
 	{
 		mutex.aquire();
 		
-		if( players.contains(player.getName()) )
+		if( contains(player.getName()) )
 		{
-			players.remove(player.getName());
+			remove(player.getName());
 			players.trimToSize();
 		}
 		
 		mutex.release();
+	}
+	
+	private void remove(String name)
+	{
+		for( int i = 0; i < players.size(); i++ )
+		{
+			if( name.equals(players.get(i).getName()) )
+			{
+				players.remove(i);
+			}
+		}
+	}
+	
+	private boolean contains(String name)
+	{
+		for( VegetationPlayer player: players )
+		{
+			if( name.equals(player.getName()) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public int getCountofPlayer()
+	{
+		return players.size();
 	}
 }

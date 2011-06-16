@@ -97,17 +97,21 @@ public class VegetationPlayerListener extends PlayerListener
 	@Override
 	public void onPlayerQuit(PlayerQuitEvent event)
 	{
-		Player p = event.getPlayer();
-		VegetationWorld vWorld = Vegetation.vWorlds.get(p.getWorld().getName());
-		if( vWorld != null ) vWorld.playerList.removePlayer(p);
+		Player player = event.getPlayer();
+		VegetationWorld vWorld = Vegetation.vWorlds.get(player.getWorld().getName());
+		if( vWorld != null ) vWorld.playerList.removePlayer(player);
 	}
 	
 	@Override
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		Player p = event.getPlayer();
-		VegetationWorld vWorld = Vegetation.vWorlds.get(p.getWorld().getName());
-		if( vWorld != null ) vWorld.playerList.addPlayer(p);
+		Player player = event.getPlayer();
+		VegetationWorld vWorld = Vegetation.vWorlds.get(player.getWorld().getName());
+		if( vWorld != null )
+		{
+			vWorld.playerList.addPlayer(player);
+			vWorld.playerList.getVegetationplayer(player.getName()).setLastBlockPosition(player.getLocation().getBlock());
+		}
 	}
 	
 	@Override
@@ -123,13 +127,15 @@ public class VegetationPlayerListener extends PlayerListener
 				if( !player.isSneaking() )
 				{
 					Block block = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
-					int r = Vegetation.generator.nextInt(10);
-					if( r > 6 )
+					if( block != vWorld.playerList.getVegetationplayer(player.getName()).getLastBlockPosition() )
 					{
+						vWorld.playerList.getVegetationplayer(player.getName()).setLastBlockPosition(block);
 						if( block.getType() == Material.GRASS )
 						{
 							byte data = block.getData();
-							if( data > 0 ) block.setData( (byte)(data - 1) );
+							//if( data > 0 && data - 2 > 0 ) block.setData((byte)(data - 2));
+							//else block.setData((byte)0);
+							if( data > 0 ) block.setData((byte)(data - 1));
 						}
 					}
 				}
@@ -153,6 +159,7 @@ public class VegetationPlayerListener extends PlayerListener
 			{
 				old.playerList.removePlayer(player);
 				current.playerList.addPlayer(player);
+				current.playerList.getVegetationplayer(player.getName()).setLastBlockPosition(player.getLocation().getBlock());
 			}
 		}
 	}
