@@ -42,13 +42,12 @@ public class OpPurgeCommand implements CommandExecutor {
 					{
 						vWorld.increaseActivePlayerCommands();
 						
-						player.sendMessage("Starting purge");
 						Chunk[] chunks = player.getWorld().getLoadedChunks();
 						int count = 0;
 						int blockCount = 0;
 						float chunkCount = chunks.length;
 						
-						if( args.equals("wild_grass") )
+						if( args[0].equals("wild_grass") )
 						{
 							for( int i = 0; i < chunkCount; i++ )
 							{
@@ -89,7 +88,7 @@ public class OpPurgeCommand implements CommandExecutor {
 								}
 							}	
 						}
-						else if( args.equals("vines") )
+						else if( args[0].equals("vines") )
 						{
 							for( int i = 0; i < chunkCount; i++ )
 							{
@@ -121,7 +120,7 @@ public class OpPurgeCommand implements CommandExecutor {
 								}
 							}
 						}
-						else if( args.equals("tall_grass") )
+						else if( args[0].equals("tall_grass") )
 						{
 							for( int i = 0; i < chunkCount; i++ )
 							{
@@ -137,19 +136,13 @@ public class OpPurgeCommand implements CommandExecutor {
 											
 											if( material == Material.DEAD_BUSH.getId() )
 											{
-												if( snapChunk.getBlockData(x, y, z) != 0 )
-												{
-													chunks[i].getBlock(x, y, z).setType(Material.AIR);
-													blockCount++;
-												}
+												chunks[i].getBlock(x, y, z).setType(Material.AIR);
+												blockCount++;
 											}
 											else if( material == Material.LONG_GRASS.getId() )
 											{
-												if( snapChunk.getBlockData(x, y, z) == 15 )
-												{
-													chunks[i].getBlock(x, y, z).setTypeIdAndData(Material.AIR.getId(), (byte)0, true);
-													blockCount++;
-												}
+												chunks[i].getBlock(x, y, z).setTypeIdAndData(Material.AIR.getId(), (byte)0, true);
+												blockCount++;
 											}
 										}
 									}
