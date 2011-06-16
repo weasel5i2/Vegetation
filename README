@@ -9,6 +9,13 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.4.1 16-June-2011
+* fixed Wild Grass
+* adjusted spreading of Tall Grass
+* added more options for purge command (self-explaining)
+* new algorithm for trample grass!
+* Wild Grass no longer grows on the same block as Tall Grass
+
 Version 3.4 14-June-2011
 * added new purge command which removes vine blocks and resets grass blocks meta data (removes grass)
 * vines will only grow on normal trees
