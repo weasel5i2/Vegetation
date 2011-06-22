@@ -127,7 +127,7 @@ public class VegetationPlayerListener extends PlayerListener
 				if( !player.isSneaking() )
 				{
 					Block block = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
-					if( block != vWorld.playerList.getVegetationplayer(player.getName()).getLastBlockPosition() )
+					if( block != null && block != vWorld.playerList.getVegetationplayer(player.getName()).getLastBlockPosition() )
 					{
 						vWorld.playerList.getVegetationplayer(player.getName()).setLastBlockPosition(block);
 						if( block.getType() == Material.GRASS )
@@ -135,7 +135,8 @@ public class VegetationPlayerListener extends PlayerListener
 							byte data = block.getData();
 							//if( data > 0 && data - 2 > 0 ) block.setData((byte)(data - 2));
 							//else block.setData((byte)0);
-							if( data > 0 ) block.setData((byte)(data - 1));
+							//if( data > 0 ) block.setData((byte)(data - 1));
+							if( data > 0 ) block.setTypeIdAndData(Material.GRASS.getId(), (byte)(data - 1), true);
 						}
 					}
 				}

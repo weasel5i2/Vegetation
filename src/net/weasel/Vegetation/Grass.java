@@ -34,6 +34,9 @@ public class Grass
 	 */
 	public void growGrass(Block block)
 	{	
+		// for safety...don't want any other blocks turn into Grass blocks suddenly
+		if( block.getType() != Material.GRASS ) return;
+		
 		if( Vegetation.debugging ) logOutput( "Growing grass.." );
 		
 		int data = block.getData();
@@ -50,9 +53,10 @@ public class Grass
 			data++;
 			if( data < maxGrassHeight + 1 )
 			{
-				block.setData((byte)data);
+				//block.setData((byte)data, true);
+				block.setTypeIdAndData(Material.GRASS.getId(), (byte)data, true);
 				// we only need to refresh the chunk if the grass is growing
-				world.refreshChunk(block.getChunk().getX(), block.getChunk().getZ());
+				//world.refreshChunk(block.getChunk().getX(), block.getChunk().getZ());
 				if( Vegetation.debugging ) logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + data);
 			}
 		}
@@ -81,7 +85,8 @@ public class Grass
     			{
 	    			if( currentBlock.getType() == Material.GRASS ) 
 	    			{
-	    				currentBlock.setData((byte)0);
+	    				//currentBlock.setData((byte)0);
+	    				currentBlock.setTypeIdAndData(Material.GRASS.getId(), (byte)0, true);
 	    			}
 	    			else if( currentBlock.getType() == Material.RED_ROSE
 	    					|| currentBlock.getType() == Material.YELLOW_FLOWER 
@@ -89,8 +94,9 @@ public class Grass
 	    					|| currentBlock.getType() == Material.BROWN_MUSHROOM )
 	    			{
 	    				if( currentBlock.getRelative(BlockFace.DOWN).getType() == Material.GRASS )
-	    					currentBlock.getRelative(BlockFace.DOWN).setData((byte)0);
-	    				world.refreshChunk(currentBlock.getChunk().getX(), currentBlock.getChunk().getZ());
+	    					//currentBlock.getRelative(BlockFace.DOWN).setData((byte)0);
+	    					currentBlock.getRelative(BlockFace.DOWN).setTypeIdAndData(Material.GRASS.getId(), (byte)0, true);
+	    				//world.refreshChunk(currentBlock.getChunk().getX(), currentBlock.getChunk().getZ());
 	    			}
     			}
     		}
