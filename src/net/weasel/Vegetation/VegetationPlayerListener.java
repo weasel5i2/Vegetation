@@ -109,8 +109,11 @@ public class VegetationPlayerListener extends PlayerListener
 		VegetationWorld vWorld = Vegetation.vWorlds.get(player.getWorld().getName());
 		if( vWorld != null )
 		{
-			vWorld.playerList.addPlayer(player);
-			vWorld.playerList.getVegetationplayer(player.getName()).setLastBlockPosition(player.getLocation().getBlock());
+			//vWorld.playerList.addPlayer(player);
+			//vWorld.playerList.getVegetationplayer(player.getName()).setLastBlockPosition(player.getLocation().getBlock());
+			VegetationPlayer vPlayer = new VegetationPlayer(player.getName());
+			vPlayer.setLastBlockPosition(player.getLocation().getBlock());
+			vWorld.playerList.addPlayer(vPlayer);
 		}
 	}
 	
@@ -158,9 +161,10 @@ public class VegetationPlayerListener extends PlayerListener
 			
 			if( old != null && current != null )
 			{
-				old.playerList.removePlayer(player);
-				current.playerList.addPlayer(player);
-				current.playerList.getVegetationplayer(player.getName()).setLastBlockPosition(player.getLocation().getBlock());
+				VegetationPlayer vPlayer = old.playerList.getVegetationplayer(player.getName());
+				old.playerList.removePlayer(vPlayer);
+				vPlayer.setLastBlockPosition(player.getLocation().getBlock());
+				current.playerList.addPlayer(vPlayer);
 			}
 		}
 	}

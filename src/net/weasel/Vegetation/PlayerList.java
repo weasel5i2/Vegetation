@@ -32,7 +32,9 @@ public class PlayerList {
 		
 		for( Player player: world.getPlayers() )
 		{
-			players.add(new VegetationPlayer(player.getName()));
+			VegetationPlayer vPlayer = new VegetationPlayer(player.getName());
+			vPlayer.setLastBlockPosition(player.getLocation().getBlock());
+			players.add(vPlayer);
 		}
 		
 		posIndex = 0;
@@ -88,7 +90,32 @@ public class PlayerList {
 		mutex.release();
 	}
 	
+	public void addPlayer(VegetationPlayer player)
+	{
+		mutex.aquire();
+		
+		if( !(contains(player.getName())) )
+		{
+			players.add(player);
+		}
+		
+		mutex.release();
+	}
+	
 	public void removePlayer(Player player)
+	{
+		mutex.aquire();
+		
+		if( contains(player.getName()) )
+		{
+			remove(player.getName());
+			players.trimToSize();
+		}
+		
+		mutex.release();
+	}
+	
+	public void removePlayer(VegetationPlayer player)
 	{
 		mutex.aquire();
 		
