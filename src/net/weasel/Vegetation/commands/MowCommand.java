@@ -28,7 +28,7 @@ public class MowCommand implements CommandExecutor {
 			VegetationWorld vWorld = Vegetation.vWorlds.get(P.getWorld().getName());
 			int maxActivePlayerCommands = vWorld.getSettings().maxActivePlayerCommands;
 			
-			if ( Vegetation.Permissions.has(P, "vegetation.mow") )
+			if ( plugin.hasPermission(P, "vegetation.mow") )
 			{
 				// Todo: implement command queue
 				if( vWorld.getActivePlayerCommands() < maxActivePlayerCommands )

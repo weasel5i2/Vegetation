@@ -36,7 +36,7 @@ public class GrowCommand implements CommandExecutor {
 			VegetationWorld vWorld = Vegetation.vWorlds.get(P.getWorld().getName());
 			Settings settings = vWorld.getSettings();
 
-			if ( Vegetation.Permissions.has(P, "vegetation.grow") )
+			if ( plugin.hasPermission(P, "vegetation.grow") )
 			{
 				// Todo: implement command queue
 				if ( vWorld.getActivePlayerCommands() < settings.maxActivePlayerCommands )

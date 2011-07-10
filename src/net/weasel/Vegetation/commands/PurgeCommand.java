@@ -34,7 +34,7 @@ public class PurgeCommand implements CommandExecutor {
 			VegetationWorld vWorld = Vegetation.vWorlds.get(world.getName());
 			Settings settings = vWorld.getSettings();
 			
-			if ( Vegetation.Permissions.has(player, "vegetation.purge") )
+			if ( plugin.hasPermission(player, "vegetation.purge") )
 			{
 				if ( vWorld.getActivePlayerCommands() < settings.maxActivePlayerCommands )
 				{	
