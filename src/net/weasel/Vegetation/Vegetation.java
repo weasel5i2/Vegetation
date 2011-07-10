@@ -10,9 +10,6 @@ import java.util.logging.Logger;
 import net.weasel.Vegetation.commands.BiomeInfoCommand;
 import net.weasel.Vegetation.commands.GrowCommand;
 import net.weasel.Vegetation.commands.MowCommand;
-import net.weasel.Vegetation.commands.OpGrowCommand;
-import net.weasel.Vegetation.commands.OpMowCommand;
-import net.weasel.Vegetation.commands.OpPurgeCommand;
 import net.weasel.Vegetation.commands.PurgeCommand;
 
 import org.bukkit.World;
@@ -131,11 +128,7 @@ public class Vegetation extends JavaPlugin
 	    	  foundPermissions = true;
 	    	  return true;
 	      }
-	      else
-	      {
-	    	  logOutput( "Permission system not detected." );
-	    	  return false;
-	      }
+	      logOutput( "Permission system not detected." );
 	      return false;
 	}
 
