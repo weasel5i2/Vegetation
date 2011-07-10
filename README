@@ -9,6 +9,10 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.4.3 10-July-2011
+* fixed vines turning back into sugar cane blocks (hopefully)
+* vines decay now
+
 Version 3.4.2 22-June-2011
 * it should be possible to edit signs again
 
