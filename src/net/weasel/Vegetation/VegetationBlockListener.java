@@ -4,9 +4,11 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.LeavesDecayEvent;
 
 public class VegetationBlockListener extends BlockListener
 {
@@ -34,21 +36,11 @@ public class VegetationBlockListener extends BlockListener
 			int y = (int)location.getY();
 			int z = (int)location.getZ();
 			
-			// Get the sugar cane block nearest to ground
-			for( int i = 0; i < 3; i++ )
+			for( int i = 0; i < 20; i++ )
 			{
 				if( world.getBlockTypeIdAt(x, y - i, z) == Material.SUGAR_CANE_BLOCK.getId() )
 				{
-					world.getBlockAt(x, y - i, z).setTypeIdAndData(Material.AIR.getId(), (byte)0, true);
-				}
-				else break;
-			}
-			
-			for( int i = 0; i < 3; i++ )
-			{
-				if( world.getBlockTypeIdAt(x, y + i, z) == Material.SUGAR_CANE_BLOCK.getId() )
-				{
-					world.getBlockAt(x, y - i, z).setTypeIdAndData(Material.AIR.getId(), (byte)0, true);
+					world.getBlockAt(x, y - i, z).setType(Material.AIR);
 				}
 				else break;
 			}
@@ -62,6 +54,24 @@ public class VegetationBlockListener extends BlockListener
 		if( block.getType() == Material.SUGAR_CANE_BLOCK && block.getData() == 15 )
 		{
 			event.setCancelled(true);
+		}
+	}
+	
+	@Override
+	public void onLeavesDecay(LeavesDecayEvent event)
+	{
+		Block block = event.getBlock();
+		if( block.getRelative(BlockFace.DOWN).getType() == Material.SUGAR_CANE_BLOCK && block.getRelative(BlockFace.DOWN).getData() == 15 )
+		{
+			for( int i = 0; i < 20; i++ )
+			{
+				block = block.getRelative(BlockFace.DOWN);
+				// Decay vine blocks as well
+				if( block.getType() == Material.SUGAR_CANE_BLOCK && block.getData() == 15 )
+				{
+					block.setType(Material.AIR);
+				}
+			}
 		}
 	}
 	
