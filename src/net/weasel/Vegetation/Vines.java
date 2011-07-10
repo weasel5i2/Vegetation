@@ -30,18 +30,31 @@ public class Vines
 			if( r <= lowerLeaves.size() )
 			{
 				if ( Vegetation.debugging ) logOutput("Growing Vines...");
-				Block leaf = lowerLeaves.get(r);
 				int height = Vegetation.generator.nextInt(7) + 2;
 				
-				for( int I = 0; I < height; I++ )
+				// let's first try how long the vine can get, we don't want too short vines
+				for( int z = 0; z < lowerLeaves.size() ; z++ )
 				{
-					leaf = leaf.getRelative( BlockFace.DOWN );
-					if( leaf.getType() == Material.AIR )
+					Block leaf = lowerLeaves.get(r);
+					ArrayList<Block> vineBlocks = new ArrayList<Block>();
+					
+					for( int i = 0; i < height; i++ )
 					{
-						if( leaf.getRelative(BlockFace.DOWN).getType() == Material.AIR && blocks.isSurroundedByBlockType1(leaf, Material.AIR) )
-							leaf.setTypeIdAndData(83, (byte)15, true);
+						leaf = leaf.getRelative( BlockFace.DOWN );
+						if( leaf.getType() == Material.AIR )
+						{
+							if( leaf.getRelative(BlockFace.DOWN).getType() == Material.AIR && blocks.isSurroundedByBlockType1(leaf, Material.AIR) )
+								vineBlocks.add(leaf);
+						}
+						else break;
 					}
-					else break;
+					
+					if( vineBlocks.size() > 1 )
+					{
+						for( Block vineBlock: vineBlocks )
+							vineBlock.setTypeIdAndData(83, (byte)15, true);
+						break;
+					}
 				}
 			}
 		}
