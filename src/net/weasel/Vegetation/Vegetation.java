@@ -64,6 +64,7 @@ public class Vegetation extends JavaPlugin
 		pm.registerEvent(Type.BLOCK_BREAK, BlockListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.LEAVES_DECAY, BlockListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_BURN, BlockListener, Event.Priority.Normal, this);
 
 		
 		//enable permission and register commands

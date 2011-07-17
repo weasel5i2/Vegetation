@@ -6,6 +6,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockListener;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
@@ -66,7 +67,24 @@ public class VegetationBlockListener extends BlockListener
 			for( int i = 0; i < 20; i++ )
 			{
 				block = block.getRelative(BlockFace.DOWN);
-				// Decay vine blocks as well
+				if( block.getType() == Material.SUGAR_CANE_BLOCK && block.getData() == 15 )
+				{
+					block.setType(Material.AIR);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void onBlockBurn(BlockBurnEvent event)
+	{
+		Block block = event.getBlock();
+		Vegetation.logOutput(""+ block.getRelative(BlockFace.DOWN).getType());
+		if( block.getRelative(BlockFace.DOWN).getType() == Material.SUGAR_CANE_BLOCK && block.getRelative(BlockFace.DOWN).getData() == 15 )
+		{
+			for( int i = 0; i < 20; i++ )
+			{
+				block = block.getRelative(BlockFace.DOWN);
 				if( block.getType() == Material.SUGAR_CANE_BLOCK && block.getData() == 15 )
 				{
 					block.setType(Material.AIR);
