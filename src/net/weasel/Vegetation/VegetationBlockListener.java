@@ -79,7 +79,6 @@ public class VegetationBlockListener extends BlockListener
 	public void onBlockBurn(BlockBurnEvent event)
 	{
 		Block block = event.getBlock();
-		Vegetation.logOutput(""+ block.getRelative(BlockFace.DOWN).getType());
 		if( block.getRelative(BlockFace.DOWN).getType() == Material.SUGAR_CANE_BLOCK && block.getRelative(BlockFace.DOWN).getData() == 15 )
 		{
 			for( int i = 0; i < 20; i++ )
