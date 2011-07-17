@@ -18,56 +18,64 @@ public class TallGrass {
 	
 	public void growTallGrass(Block block)
 	{
+		Material blockType = block.getType();
+		
 		// 31 - Material.LONG_GRASS
 		// 32 - Material.DEAD_BUSH
 		// 0 = dead bush, 1 = tall grass, 2 = green bush
-		switch( block.getBiome() )
-		{
-		case FOREST:
-			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
-			block.setData((byte)0);
-			break;
-			
-		case RAINFOREST:
-			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
-			block.setData((byte)0);
-			break;
-			
-		case PLAINS:
-			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
-			block.setData((byte)0);
-			break;
-			
-		case SWAMPLAND:
-			break;
-			
-		case TAIGA:
-			break;
-			
-		case TUNDRA:
-			break;
-			
-		case SAVANNA:
-			//nothing
-			break;
 		
-		case SHRUBLAND:
-			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
-			block.setData((byte)0);
-			break;
-			
-		case SEASONAL_FOREST:
-			block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
-			block.setData((byte)0);
-			break;
-			
-		case DESERT:
+		if( blockType == Material.GRASS )
+		{
+			switch( block.getBiome() )
+			{
+			case FOREST:
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
+				block.setData((byte)0);
+				break;
+
+			case RAINFOREST:
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
+				block.setData((byte)0);
+				break;
+
+			case PLAINS:
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
+				block.setData((byte)0);
+				break;
+
+			case SWAMPLAND:
+				break;
+
+			case TAIGA:
+				break;
+
+			case TUNDRA:
+				break;
+
+			case SAVANNA:
+				//nothing
+				break;
+
+			case SHRUBLAND:
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
+				block.setData((byte)0);
+				break;
+
+			case SEASONAL_FOREST:
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
+				block.setData((byte)0);
+				break;
+
+			case DESERT:
+				break;
+
+			default:
+				break;
+			}
+		}
+		else if( blockType == Material.SAND )
+		{
 			block.getRelative(BlockFace.UP).setTypeIdAndData(32, (byte) 0, false);
-			block.setData((byte)0);
-			break;
-			
-		default:
-			break;
 		}
 	}
 	
