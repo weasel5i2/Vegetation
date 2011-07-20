@@ -27,15 +27,13 @@ public class PlayerList {
 		lock.lock();
 
 		players.clear();
-		Vegetation.lf.write("Clearing PlayerList - World [" + world.getName()
-				+ "]");
+		Vegetation.lf.write("Clearing PlayerList - World [" + world.getName() + "]");
 
 		for (Player player : world.getPlayers()) {
 			VegetationPlayer vPlayer = new VegetationPlayer(player.getName());
 			vPlayer.setLastBlockPosition(player.getLocation().getBlock());
 			players.add(vPlayer);
-			Vegetation.lf.write("Adding Player [" + vPlayer.getName()
-					+ "] - World [" + world.getName() + "]");
+			Vegetation.lf.write("Adding Player [" + vPlayer.getName() + "] - World [" + world.getName() + "]");
 		}
 
 		posIndex = 0;
@@ -53,8 +51,7 @@ public class PlayerList {
 
 		// get next position
 		if (posIndex <= (players.size() - 1)) {
-			player = plugin.getServer().getPlayer(
-					players.get(posIndex).getName());
+			player = plugin.getServer().getPlayer(players.get(posIndex).getName());
 			posIndex++;
 		}
 		// return nothing
@@ -91,8 +88,7 @@ public class PlayerList {
 
 		if (!(contains(player.getName()))) {
 			players.add(player);
-			Vegetation.lf.write("Adding Player [" + player.getName()
-					+ "]- World [" + world.getName() + "]");
+			Vegetation.lf.write("Adding Player [" + player.getName() + "]- World [" + world.getName() + "]");
 		}
 
 		lock.unlock();
@@ -121,9 +117,7 @@ public class PlayerList {
 	private void remove(String name) {
 		for (int i = 0; i < players.size(); i++) {
 			if (name.equals(players.get(i).getName())) {
-				Vegetation.lf.write("Removing Player ["
-						+ players.get(i).getName() + "] - World ["
-						+ world.getName() + "]");
+				Vegetation.lf.write("Removing Player [" + players.get(i).getName() + "] - World [" + world.getName() + "]");
 				players.remove(i);
 				players.trimToSize();
 			}

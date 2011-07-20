@@ -13,15 +13,11 @@ public class Plants {
 	}
 
 	public void growPlant(Block plantBlock, Material plantType) {
-		Material[] material = { Material.YELLOW_FLOWER, Material.RED_ROSE,
-				Material.BROWN_MUSHROOM, Material.RED_MUSHROOM,
-				Material.PUMPKIN };
-		if (plantType == Material.RED_ROSE
-				|| plantType == Material.YELLOW_FLOWER) {
+		Material[] material = { Material.YELLOW_FLOWER, Material.RED_ROSE, Material.BROWN_MUSHROOM, Material.RED_MUSHROOM, Material.PUMPKIN };
+		if (plantType == Material.RED_ROSE || plantType == Material.YELLOW_FLOWER) {
 			if (blockCrawler.getFieldDensity(plantBlock, 3, material) > 0.1)
 				return;
-		} else if (plantType == Material.RED_MUSHROOM
-				|| plantType == Material.BROWN_MUSHROOM) {
+		} else if (plantType == Material.RED_MUSHROOM || plantType == Material.BROWN_MUSHROOM) {
 			if (blockCrawler.getFieldDensity(plantBlock, 3, material) > 0.05)
 				return;
 		}
@@ -29,13 +25,10 @@ public class Plants {
 		int maxSpreadAmount = 2;
 		Biome biome = plantBlock.getBiome();
 		Block emptyBlock = null;
-		Material plantBlockMaterial = plantBlock.getRelative(BlockFace.DOWN)
-				.getType();
+		Material plantBlockMaterial = plantBlock.getRelative(BlockFace.DOWN).getType();
 		// Get surrounding block and place new plant
 		for (int i = 0; i < 150; i++) {
-			emptyBlock = blockCrawler.getRandomTopBlock(
-					plantBlock.getLocation(), plantBlockMaterial, Material.AIR,
-					3);
+			emptyBlock = blockCrawler.getRandomTopBlock(plantBlock.getLocation(), plantBlockMaterial, Material.AIR, 3);
 			if (emptyBlock != null && emptyBlock.getBiome() == biome) {
 				if (growSinglePlant(emptyBlock, plantType)) {
 					maxSpreadAmount--;

@@ -49,8 +49,7 @@ public class VegetationWorld {
 	}
 
 	public void startTimer() {
-		Vegetation.timer.scheduleSyncRepeatingTask(plugin, new Timer(this), 10,
-				1);
+		Vegetation.timer.scheduleSyncRepeatingTask(plugin, new Timer(this), 10, 1);
 	}
 
 	public World getWorld() {

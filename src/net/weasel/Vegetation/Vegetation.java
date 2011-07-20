@@ -52,24 +52,15 @@ public class Vegetation extends JavaPlugin {
 		pluginVersion = this.getDescription().getVersion();
 		timer = getServer().getScheduler();
 
-		pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener,
-				Event.Priority.Normal, this);
-		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener,
-				Event.Priority.Normal, this);
-		pm.registerEvent(Type.PLAYER_JOIN, PlayerListener,
-				Event.Priority.Normal, this);
-		pm.registerEvent(Type.PLAYER_TELEPORT, PlayerListener,
-				Event.Priority.Normal, this);
-		pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low,
-				this);
-		pm.registerEvent(Type.BLOCK_BREAK, BlockListener,
-				Event.Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener,
-				Event.Priority.Normal, this);
-		pm.registerEvent(Type.LEAVES_DECAY, BlockListener,
-				Event.Priority.Normal, this);
-		pm.registerEvent(Type.BLOCK_BURN, BlockListener, Event.Priority.Normal,
-				this);
+		pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_JOIN, PlayerListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_TELEPORT, PlayerListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.PLAYER_MOVE, PlayerListener, Event.Priority.Low, this);
+		pm.registerEvent(Type.BLOCK_BREAK, BlockListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.LEAVES_DECAY, BlockListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.BLOCK_BURN, BlockListener, Event.Priority.Normal, this);
 
 		lf.loadFile("playerlist.log");
 
@@ -111,8 +102,7 @@ public class Vegetation extends JavaPlugin {
 	public void onDisable() {
 		timer.cancelAllTasks();
 		vWorlds.clear();
-		logOutput("Plugin disabled: " + pluginName + " version "
-				+ pluginVersion);
+		logOutput("Plugin disabled: " + pluginName + " version " + pluginVersion);
 	}
 
 	public void loadWorldSettings() {
@@ -124,8 +114,7 @@ public class Vegetation extends JavaPlugin {
 	}
 
 	public boolean setupPermissions() {
-		Plugin permissions = this.getServer().getPluginManager()
-				.getPlugin("Permissions");
+		Plugin permissions = this.getServer().getPluginManager().getPlugin("Permissions");
 
 		if (permissions != null) {
 			Permissions = ((Permissions) permissions).getHandler();

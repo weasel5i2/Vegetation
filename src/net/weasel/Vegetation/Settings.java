@@ -137,8 +137,7 @@ public class Settings {
 		growSavannahBiome = getBooleanSetting("growSavannahBiome", true);
 		;
 		growPlainsBiome = getBooleanSetting("growPlainsBiome", true);
-		growSeasonalForestBiome = getBooleanSetting("growSeasonalForestBiome",
-				true);
+		growSeasonalForestBiome = getBooleanSetting("growSeasonalForestBiome", true);
 		growIceDesertBiome = getBooleanSetting("growIceDesertBiome", true);
 		growDesertBiome = getBooleanSetting("growDesertBiome", true);
 		growSwamplandBiome = getBooleanSetting("growSwamplandBiome", true);
@@ -166,8 +165,7 @@ public class Settings {
 
 		String dString = (dValue ? "true" : "false");
 
-		if (getSettingValue(settingsFile, which, dString, "")[0]
-				.equalsIgnoreCase("true"))
+		if (getSettingValue(settingsFile, which, dString, "")[0].equalsIgnoreCase("true"))
 			retVal = true;
 		else
 			retVal = false;
@@ -179,13 +177,11 @@ public class Settings {
 		int retVal;
 
 		try {
-			retVal = Integer.parseInt(getSettingValue(settingsFile, item,
-					dValue.toString(), "")[0]);
+			retVal = Integer.parseInt(getSettingValue(settingsFile, item, dValue.toString(), "")[0]);
 
 		} catch (NumberFormatException e) {
 			retVal = 0;
-			logOutput("Error while reading [" + item
-					+ "] field. Option set to 0.");
+			logOutput("Error while reading [" + item + "] field. Option set to 0.");
 		}
 
 		return retVal;
@@ -195,12 +191,10 @@ public class Settings {
 		double retVal;
 
 		try {
-			retVal = Double.parseDouble(getSettingValue(settingsFile, item,
-					Double.toString(d), "")[0]);
+			retVal = Double.parseDouble(getSettingValue(settingsFile, item, Double.toString(d), "")[0]);
 		} catch (NumberFormatException e) {
 			retVal = 0;
-			logOutput("Error while reading [" + item
-					+ "] field. Option set to 0.");
+			logOutput("Error while reading [" + item + "] field. Option set to 0.");
 		}
 		return retVal;
 	}
@@ -209,19 +203,16 @@ public class Settings {
 		float retVal;
 
 		try {
-			retVal = Float.valueOf(getSettingValue(settingsFile, item,
-					dValue.toString(), "")[0]);
+			retVal = Float.valueOf(getSettingValue(settingsFile, item, dValue.toString(), "")[0]);
 
 		} catch (NumberFormatException e) {
 			retVal = 0;
-			logOutput("Error while reading [" + item
-					+ "] field. Option set to 0.");
+			logOutput("Error while reading [" + item + "] field. Option set to 0.");
 		}
 		return retVal;
 	}
 
-	public String[] getSettingValue(String fileName, String optionName,
-			String defaultValue, String splitValue) {
+	public String[] getSettingValue(String fileName, String optionName, String defaultValue, String splitValue) {
 		Boolean gotLine; // Verification variable
 		String[] returnValue = new String[100]; // Settings max at 100 values
 		String curLine;
@@ -238,8 +229,7 @@ public class Settings {
 		try {
 			// Get the line from the file
 			FileInputStream fstream = new FileInputStream(fileName);
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-					fstream));
+			BufferedReader in = new BufferedReader(new InputStreamReader(fstream));
 
 			while (in.ready()) {
 				curLine = in.readLine().toString();

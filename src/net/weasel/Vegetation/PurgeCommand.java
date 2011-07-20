@@ -22,8 +22,7 @@ public class PurgeCommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command,
-			String commandLabel, String[] args) {
+	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			World world = player.getWorld();
@@ -42,37 +41,22 @@ public class PurgeCommand implements CommandExecutor {
 
 						if (args[0].equals("wild_grass")) {
 							for (int i = 0; i < chunkCount; i++) {
-								ChunkSnapshot snapChunk = chunks[i]
-										.getChunkSnapshot();
+								ChunkSnapshot snapChunk = chunks[i].getChunkSnapshot();
 								// x - 0-15; y - 0-127; z - 0-15
 								for (int y = 0; y <= 127; y++) {
 									for (int x = 0; x <= 15; x++) {
 										for (int z = 0; z <= 15; z++) {
-											int material = snapChunk
-													.getBlockTypeId(x, y, z);
+											int material = snapChunk.getBlockTypeId(x, y, z);
 
-											if (material == Material.GRASS
-													.getId()) {
-												if (snapChunk.getBlockData(x,
-														y, z) != 0) {
-													chunks[i].getBlock(x, y, z)
-															.setData((byte) 0);
-													world.refreshChunk(
-															chunks[i].getX(),
-															chunks[i].getZ());
+											if (material == Material.GRASS.getId()) {
+												if (snapChunk.getBlockData(x, y, z) != 0) {
+													chunks[i].getBlock(x, y, z).setData((byte) 0);
+													world.refreshChunk(chunks[i].getX(), chunks[i].getZ());
 													blockCount++;
 												}
-											} else if (material == Material.SUGAR_CANE_BLOCK
-													.getId()) {
-												if (snapChunk.getBlockData(x,
-														y, z) == 15) {
-													chunks[i]
-															.getBlock(x, y, z)
-															.setTypeIdAndData(
-																	Material.AIR
-																			.getId(),
-																	(byte) 0,
-																	true);
+											} else if (material == Material.SUGAR_CANE_BLOCK.getId()) {
+												if (snapChunk.getBlockData(x, y, z) == 15) {
+													chunks[i].getBlock(x, y, z).setTypeIdAndData(Material.AIR.getId(), (byte) 0, true);
 													blockCount++;
 												}
 											}
@@ -81,33 +65,21 @@ public class PurgeCommand implements CommandExecutor {
 								}
 								count++;
 								if (i % 30 == 0) {
-									player.sendMessage("Purge Progress: "
-											+ Math.round((count / chunkCount) * 100)
-											+ "%");
+									player.sendMessage("Purge Progress: " + Math.round((count / chunkCount) * 100) + "%");
 								}
 							}
 						} else if (args[0].equals("vines")) {
 							for (int i = 0; i < chunkCount; i++) {
-								ChunkSnapshot snapChunk = chunks[i]
-										.getChunkSnapshot();
+								ChunkSnapshot snapChunk = chunks[i].getChunkSnapshot();
 								// x - 0-15; y - 0-127; z - 0-15
 								for (int y = 0; y <= 127; y++) {
 									for (int x = 0; x <= 15; x++) {
 										for (int z = 0; z <= 15; z++) {
-											int material = snapChunk
-													.getBlockTypeId(x, y, z);
+											int material = snapChunk.getBlockTypeId(x, y, z);
 
-											if (material == Material.SUGAR_CANE_BLOCK
-													.getId()) {
-												if (snapChunk.getBlockData(x,
-														y, z) == 15) {
-													chunks[i]
-															.getBlock(x, y, z)
-															.setTypeIdAndData(
-																	Material.AIR
-																			.getId(),
-																	(byte) 0,
-																	true);
+											if (material == Material.SUGAR_CANE_BLOCK.getId()) {
+												if (snapChunk.getBlockData(x, y, z) == 15) {
+													chunks[i].getBlock(x, y, z).setTypeIdAndData(Material.AIR.getId(), (byte) 0, true);
 													blockCount++;
 												}
 											}
@@ -116,35 +88,23 @@ public class PurgeCommand implements CommandExecutor {
 								}
 								count++;
 								if (i % 30 == 0) {
-									player.sendMessage("Purge Progress: "
-											+ Math.round((count / chunkCount) * 100)
-											+ "%");
+									player.sendMessage("Purge Progress: " + Math.round((count / chunkCount) * 100) + "%");
 								}
 							}
 						} else if (args[0].equals("tall_grass")) {
 							for (int i = 0; i < chunkCount; i++) {
-								ChunkSnapshot snapChunk = chunks[i]
-										.getChunkSnapshot();
+								ChunkSnapshot snapChunk = chunks[i].getChunkSnapshot();
 								// x - 0-15; y - 0-127; z - 0-15
 								for (int y = 0; y <= 127; y++) {
 									for (int x = 0; x <= 15; x++) {
 										for (int z = 0; z <= 15; z++) {
-											int material = snapChunk
-													.getBlockTypeId(x, y, z);
+											int material = snapChunk.getBlockTypeId(x, y, z);
 
-											if (material == Material.DEAD_BUSH
-													.getId()) {
-												chunks[i].getBlock(x, y, z)
-														.setType(Material.AIR);
+											if (material == Material.DEAD_BUSH.getId()) {
+												chunks[i].getBlock(x, y, z).setType(Material.AIR);
 												blockCount++;
-											} else if (material == Material.LONG_GRASS
-													.getId()) {
-												chunks[i]
-														.getBlock(x, y, z)
-														.setTypeIdAndData(
-																Material.AIR
-																		.getId(),
-																(byte) 0, true);
+											} else if (material == Material.LONG_GRASS.getId()) {
+												chunks[i].getBlock(x, y, z).setTypeIdAndData(Material.AIR.getId(), (byte) 0, true);
 												blockCount++;
 											}
 										}
@@ -152,9 +112,7 @@ public class PurgeCommand implements CommandExecutor {
 								}
 								count++;
 								if (i % 30 == 0) {
-									player.sendMessage("Purge Progress: "
-											+ Math.round((count / chunkCount) * 100)
-											+ "%");
+									player.sendMessage("Purge Progress: " + Math.round((count / chunkCount) * 100) + "%");
 								}
 							}
 						} else {
@@ -164,8 +122,7 @@ public class PurgeCommand implements CommandExecutor {
 
 						vWorld.decreaseActivePlayerCommands();
 
-						player.sendMessage("Purge Progress: "
-								+ Math.round((count / chunkCount) * 100) + "%");
+						player.sendMessage("Purge Progress: " + Math.round((count / chunkCount) * 100) + "%");
 						player.sendMessage(blockCount + " Blocks purged.");
 						return true;
 					} else {

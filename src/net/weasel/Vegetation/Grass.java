@@ -50,20 +50,17 @@ public class Grass {
 		if (data > maxGrassHeight + 1) {
 			block.setData((byte) (maxGrassHeight + 1));
 			if (Vegetation.debugging)
-				logOutput("Adjusting block " + block.getX() + ","
-						+ block.getY() + "," + block.getZ() + "V:" + data);
+				logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + data);
 		} else {
 			data++;
 			if (data < maxGrassHeight + 1) {
 				// block.setData((byte)data, true);
-				block.setTypeIdAndData(Material.GRASS.getId(), (byte) data,
-						true);
+				block.setTypeIdAndData(Material.GRASS.getId(), (byte) data, true);
 				// we only need to refresh the chunk if the grass is growing
 				// world.refreshChunk(block.getChunk().getX(),
 				// block.getChunk().getZ());
 				if (Vegetation.debugging)
-					logOutput("Adjusting block " + block.getX() + ","
-							+ block.getY() + "," + block.getZ() + "V:" + data);
+					logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + data);
 			}
 		}
 	}
@@ -82,23 +79,17 @@ public class Grass {
 
 		for (int x = pX - r; x <= pX + r; x++) {
 			for (int z = pZ - r; z <= pZ + r; z++) {
-				currentBlock = blockCrawler.getTopBlock(baseBlock, x, z,
-						Material.AIR);
+				currentBlock = blockCrawler.getTopBlock(baseBlock, x, z, Material.AIR);
 
 				if (currentBlock != null) {
 					if (currentBlock.getType() == Material.GRASS) {
 						// currentBlock.setData((byte)0);
-						currentBlock.setTypeIdAndData(Material.GRASS.getId(),
-								(byte) 0, true);
-					} else if (currentBlock.getType() == Material.RED_ROSE
-							|| currentBlock.getType() == Material.YELLOW_FLOWER
-							|| currentBlock.getType() == Material.RED_MUSHROOM
-							|| currentBlock.getType() == Material.BROWN_MUSHROOM) {
+						currentBlock.setTypeIdAndData(Material.GRASS.getId(), (byte) 0, true);
+					} else if (currentBlock.getType() == Material.RED_ROSE || currentBlock.getType() == Material.YELLOW_FLOWER
+							|| currentBlock.getType() == Material.RED_MUSHROOM || currentBlock.getType() == Material.BROWN_MUSHROOM) {
 						if (currentBlock.getRelative(BlockFace.DOWN).getType() == Material.GRASS)
 							// currentBlock.getRelative(BlockFace.DOWN).setData((byte)0);
-							currentBlock.getRelative(BlockFace.DOWN)
-									.setTypeIdAndData(Material.GRASS.getId(),
-											(byte) 0, true);
+							currentBlock.getRelative(BlockFace.DOWN).setTypeIdAndData(Material.GRASS.getId(), (byte) 0, true);
 						// world.refreshChunk(currentBlock.getChunk().getX(),
 						// currentBlock.getChunk().getZ());
 					}

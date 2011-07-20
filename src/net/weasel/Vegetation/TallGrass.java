@@ -27,20 +27,17 @@ public class TallGrass {
 		if (blockType == Material.GRASS) {
 			switch (block.getBiome()) {
 			case FOREST:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1,
-						false);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
 				block.setData((byte) 0);
 				break;
 
 			case RAINFOREST:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2,
-						false);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
 				block.setData((byte) 0);
 				break;
 
 			case PLAINS:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1,
-						false);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
 				block.setData((byte) 0);
 				break;
 
@@ -58,14 +55,12 @@ public class TallGrass {
 				break;
 
 			case SHRUBLAND:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1,
-						false);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
 				block.setData((byte) 0);
 				break;
 
 			case SEASONAL_FOREST:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2,
-						false);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
 				block.setData((byte) 0);
 				break;
 
@@ -76,8 +71,7 @@ public class TallGrass {
 				break;
 			}
 		} else if (blockType == Material.SAND) {
-			block.getRelative(BlockFace.UP).setTypeIdAndData(32, (byte) 0,
-					false);
+			block.getRelative(BlockFace.UP).setTypeIdAndData(32, (byte) 0, false);
 		}
 	}
 
@@ -97,16 +91,12 @@ public class TallGrass {
 		int maxSpreadAmount = 1;
 
 		Block emptyBlock = null;
-		Material plantBlockMaterial = bushBlock.getRelative(BlockFace.DOWN)
-				.getType();
+		Material plantBlockMaterial = bushBlock.getRelative(BlockFace.DOWN).getType();
 		// Get surrounding block and place new plant
 		for (int i = 0; i < 150; i++) {
-			emptyBlock = blockCrawler.getRandomTopBlock(
-					bushBlock.getLocation(), plantBlockMaterial, Material.AIR,
-					3);
+			emptyBlock = blockCrawler.getRandomTopBlock(bushBlock.getLocation(), plantBlockMaterial, Material.AIR, 3);
 			if (emptyBlock != null && emptyBlock.getBiome() == biome) {
-				emptyBlock.getRelative(BlockFace.UP).setTypeIdAndData(
-						bushType.getId(), (byte) data, true);
+				emptyBlock.getRelative(BlockFace.UP).setTypeIdAndData(bushType.getId(), (byte) data, true);
 				// remove wild grass
 				emptyBlock.setData((byte) 0);
 				maxSpreadAmount--;

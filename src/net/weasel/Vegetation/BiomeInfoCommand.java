@@ -15,8 +15,7 @@ public class BiomeInfoCommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command,
-			String commandLabel, String[] args) {
+	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			Biome biome = player.getLocation().getBlock().getBiome();

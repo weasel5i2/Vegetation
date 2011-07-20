@@ -61,16 +61,11 @@ public class Grazers {
 				if (isEnabledGrazer(entity.toString())) {
 					locationOfEntity = entity.getLocation();
 
-					if (world.getBlockTypeIdAt((int) locationOfEntity.getX(),
-							(int) locationOfEntity.getY() - 1,
-							(int) locationOfEntity.getZ()) == grass) {
-						targetBlock = world.getBlockAt(
-								(int) locationOfEntity.getX(),
-								(int) locationOfEntity.getY() - 1,
+					if (world.getBlockTypeIdAt((int) locationOfEntity.getX(), (int) locationOfEntity.getY() - 1, (int) locationOfEntity.getZ()) == grass) {
+						targetBlock = world.getBlockAt((int) locationOfEntity.getX(), (int) locationOfEntity.getY() - 1,
 								(int) locationOfEntity.getZ());
 						if (targetBlock.getData() >= 2) {
-							targetBlock
-									.setData((byte) (targetBlock.getData() - 1));
+							targetBlock.setData((byte) (targetBlock.getData() - 1));
 						}
 					}
 

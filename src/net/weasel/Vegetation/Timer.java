@@ -51,8 +51,7 @@ public class Timer implements Runnable {
 
 			if (currentPlayer != null) {
 				Location playerLocation = currentPlayer.getLocation();
-				Block currentBlock = vWorld.blockCrawler.getRandomTopBlock(
-						playerLocation, Material.AIR);
+				Block currentBlock = vWorld.blockCrawler.getRandomTopBlock(playerLocation, Material.AIR);
 
 				// Todo: Implement delegates instead of switch case
 				if (currentBlock != null) {
@@ -65,153 +64,116 @@ public class Timer implements Runnable {
 						break;
 
 					case CACTUS:
-						if (settings.enablePlants && settings.enableCacti
-								&& (plantTicks > 0)) {
+						if (settings.enablePlants && settings.enableCacti && (plantTicks > 0)) {
 							vWorld.cacti.growCacti(currentBlock);
 							plantTicks--;
 						}
 						break;
 
 					case SUGAR_CANE_BLOCK:
-						if (settings.enablePlants && settings.enableCanes
-								&& (plantTicks > 0)) {
+						if (settings.enablePlants && settings.enableCanes && (plantTicks > 0)) {
 							vWorld.canes.growCanes(currentBlock);
 							plantTicks--;
 						}
 						break;
 
 					case YELLOW_FLOWER:
-						int blockTypeYellow = vWorld.world.getBlockTypeIdAt(
-								currentBlock.getX(), currentBlock.getY() - 1,
-								currentBlock.getZ());
+						int blockTypeYellow = vWorld.world.getBlockTypeIdAt(currentBlock.getX(), currentBlock.getY() - 1, currentBlock.getZ());
 
 						if (blockTypeYellow == Material.GRASS.getId()) {
-							if (settings.enablePlants && settings.enableFlowers
-									&& (plantTicks > 0)) {
-								vWorld.plants.growPlant(currentBlock,
-										Material.YELLOW_FLOWER);
+							if (settings.enablePlants && settings.enableFlowers && (plantTicks > 0)) {
+								vWorld.plants.growPlant(currentBlock, Material.YELLOW_FLOWER);
 								plantTicks--;
 							}
 
 							if (settings.enableGrass && (grassTicks > 0)) {
-								if (currentBlock.getRelative(BlockFace.DOWN)
-										.getType() == Material.GRASS) {
-									vWorld.grass.growGrass(currentBlock
-											.getRelative(BlockFace.DOWN));
+								if (currentBlock.getRelative(BlockFace.DOWN).getType() == Material.GRASS) {
+									vWorld.grass.growGrass(currentBlock.getRelative(BlockFace.DOWN));
 									grassTicks--;
 								}
 							}
 							break;
 						} else if (blockTypeYellow == Material.SAND.getId()) {
-							if (settings.enablePlants && settings.enableFlowers
-									&& (plantTicks > 0)) {
-								vWorld.plants.growPlant(currentBlock,
-										Material.YELLOW_FLOWER);
+							if (settings.enablePlants && settings.enableFlowers && (plantTicks > 0)) {
+								vWorld.plants.growPlant(currentBlock, Material.YELLOW_FLOWER);
 								plantTicks--;
 							}
 							break;
-						} else if (blockTypeYellow == Material.STATIONARY_WATER
-								.getId()) {
-							if (settings.enablePlants
-									&& settings.enableLilyPads
-									&& (lilyPadTicks > 0)) {
-								vWorld.plants.growPlant(currentBlock,
-										Material.YELLOW_FLOWER);
+						} else if (blockTypeYellow == Material.STATIONARY_WATER.getId()) {
+							if (settings.enablePlants && settings.enableLilyPads && (lilyPadTicks > 0)) {
+								vWorld.plants.growPlant(currentBlock, Material.YELLOW_FLOWER);
 								lilyPadTicks--;
 							}
 							break;
 						}
 
 					case RED_ROSE:
-						int blockTypeRed = vWorld.world.getBlockTypeIdAt(
-								currentBlock.getX(), currentBlock.getY() - 1,
-								currentBlock.getZ());
+						int blockTypeRed = vWorld.world.getBlockTypeIdAt(currentBlock.getX(), currentBlock.getY() - 1, currentBlock.getZ());
 
 						if (blockTypeRed == Material.GRASS.getId()) {
-							if (settings.enablePlants && settings.enableFlowers
-									&& (plantTicks > 0)) {
-								vWorld.plants.growPlant(currentBlock,
-										Material.RED_ROSE);
+							if (settings.enablePlants && settings.enableFlowers && (plantTicks > 0)) {
+								vWorld.plants.growPlant(currentBlock, Material.RED_ROSE);
 								plantTicks--;
 							}
 
 							if (settings.enableGrass && (grassTicks > 0)) {
-								if (currentBlock.getRelative(BlockFace.DOWN)
-										.getType() == Material.GRASS) {
-									vWorld.grass.growGrass(currentBlock
-											.getRelative(BlockFace.DOWN));
+								if (currentBlock.getRelative(BlockFace.DOWN).getType() == Material.GRASS) {
+									vWorld.grass.growGrass(currentBlock.getRelative(BlockFace.DOWN));
 									grassTicks--;
 								}
 							}
 							break;
 						} else if (blockTypeRed == Material.SAND.getId()) {
-							if (settings.enablePlants && settings.enableFlowers
-									&& (plantTicks > 0)) {
-								vWorld.plants.growPlant(currentBlock,
-										Material.RED_ROSE);
+							if (settings.enablePlants && settings.enableFlowers && (plantTicks > 0)) {
+								vWorld.plants.growPlant(currentBlock, Material.RED_ROSE);
 								plantTicks--;
 							}
 							break;
-						} else if (blockTypeRed == Material.STATIONARY_WATER
-								.getId()) {
-							if (settings.enablePlants
-									&& settings.enableLilyPads
-									&& (lilyPadTicks > 0)) {
-								vWorld.plants.growPlant(currentBlock,
-										Material.RED_ROSE);
+						} else if (blockTypeRed == Material.STATIONARY_WATER.getId()) {
+							if (settings.enablePlants && settings.enableLilyPads && (lilyPadTicks > 0)) {
+								vWorld.plants.growPlant(currentBlock, Material.RED_ROSE);
 								lilyPadTicks--;
 							}
 							break;
 						}
 
 					case BROWN_MUSHROOM:
-						if (settings.enablePlants && settings.enableFungi
-								&& (plantTicks > 0)) {
-							vWorld.plants.growPlant(currentBlock,
-									Material.BROWN_MUSHROOM);
+						if (settings.enablePlants && settings.enableFungi && (plantTicks > 0)) {
+							vWorld.plants.growPlant(currentBlock, Material.BROWN_MUSHROOM);
 							plantTicks--;
 						}
 
 						if (settings.enableGrass && (grassTicks > 0)) {
-							if (currentBlock.getRelative(BlockFace.DOWN)
-									.getType() == Material.GRASS) {
-								vWorld.grass.growGrass(currentBlock
-										.getRelative(BlockFace.DOWN));
+							if (currentBlock.getRelative(BlockFace.DOWN).getType() == Material.GRASS) {
+								vWorld.grass.growGrass(currentBlock.getRelative(BlockFace.DOWN));
 								grassTicks--;
 							}
 						}
 						break;
 
 					case RED_MUSHROOM:
-						if (settings.enablePlants && settings.enableFungi
-								&& (plantTicks > 0)) {
-							vWorld.plants.growPlant(currentBlock,
-									Material.RED_MUSHROOM);
+						if (settings.enablePlants && settings.enableFungi && (plantTicks > 0)) {
+							vWorld.plants.growPlant(currentBlock, Material.RED_MUSHROOM);
 							plantTicks--;
 						}
 
 						if (settings.enableGrass && (grassTicks > 0)) {
-							if (currentBlock.getRelative(BlockFace.DOWN)
-									.getType() == Material.GRASS) {
-								vWorld.grass.growGrass(currentBlock
-										.getRelative(BlockFace.DOWN));
+							if (currentBlock.getRelative(BlockFace.DOWN).getType() == Material.GRASS) {
+								vWorld.grass.growGrass(currentBlock.getRelative(BlockFace.DOWN));
 								grassTicks--;
 							}
 						}
 						break;
 
 					case PUMPKIN:
-						if (settings.enablePlants && settings.enablePumpkins
-								&& (plantTicks > 0)) {
-							vWorld.plants.growPlant(currentBlock,
-									Material.PUMPKIN);
+						if (settings.enablePlants && settings.enablePumpkins && (plantTicks > 0)) {
+							vWorld.plants.growPlant(currentBlock, Material.PUMPKIN);
 							plantTicks--;
 						}
 						break;
 
 					case COBBLESTONE:
-						if (settings.enableMoss && settings.waterGrowsMoss
-								&& (mossTicks > 0)) {
+						if (settings.enableMoss && settings.waterGrowsMoss && (mossTicks > 0)) {
 							vWorld.moss.growMoss(currentBlock);
 							mossTicks--;
 						}
@@ -245,8 +207,7 @@ public class Timer implements Runnable {
 				currentBlock = null;
 
 				// Vines
-				currentBlock = vWorld.blockCrawler.getRandomBlock(
-						playerLocation, Material.LOG);
+				currentBlock = vWorld.blockCrawler.getRandomBlock(playerLocation, Material.LOG);
 				if (currentBlock != null) {
 					if (settings.enableVines && (vineTicks > 0)) {
 						// only grow vines on normal trees

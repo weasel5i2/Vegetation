@@ -33,9 +33,7 @@ public class Vines {
 					for (int i = 0; i < height; i++) {
 						leaf = leaf.getRelative(BlockFace.DOWN);
 						if (leaf.getType() == Material.AIR) {
-							if (leaf.getRelative(BlockFace.DOWN).getType() == Material.AIR
-									&& blocks.isSurroundedByBlockType1(leaf,
-											Material.AIR))
+							if (leaf.getRelative(BlockFace.DOWN).getType() == Material.AIR && blocks.isSurroundedByBlockType1(leaf, Material.AIR))
 								vineBlocks.add(leaf);
 						} else
 							break;
@@ -124,14 +122,10 @@ public class Vines {
 				for (int z = pZ - range; z <= pZ + range; z++) {
 					if (W.getBlockTypeIdAt(x, pY, z) == Material.LEAVES.getId()) {
 						currentBlock = W.getBlockAt(x, pY, z);
-						if (W.getBlockTypeIdAt(x, pY - 1, z) == Material.AIR
-								.getId()
-								&& blocks.isSurroundedByBlockType1(currentBlock
-										.getRelative(BlockFace.DOWN),
-										Material.AIR)) {
+						if (W.getBlockTypeIdAt(x, pY - 1, z) == Material.AIR.getId()
+								&& blocks.isSurroundedByBlockType1(currentBlock.getRelative(BlockFace.DOWN), Material.AIR)) {
 							lowerLeaves.add(currentBlock);
-						} else if (W.getBlockTypeIdAt(x, pY - 1, z) == Material.SUGAR_CANE_BLOCK
-								.getId()) {
+						} else if (W.getBlockTypeIdAt(x, pY - 1, z) == Material.SUGAR_CANE_BLOCK.getId()) {
 							vineCount++;
 							if (vineCount >= MaxVinesOnTree)
 								return null;

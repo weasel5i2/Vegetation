@@ -54,8 +54,7 @@ public class BlockCrawler {
 			return true;
 		else if (biome == Biome.SHRUBLAND && settings.growShrublandBiome)
 			return true;
-		else if (biome == Biome.SEASONAL_FOREST
-				&& settings.growSeasonalForestBiome)
+		else if (biome == Biome.SEASONAL_FOREST && settings.growSeasonalForestBiome)
 			return true;
 		else
 			return false;
@@ -136,8 +135,7 @@ public class BlockCrawler {
 	 * 
 	 * @return Block
 	 */
-	public Block getTopBlock(Location baseBlock, int x, int z, Material ground,
-			Material surface) {
+	public Block getTopBlock(Location baseBlock, int x, int z, Material ground, Material surface) {
 		// surface and ground can't be of the same material
 		if (ground == surface)
 			return null;
@@ -167,8 +165,7 @@ public class BlockCrawler {
 						currentBlock = null;
 						break;
 					}
-				} else if (currentMaterial != groundId
-						&& currentMaterial != surfaceId) {
+				} else if (currentMaterial != groundId && currentMaterial != surfaceId) {
 					currentBlock = null;
 					break;
 				}
@@ -189,8 +186,7 @@ public class BlockCrawler {
 						currentBlock = null;
 						break;
 					}
-				} else if (currentMaterial != groundId
-						&& currentMaterial != surfaceId) {
+				} else if (currentMaterial != groundId && currentMaterial != surfaceId) {
 					currentBlock = null;
 					break;
 				}
@@ -233,11 +229,8 @@ public class BlockCrawler {
 				currentBlock = world.getBlockAt(tX, tY, tZ);
 				if (withinEnabledBiome(currentBlock)) {
 					if (Vegetation.debugging)
-						logOutput("Found random block of material: "
-								+ currentBlock.getType().toString() + " "
-								+ currentBlock.getX() + ","
-								+ currentBlock.getY() + ","
-								+ currentBlock.getZ());
+						logOutput("Found random block of material: " + currentBlock.getType().toString() + " " + currentBlock.getX() + ","
+								+ currentBlock.getY() + "," + currentBlock.getZ());
 					break;
 				}
 			}
@@ -271,10 +264,8 @@ public class BlockCrawler {
 			currentBlock = getTopBlock(baseBlock, tX, tZ, surface);
 			if (currentBlock != null) {
 				if (Vegetation.debugging)
-					logOutput("Found random block of material: "
-							+ currentBlock.getType().toString() + " "
-							+ currentBlock.getX() + "," + currentBlock.getY()
-							+ "," + currentBlock.getZ());
+					logOutput("Found random block of material: " + currentBlock.getType().toString() + " " + currentBlock.getX() + ","
+							+ currentBlock.getY() + "," + currentBlock.getZ());
 				break;
 			}
 		}
@@ -294,8 +285,7 @@ public class BlockCrawler {
 	 * 
 	 * @return Block
 	 */
-	public Block getRandomTopBlock(Location baseBlock, Material material,
-			Material surface) {
+	public Block getRandomTopBlock(Location baseBlock, Material material, Material surface) {
 		int range = settings.growthRange;
 
 		int pX = (int) baseBlock.getX();
@@ -311,9 +301,7 @@ public class BlockCrawler {
 			currentBlock = getTopBlock(baseBlock, tX, tZ, material, surface);
 			if (currentBlock != null) {
 				if (Vegetation.debugging)
-					logOutput("Found random block of material: "
-							+ material.toString() + " " + currentBlock.getX()
-							+ "," + currentBlock.getY() + ","
+					logOutput("Found random block of material: " + material.toString() + " " + currentBlock.getX() + "," + currentBlock.getY() + ","
 							+ currentBlock.getZ());
 				break;
 			}
@@ -336,8 +324,7 @@ public class BlockCrawler {
 	 * 
 	 * @return Block
 	 */
-	public Block getRandomTopBlock(Location baseBlock, Material material,
-			Material surface, int range) {
+	public Block getRandomTopBlock(Location baseBlock, Material material, Material surface, int range) {
 		int pX = (int) baseBlock.getX();
 		int pZ = (int) baseBlock.getZ();
 
@@ -351,9 +338,7 @@ public class BlockCrawler {
 			currentBlock = getTopBlock(baseBlock, tX, tZ, material, surface);
 			if (currentBlock != null) {
 				if (Vegetation.debugging)
-					logOutput("Found random block of material: "
-							+ material.toString() + " " + currentBlock.getX()
-							+ "," + currentBlock.getY() + ","
+					logOutput("Found random block of material: " + material.toString() + " " + currentBlock.getX() + "," + currentBlock.getY() + ","
 							+ currentBlock.getZ());
 				break;
 			}
@@ -378,8 +363,7 @@ public class BlockCrawler {
 	 * 
 	 * @return Block
 	 */
-	public Block getRandomTopBlock(Location baseBlock, Material material,
-			Material surface, int minRange, int maxRange) {
+	public Block getRandomTopBlock(Location baseBlock, Material material, Material surface, int minRange, int maxRange) {
 		int pX = (int) baseBlock.getX();
 		int pZ = (int) baseBlock.getZ();
 
@@ -395,11 +379,8 @@ public class BlockCrawler {
 				currentBlock = getTopBlock(baseBlock, tX, tZ, material, surface);
 				if (currentBlock != null) {
 					if (Vegetation.debugging)
-						logOutput("Found random block of material: "
-								+ material.toString() + " "
-								+ currentBlock.getX() + ","
-								+ currentBlock.getY() + ","
-								+ currentBlock.getZ());
+						logOutput("Found random block of material: " + material.toString() + " " + currentBlock.getX() + "," + currentBlock.getY()
+								+ "," + currentBlock.getZ());
 					break;
 				}
 			}
@@ -470,10 +451,8 @@ public class BlockCrawler {
 	 * @return
 	 */
 	public boolean isSurroundedByBlockType1(Block block, Material material) {
-		if ((block.getRelative(BlockFace.NORTH).getType() == material)
-				&& (block.getRelative(BlockFace.EAST).getType() == material)
-				&& (block.getRelative(BlockFace.SOUTH).getType() == material)
-				&& (block.getRelative(BlockFace.WEST).getType() == material))
+		if ((block.getRelative(BlockFace.NORTH).getType() == material) && (block.getRelative(BlockFace.EAST).getType() == material)
+				&& (block.getRelative(BlockFace.SOUTH).getType() == material) && (block.getRelative(BlockFace.WEST).getType() == material))
 			return true;
 
 		return false;
@@ -490,14 +469,10 @@ public class BlockCrawler {
 	 * @return
 	 */
 	public boolean isSurroundedByBlockType2(Block block, Material material) {
-		if ((block.getRelative(BlockFace.NORTH).getType() == material)
-				&& (block.getRelative(BlockFace.NORTH_EAST).getType() == material)
-				&& (block.getRelative(BlockFace.EAST).getType() == material)
-				&& (block.getRelative(BlockFace.SOUTH_EAST).getType() == material)
-				&& (block.getRelative(BlockFace.SOUTH).getType() == material)
-				&& (block.getRelative(BlockFace.SOUTH_WEST).getType() == material)
-				&& (block.getRelative(BlockFace.WEST).getType() == material)
-				&& (block.getRelative(BlockFace.NORTH_WEST).getType() == material))
+		if ((block.getRelative(BlockFace.NORTH).getType() == material) && (block.getRelative(BlockFace.NORTH_EAST).getType() == material)
+				&& (block.getRelative(BlockFace.EAST).getType() == material) && (block.getRelative(BlockFace.SOUTH_EAST).getType() == material)
+				&& (block.getRelative(BlockFace.SOUTH).getType() == material) && (block.getRelative(BlockFace.SOUTH_WEST).getType() == material)
+				&& (block.getRelative(BlockFace.WEST).getType() == material) && (block.getRelative(BlockFace.NORTH_WEST).getType() == material))
 			return true;
 
 		return false;
@@ -516,18 +491,15 @@ public class BlockCrawler {
 
 		switch (V) {
 		case 0:
-			retVal = (Vegetation.generator.nextInt(range + 1) - Vegetation.generator
-					.nextInt(range + 1)) / 2;
+			retVal = (Vegetation.generator.nextInt(range + 1) - Vegetation.generator.nextInt(range + 1)) / 2;
 			break;
 
 		case 1:
-			retVal = (Vegetation.generator.nextInt(range + 1) - Vegetation.generator
-					.nextInt(range + 1)) / 3;
+			retVal = (Vegetation.generator.nextInt(range + 1) - Vegetation.generator.nextInt(range + 1)) / 3;
 			break;
 
 		case 2:
-			retVal = Vegetation.generator.nextInt(range + 1)
-					- Vegetation.generator.nextInt(range + 1);
+			retVal = Vegetation.generator.nextInt(range + 1) - Vegetation.generator.nextInt(range + 1);
 			break;
 
 		case 4:
@@ -561,8 +533,7 @@ public class BlockCrawler {
 	 * 
 	 * @return float value between 0.0 and 1.0
 	 */
-	public float getFieldDensity(Block centerBlock, int range,
-			Material[] material) {
+	public float getFieldDensity(Block centerBlock, int range, Material[] material) {
 		Location location = centerBlock.getLocation();
 		int pX = centerBlock.getX();
 		int pZ = centerBlock.getZ();
@@ -632,8 +603,7 @@ public class BlockCrawler {
 		return density;
 	}
 
-	public ArrayList<Block> getBlocksInRange(Block centerBlock,
-			Material material, int range) {
+	public ArrayList<Block> getBlocksInRange(Block centerBlock, Material material, int range) {
 		ArrayList<Block> blocks = new ArrayList<Block>();
 		World world = centerBlock.getWorld();
 		Location center = centerBlock.getLocation();

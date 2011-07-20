@@ -18,8 +18,7 @@ public class MowCommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command,
-			String commandLabel, String[] args) {
+	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			Player P = (Player) sender;
 			VegetationWorld vWorld = plugin.vWorlds.get(P.getWorld().getName());

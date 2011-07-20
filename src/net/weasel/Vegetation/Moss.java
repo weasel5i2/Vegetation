@@ -25,12 +25,10 @@ public class Moss {
 	public void growMoss(Block block) {
 		int maxSpreadAmount = 2;
 
-		ArrayList<Block> blocks = blockCrawler.getBlocksInRange(block,
-				Material.COBBLESTONE, 1);
+		ArrayList<Block> blocks = blockCrawler.getBlocksInRange(block, Material.COBBLESTONE, 1);
 
 		for (int i = 0; i < blocks.size(); i++) {
-			if (blockCrawler.isAdjacentofBlockType2(blocks.get(i),
-					Material.STATIONARY_WATER)) {
+			if (blockCrawler.isAdjacentofBlockType2(blocks.get(i), Material.STATIONARY_WATER)) {
 				blocks.get(i).setType(Material.MOSSY_COBBLESTONE);
 				maxSpreadAmount--;
 			}

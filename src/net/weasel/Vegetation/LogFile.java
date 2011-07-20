@@ -25,14 +25,12 @@ public class LogFile {
 
 		try {
 			bw = new BufferedWriter(new FileWriter(file, true));
-			bw.write("[" + dateFormat.format(date) + "][" + t.getId() + "] "
-					+ text);
+			bw.write("[" + dateFormat.format(date) + "][" + t.getId() + "] " + text);
 			bw.newLine();
 			bw.flush();
 			bw.close();
 		} catch (IOException ioe) {
-			Vegetation.logOutput("Error while trying to write log file: "
-					+ file.getName());
+			Vegetation.logOutput("Error while trying to write log file: " + file.getName());
 		}
 	}
 }
