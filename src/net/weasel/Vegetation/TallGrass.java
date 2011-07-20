@@ -98,7 +98,9 @@ public class TallGrass {
 			if (emptyBlock != null && emptyBlock.getBiome() == biome) {
 				emptyBlock.getRelative(BlockFace.UP).setTypeIdAndData(bushType.getId(), (byte) data, true);
 				// remove wild grass
-				emptyBlock.setData((byte) 0);
+				if (plantBlockMaterial == Material.GRASS) {
+					emptyBlock.setData((byte) 0);
+				}
 				maxSpreadAmount--;
 
 				if (maxSpreadAmount <= 0)
