@@ -1,27 +1,24 @@
 package net.weasel.Vegetation;
 
 public class Mutex {
-	
+
 	private boolean lock;
 
-	public Mutex()
-	{
+	public Mutex() {
 		lock = false;
 	}
-	
-	public void aquire()
-	{
-		while(lock) {}
+
+	public void aquire() {
+		while (lock) {
+		}
 		lock = true;
 	}
-	
-	public void release()
-	{
+
+	public void release() {
 		lock = false;
 	}
-	
-	public boolean isLocked()
-	{
+
+	public boolean isLocked() {
 		return lock;
 	}
 }

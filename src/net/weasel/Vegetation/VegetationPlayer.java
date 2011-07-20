@@ -6,24 +6,20 @@ public class VegetationPlayer {
 
 	private String name;
 	private Block lastBlock;
-	
-	public VegetationPlayer(String name)
-	{
+
+	public VegetationPlayer(String name) {
 		this.name = name;
 	}
-	
-	public String getName()
-	{
+
+	public String getName() {
 		return name;
 	}
-	
-	public void setLastBlockPosition(Block block)
-	{
+
+	public void setLastBlockPosition(Block block) {
 		lastBlock = block;
 	}
-	
-	public Block getLastBlockPosition()
-	{
+
+	public Block getLastBlockPosition() {
 		return lastBlock;
 	}
 }

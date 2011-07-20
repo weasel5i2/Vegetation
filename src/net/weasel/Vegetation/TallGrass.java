@@ -6,41 +6,42 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
 public class TallGrass {
-	
-	public void logOutput(String text) { Vegetation.logOutput(text); }
-	
+
+	public void logOutput(String text) {
+		Vegetation.logOutput(text);
+	}
+
 	private BlockCrawler blockCrawler;
-	
-	public TallGrass(BlockCrawler b)
-	{
+
+	public TallGrass(BlockCrawler b) {
 		blockCrawler = b;
 	}
-	
-	public void growTallGrass(Block block)
-	{
+
+	public void growTallGrass(Block block) {
 		Material blockType = block.getType();
-		
+
 		// 31 - Material.LONG_GRASS
 		// 32 - Material.DEAD_BUSH
 		// 0 = dead bush, 1 = tall grass, 2 = green bush
-		
-		if( blockType == Material.GRASS )
-		{
-			switch( block.getBiome() )
-			{
+
+		if (blockType == Material.GRASS) {
+			switch (block.getBiome()) {
 			case FOREST:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
-				block.setData((byte)0);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1,
+						false);
+				block.setData((byte) 0);
 				break;
 
 			case RAINFOREST:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
-				block.setData((byte)0);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2,
+						false);
+				block.setData((byte) 0);
 				break;
 
 			case PLAINS:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
-				block.setData((byte)0);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1,
+						false);
+				block.setData((byte) 0);
 				break;
 
 			case SWAMPLAND:
@@ -53,17 +54,19 @@ public class TallGrass {
 				break;
 
 			case SAVANNA:
-				//nothing
+				// nothing
 				break;
 
 			case SHRUBLAND:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1, false);
-				block.setData((byte)0);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 1,
+						false);
+				block.setData((byte) 0);
 				break;
 
 			case SEASONAL_FOREST:
-				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2, false);
-				block.setData((byte)0);
+				block.getRelative(BlockFace.UP).setTypeIdAndData(31, (byte) 2,
+						false);
+				block.setData((byte) 0);
 				break;
 
 			case DESERT:
@@ -72,44 +75,44 @@ public class TallGrass {
 			default:
 				break;
 			}
-		}
-		else if( blockType == Material.SAND )
-		{
-			block.getRelative(BlockFace.UP).setTypeIdAndData(32, (byte) 0, false);
+		} else if (blockType == Material.SAND) {
+			block.getRelative(BlockFace.UP).setTypeIdAndData(32, (byte) 0,
+					false);
 		}
 	}
-	
-	public void spreadTallGrass(Block bushBlock)
-	{
+
+	public void spreadTallGrass(Block bushBlock) {
 		Material bushType = bushBlock.getType();
-		
-		if( bushType == Material.LONG_GRASS )
-		{
-			if( blockCrawler.getFieldDensity(bushBlock, 3, bushType) > 0.1 ) return;
+
+		if (bushType == Material.LONG_GRASS) {
+			if (blockCrawler.getFieldDensity(bushBlock, 3, bushType) > 0.1)
+				return;
+		} else if (bushType == Material.DEAD_BUSH) {
+			if (blockCrawler.getFieldDensity(bushBlock, 3, bushType) > 0.03)
+				return;
 		}
-		else if( bushType == Material.DEAD_BUSH )
-		{
-			if( blockCrawler.getFieldDensity(bushBlock, 3, bushType) > 0.03 ) return;
-		}
-		
+
 		Biome biome = bushBlock.getBiome();
 		int data = bushBlock.getData();
 		int maxSpreadAmount = 1;
-		
+
 		Block emptyBlock = null;
-		Material plantBlockMaterial = bushBlock.getRelative(BlockFace.DOWN).getType();
-		//Get surrounding block and place new plant
-		for( int i = 0; i < 150; i++ )
-		{
-			emptyBlock = blockCrawler.getRandomTopBlock(bushBlock.getLocation() , plantBlockMaterial, Material.AIR, 3);
-			if( emptyBlock != null && emptyBlock.getBiome() == biome)
-			{
-				emptyBlock.getRelative(BlockFace.UP).setTypeIdAndData(bushType.getId(), (byte)data, true);
+		Material plantBlockMaterial = bushBlock.getRelative(BlockFace.DOWN)
+				.getType();
+		// Get surrounding block and place new plant
+		for (int i = 0; i < 150; i++) {
+			emptyBlock = blockCrawler.getRandomTopBlock(
+					bushBlock.getLocation(), plantBlockMaterial, Material.AIR,
+					3);
+			if (emptyBlock != null && emptyBlock.getBiome() == biome) {
+				emptyBlock.getRelative(BlockFace.UP).setTypeIdAndData(
+						bushType.getId(), (byte) data, true);
 				// remove wild grass
-				emptyBlock.setData((byte)0);
+				emptyBlock.setData((byte) 0);
 				maxSpreadAmount--;
 
-				if( maxSpreadAmount <= 0 ) break;
+				if (maxSpreadAmount <= 0)
+					break;
 			}
 
 		}

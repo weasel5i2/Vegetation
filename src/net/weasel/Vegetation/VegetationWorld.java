@@ -3,12 +3,14 @@ package net.weasel.Vegetation;
 import org.bukkit.World;
 
 public class VegetationWorld {
-	
-	public void logOutput( String text ) { Vegetation.logOutput( text ); }
-	
+
+	public void logOutput(String text) {
+		Vegetation.logOutput(text);
+	}
+
 	public final World world;
 	private Vegetation plugin;
-	
+
 	private Settings settings;
 	public final PlayerList playerList;
 	public final BlockCrawler blockCrawler;
@@ -20,11 +22,10 @@ public class VegetationWorld {
 	public final Moss moss;
 	public final Vines vines;
 	public final TallGrass tGrass;
-	
+
 	private int activePlayerCommands = 0;
-	
-	public VegetationWorld(Vegetation p, World w)
-	{
+
+	public VegetationWorld(Vegetation p, World w) {
 		plugin = p;
 		world = w;
 		settings = new Settings("plugins/Vegetation/" + w.getName() + ".ini");
@@ -39,38 +40,33 @@ public class VegetationWorld {
 		moss = new Moss(blockCrawler);
 		vines = new Vines(blockCrawler);
 		tGrass = new TallGrass(blockCrawler);
-		
+
 		logOutput("Settings for world [" + w.getName() + "] loaded.");
 	}
-	
-	public Settings getSettings()
-	{
+
+	public Settings getSettings() {
 		return settings;
 	}
-	
-	public void startTimer()
-	{
-		Vegetation.timer.scheduleSyncRepeatingTask(plugin, new Timer(this), 10, 1);
+
+	public void startTimer() {
+		Vegetation.timer.scheduleSyncRepeatingTask(plugin, new Timer(this), 10,
+				1);
 	}
-	
-	public World getWorld()
-	{
+
+	public World getWorld() {
 		return world;
 	}
-	
-	public synchronized void increaseActivePlayerCommands()
-	{
+
+	public synchronized void increaseActivePlayerCommands() {
 		activePlayerCommands++;
 	}
-	
-	public synchronized void decreaseActivePlayerCommands()
-	{
-		if( activePlayerCommands > 0 )
+
+	public synchronized void decreaseActivePlayerCommands() {
+		if (activePlayerCommands > 0)
 			activePlayerCommands--;
 	}
-	
-	public int getActivePlayerCommands()
-	{
+
+	public int getActivePlayerCommands() {
 		return activePlayerCommands;
 	}
 }
