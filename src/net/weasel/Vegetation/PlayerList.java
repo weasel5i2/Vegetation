@@ -1,6 +1,7 @@
 package net.weasel.Vegetation;
 
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ public class PlayerList {
 	private World world;
 	private ArrayList<VegetationPlayer> players;
 	private int posIndex;
-	private Mutex mutex;
+	private ReentrantLock lock;
 	
 	public PlayerList(Vegetation p, World w)
 	{
@@ -21,30 +22,34 @@ public class PlayerList {
 		world = w;
 		players = new ArrayList<VegetationPlayer>();
 		posIndex = 0;
-		mutex = new Mutex();
+		//mutex = new Mutex();
+		lock = new ReentrantLock();
 	}
 	
 	public void getActivePlayerList()
 	{
-		mutex.aquire();
+		lock.lock();
 		
 		players.clear();
+		Vegetation.lf.write("Clearing PlayerList - World [" + world.getName() + "]");
+		
 		
 		for( Player player: world.getPlayers() )
 		{
 			VegetationPlayer vPlayer = new VegetationPlayer(player.getName());
 			vPlayer.setLastBlockPosition(player.getLocation().getBlock());
 			players.add(vPlayer);
+			Vegetation.lf.write("Adding Player [" + vPlayer.getName() + "] - World [" + world.getName() + "]");
 		}
 		
 		posIndex = 0;
 		
-		mutex.release();
+		lock.unlock();
 	}
 	
 	public Player getNextPlayer()
 	{
-		mutex.aquire();
+		lock.lock();
 		
 		if( posIndex > (players.size() - 1) ) posIndex = 0;
 		
@@ -62,7 +67,8 @@ public class PlayerList {
 			posIndex = 0;
 		}
 		
-		mutex.release();
+		//log.write("Timer grabs Player [" + player.getName() + "]");
+		lock.unlock();
 		return player;
 	}
 	
@@ -80,52 +86,51 @@ public class PlayerList {
 	
 	public void addPlayer(Player player)
 	{
-		mutex.aquire();
+		lock.lock();
 		
 		if( !(contains(player.getName())) )
 		{
 			players.add(new VegetationPlayer(player.getName()));
 		}
 		
-		mutex.release();
+		lock.unlock();
 	}
 	
 	public void addPlayer(VegetationPlayer player)
 	{
-		mutex.aquire();
+		lock.lock();
 		
 		if( !(contains(player.getName())) )
 		{
 			players.add(player);
+			Vegetation.lf.write("Adding Player [" + player.getName() + "]- World [" + world.getName() + "]");
 		}
 		
-		mutex.release();
+		lock.unlock();
 	}
 	
 	public void removePlayer(Player player)
 	{
-		mutex.aquire();
+		lock.lock();
 		
 		if( contains(player.getName()) )
 		{
 			remove(player.getName());
-			players.trimToSize();
 		}
 		
-		mutex.release();
+		lock.unlock();
 	}
 	
 	public void removePlayer(VegetationPlayer player)
 	{
-		mutex.aquire();
+		lock.lock();
 		
 		if( contains(player.getName()) )
 		{
 			remove(player.getName());
-			players.trimToSize();
 		}
 		
-		mutex.release();
+		lock.unlock();
 	}
 	
 	private void remove(String name)
@@ -134,7 +139,9 @@ public class PlayerList {
 		{
 			if( name.equals(players.get(i).getName()) )
 			{
+				Vegetation.lf.write("Removing Player [" + players.get(i).getName() + "] - World [" + world.getName() + "]");
 				players.remove(i);
+				players.trimToSize();
 			}
 		}
 	}

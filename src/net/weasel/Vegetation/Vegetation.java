@@ -45,6 +45,8 @@ public class Vegetation extends JavaPlugin
 	
 	private boolean foundPermissions = false;
 	
+	public static LogFile lf = new LogFile();
+	
 	@Override
     public void onEnable() 
     {
@@ -65,6 +67,8 @@ public class Vegetation extends JavaPlugin
 		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.LEAVES_DECAY, BlockListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_BURN, BlockListener, Event.Priority.Normal, this);
+		
+		lf.loadFile("playerlist.log");
 
 		
 		//enable permission and register commands

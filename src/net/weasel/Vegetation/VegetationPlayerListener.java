@@ -98,6 +98,7 @@ public class VegetationPlayerListener extends PlayerListener
 	public void onPlayerQuit(PlayerQuitEvent event)
 	{
 		Player player = event.getPlayer();
+		Vegetation.lf.write("[Event] Player [" + player.getName() + "] quit - World [" + player.getWorld().getName() + "]");
 		VegetationWorld vWorld = Vegetation.vWorlds.get(player.getWorld().getName());
 		if( vWorld != null ) vWorld.playerList.removePlayer(player);
 	}
@@ -106,6 +107,7 @@ public class VegetationPlayerListener extends PlayerListener
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		Player player = event.getPlayer();
+		Vegetation.lf.write("[Event] Player [" + player.getName() + "] logged in - World [" + player.getWorld().getName() + "]");
 		VegetationWorld vWorld = Vegetation.vWorlds.get(player.getWorld().getName());
 		if( vWorld != null )
 		{
@@ -164,6 +166,7 @@ public class VegetationPlayerListener extends PlayerListener
 		if( !oldWorld.equals(currentWorld) )
 		{
 			Player player = event.getPlayer();
+			Vegetation.lf.write("[Event] Player [" + player.getName() + "] teleported - World [" + event.getFrom().getWorld().getName() + "] -> [" + event.getTo().getWorld().getName() + "]");
 			VegetationWorld old = Vegetation.vWorlds.get(oldWorld);
 			VegetationWorld current = Vegetation.vWorlds.get(currentWorld);
 			
