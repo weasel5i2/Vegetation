@@ -19,7 +19,6 @@ public class PlayerList {
 		world = w;
 		players = new ArrayList<VegetationPlayer>();
 		posIndex = 0;
-		// mutex = new Mutex();
 		lock = new ReentrantLock();
 	}
 
