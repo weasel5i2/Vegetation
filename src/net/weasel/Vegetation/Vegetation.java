@@ -39,7 +39,7 @@ public class Vegetation extends JavaPlugin {
 
 	private boolean foundPermissions = false;
 
-	public static LogFile lf = new LogFile();
+	protected static LogFile lf = new LogFile();
 
 	@Override
 	public void onEnable() {
