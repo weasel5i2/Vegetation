@@ -27,13 +27,7 @@ public class Canes {
 	 * @param block
 	 */
 	public void growCanes(Block block) {
-		if (Vegetation.debugging)
-			logOutput("Spreading plants..");
-
 		int maxSpreadAmount = 2;
-
-		if (Vegetation.debugging)
-			logOutput("Spreading Type of Plant: Sugar Crane ");
 
 		Block plantBlock = null;
 		// Get surrounding block and place new plant
@@ -43,8 +37,6 @@ public class Canes {
 				// sugar cranes can only grow near water :O
 				if (blocks.isAdjacentofBlockType1(plantBlock, Material.STATIONARY_WATER) || blocks.isAdjacentofBlockType1(plantBlock, Material.WATER)) {
 					plantBlock.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
-					if (Vegetation.debugging)
-						logOutput("Planting at: " + plantBlock.getX() + " " + plantBlock.getY() + " " + plantBlock.getZ());
 					maxSpreadAmount--;
 				}
 			}
@@ -62,8 +54,6 @@ public class Canes {
 	public boolean growSingleCane(Block block) {
 		if (blocks.isAdjacentofBlockType1(block, Material.STATIONARY_WATER) || blocks.isAdjacentofBlockType1(block, Material.WATER)) {
 			block.getRelative(BlockFace.UP).setType(Material.SUGAR_CANE_BLOCK);
-			if (Vegetation.debugging)
-				logOutput("Planting at: " + block.getX() + " " + block.getY() + " " + block.getZ());
 			return true;
 		}
 		return false;

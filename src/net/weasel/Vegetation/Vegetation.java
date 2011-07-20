@@ -29,9 +29,7 @@ public class Vegetation extends JavaPlugin {
 	private PluginManager pm;
 
 	// Plugin stuff..
-	public static String pluginName = "";
-	public static String pluginVersion = "";
-	public static boolean debugging = true;
+	private String pluginVersion = "";
 
 	// System stuff
 	protected HashMap<String, VegetationWorld> vWorlds = new HashMap<String, VegetationWorld>();
@@ -48,7 +46,6 @@ public class Vegetation extends JavaPlugin {
 		PlayerListener = new VegetationPlayerListener(this);
 		BlockListener = new VegetationBlockListener(this);
 
-		pluginName = this.getDescription().getName();
 		pluginVersion = this.getDescription().getVersion();
 		timer = getServer().getScheduler();
 
@@ -85,11 +82,7 @@ public class Vegetation extends JavaPlugin {
 		// create VegetationWorld objects for loaded worlds
 		loadWorldSettings();
 
-		debugging = new File("plugins/Vegetation/debug.txt").exists();
-		if (debugging)
-			logOutput("debugging is enabled.");
-
-		logOutput(pluginName + " v" + pluginVersion + " enabled.");
+		logOutput("Vegetation v" + pluginVersion + " enabled.");
 
 		// start timers
 		Iterator<String> it = vWorlds.keySet().iterator();
@@ -102,7 +95,7 @@ public class Vegetation extends JavaPlugin {
 	public void onDisable() {
 		timer.cancelAllTasks();
 		vWorlds.clear();
-		logOutput("Plugin disabled: " + pluginName + " version " + pluginVersion);
+		logOutput("Plugin disabled: Vegetation v" + pluginVersion);
 	}
 
 	public void loadWorldSettings() {
@@ -127,7 +120,7 @@ public class Vegetation extends JavaPlugin {
 	}
 
 	protected static void logOutput(String text) {
-		Log.log(Level.INFO, "[" + pluginName + "]: " + text);
+		Log.log(Level.INFO, "[Vegetation]: " + text);
 	}
 
 	public boolean hasPermission(Player player, String node) {

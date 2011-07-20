@@ -30,9 +30,6 @@ public class Cacti {
 		if (blocks.getFieldDensity(block, 5, material) > 0.03)
 			return;
 
-		if (Vegetation.debugging)
-			logOutput("Spreading cacti..");
-
 		int maxSpreadAmount = 1;
 		Block plantBlock = null;
 
@@ -41,8 +38,6 @@ public class Cacti {
 			plantBlock = blocks.getRandomTopBlock(block.getLocation(), Material.SAND, Material.AIR, 5);
 			if (plantBlock != null && blocks.isSurroundedByBlockType1(plantBlock.getRelative(BlockFace.UP), Material.AIR)) {
 				plantBlock.getRelative(BlockFace.UP).setType(Material.CACTUS);
-				if (Vegetation.debugging)
-					logOutput("Planting at: " + plantBlock.getX() + " " + plantBlock.getY() + " " + plantBlock.getZ());
 				maxSpreadAmount--;
 			}
 
@@ -59,8 +54,6 @@ public class Cacti {
 	public boolean growSingleCacti(Block block) {
 		if (blocks.isSurroundedByBlockType1(block.getRelative(BlockFace.UP), Material.AIR)) {
 			block.getRelative(BlockFace.UP).setType(Material.CACTUS);
-			if (Vegetation.debugging)
-				logOutput("Planting at: " + block.getX() + " " + block.getY() + " " + block.getZ());
 			return true;
 		}
 		return false;

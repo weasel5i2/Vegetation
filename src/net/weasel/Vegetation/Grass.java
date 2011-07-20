@@ -39,9 +39,6 @@ public class Grass {
 		if (block.getType() != Material.GRASS)
 			return;
 
-		if (Vegetation.debugging)
-			logOutput("Growing grass..");
-
 		int data = block.getData();
 
 		if (data < 2)
@@ -49,8 +46,6 @@ public class Grass {
 
 		if (data > maxGrassHeight + 1) {
 			block.setData((byte) (maxGrassHeight + 1));
-			if (Vegetation.debugging)
-				logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + data);
 		} else {
 			data++;
 			if (data < maxGrassHeight + 1) {
@@ -59,8 +54,6 @@ public class Grass {
 				// we only need to refresh the chunk if the grass is growing
 				// world.refreshChunk(block.getChunk().getX(),
 				// block.getChunk().getZ());
-				if (Vegetation.debugging)
-					logOutput("Adjusting block " + block.getX() + "," + block.getY() + "," + block.getZ() + "V:" + data);
 			}
 		}
 	}

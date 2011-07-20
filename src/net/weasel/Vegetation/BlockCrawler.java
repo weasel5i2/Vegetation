@@ -228,9 +228,6 @@ public class BlockCrawler {
 			if (currentMaterial == materialId) {
 				currentBlock = world.getBlockAt(tX, tY, tZ);
 				if (withinEnabledBiome(currentBlock)) {
-					if (Vegetation.debugging)
-						logOutput("Found random block of material: " + currentBlock.getType().toString() + " " + currentBlock.getX() + ","
-								+ currentBlock.getY() + "," + currentBlock.getZ());
 					break;
 				}
 			}
@@ -263,9 +260,6 @@ public class BlockCrawler {
 
 			currentBlock = getTopBlock(baseBlock, tX, tZ, surface);
 			if (currentBlock != null) {
-				if (Vegetation.debugging)
-					logOutput("Found random block of material: " + currentBlock.getType().toString() + " " + currentBlock.getX() + ","
-							+ currentBlock.getY() + "," + currentBlock.getZ());
 				break;
 			}
 		}
@@ -300,9 +294,6 @@ public class BlockCrawler {
 
 			currentBlock = getTopBlock(baseBlock, tX, tZ, material, surface);
 			if (currentBlock != null) {
-				if (Vegetation.debugging)
-					logOutput("Found random block of material: " + material.toString() + " " + currentBlock.getX() + "," + currentBlock.getY() + ","
-							+ currentBlock.getZ());
 				break;
 			}
 		}
@@ -337,9 +328,6 @@ public class BlockCrawler {
 
 			currentBlock = getTopBlock(baseBlock, tX, tZ, material, surface);
 			if (currentBlock != null) {
-				if (Vegetation.debugging)
-					logOutput("Found random block of material: " + material.toString() + " " + currentBlock.getX() + "," + currentBlock.getY() + ","
-							+ currentBlock.getZ());
 				break;
 			}
 		}
@@ -378,9 +366,6 @@ public class BlockCrawler {
 			if ((tX - pX >= minRange) && (tZ - pZ) >= minRange) {
 				currentBlock = getTopBlock(baseBlock, tX, tZ, material, surface);
 				if (currentBlock != null) {
-					if (Vegetation.debugging)
-						logOutput("Found random block of material: " + material.toString() + " " + currentBlock.getX() + "," + currentBlock.getY()
-								+ "," + currentBlock.getZ());
 					break;
 				}
 			}
