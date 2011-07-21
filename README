@@ -9,6 +9,12 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.4.4 20-July-2011
+* vines will now vanish if a tree burns down
+* implement a log for the plugins player list for debugging (playerlist.log)
+* tweaked tall grass spread a bit
+* added option to purge command (wild_flowers will purge all sand flowers and lily pads)
+
 Version 3.4.3 10-July-2011
 * fixed vines turning back into sugar cane blocks (hopefully)
 * vines decay now
