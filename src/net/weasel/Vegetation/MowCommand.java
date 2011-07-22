@@ -1,5 +1,6 @@
 package net.weasel.Vegetation;
 
+import org.bukkit.World.Environment;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.CommandExecutor;
@@ -21,10 +22,19 @@ public class MowCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			Player P = (Player) sender;
-			VegetationWorld vWorld = plugin.vWorlds.get(P.getWorld().getName());
-			int maxActivePlayerCommands = vWorld.getSettings().maxActivePlayerCommands;
 
 			if (plugin.hasPermission(P, "vegetation.mow")) {
+				VegetationWorld vWorld = plugin.vWorlds.get(P.getWorld().getName());
+				Settings settings = vWorld.getSettings();
+				if (settings == null) {
+					if (P.getWorld().getEnvironment() == Environment.NETHER) {
+						P.sendMessage("You can't grow anything in a nether world");
+						return true;
+					} else {
+						//TODO: create settings for new World
+					}
+				}
+				int maxActivePlayerCommands = settings.maxActivePlayerCommands;
 				// Todo: implement command queue
 				if (vWorld.getActivePlayerCommands() < maxActivePlayerCommands) {
 					vWorld.increaseActivePlayerCommands();

@@ -32,7 +32,7 @@ public class PlayerList {
 			VegetationPlayer vPlayer = new VegetationPlayer(player.getName());
 			vPlayer.setLastBlockPosition(player.getLocation().getBlock());
 			players.add(vPlayer);
-			Vegetation.lf.write("Adding Player [" + vPlayer.getName() + "] - World [" + world.getName() + "]");
+			//Vegetation.lf.write("Adding Player [" + vPlayer.getName() + "] - World [" + world.getName() + "]");
 		}
 
 		posIndex = 0;
@@ -58,28 +58,21 @@ public class PlayerList {
 			posIndex = 0;
 		}
 
-		// log.write("Timer grabs Player [" + player.getName() + "]");
 		lock.unlock();
 		return player;
 	}
 
 	public VegetationPlayer getVegetationplayer(String name) {
+		lock.lock();
+		VegetationPlayer vplayer = null;
 		for (VegetationPlayer player : players) {
 			if (name.equals(player.getName())) {
-				return player;
+				vplayer = player;
+				break;
 			}
 		}
-		return null;
-	}
-
-	public void addPlayer(Player player) {
-		lock.lock();
-
-		if (!(contains(player.getName()))) {
-			players.add(new VegetationPlayer(player.getName()));
-		}
-
 		lock.unlock();
+		return vplayer;
 	}
 
 	public void addPlayer(VegetationPlayer player) {
@@ -134,5 +127,28 @@ public class PlayerList {
 
 	public int getCountofPlayer() {
 		return players.size();
+	}
+	
+	protected void lock()
+	{
+		lock.lock();
+	}
+	
+	protected void unlock()
+	{
+		lock.unlock();
+	}
+	
+	public static void transferPlayer(VegetationPlayer player, VegetationWorld world1, VegetationWorld world2)
+	{
+		world1.playerList.lock();
+		world2.playerList.lock();
+		if (player != null)
+		{
+			world1.playerList.removePlayer(player);
+			world2.playerList.addPlayer(player);
+		}
+		world1.playerList.unlock();
+		world2.playerList.unlock();
 	}
 }

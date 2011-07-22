@@ -1,12 +1,9 @@
 package net.weasel.Vegetation;
 
 import org.bukkit.World;
+import org.bukkit.World.Environment;
 
 public class VegetationWorld {
-
-	public void logOutput(String text) {
-		Vegetation.logOutput(text);
-	}
 
 	public final World world;
 	private Vegetation plugin;
@@ -28,20 +25,35 @@ public class VegetationWorld {
 	public VegetationWorld(Vegetation p, World w) {
 		plugin = p;
 		world = w;
-		settings = new Settings("plugins/Vegetation/" + w.getName() + ".ini");
-		playerList = new PlayerList(plugin, world);
-		playerList.getActivePlayerList();
-		blockCrawler = new BlockCrawler(settings);
-		cacti = new Cacti(blockCrawler);
-		canes = new Canes(blockCrawler);
-		grass = new Grass(world, blockCrawler, settings.maxGrassHeight);
-		plants = new Plants(blockCrawler);
-		grazers = new Grazers(world, settings);
-		moss = new Moss(blockCrawler);
-		vines = new Vines(blockCrawler);
-		tGrass = new TallGrass(blockCrawler);
+		if (world.getEnvironment() == Environment.NETHER) {
+			settings = null;
+			playerList = new PlayerList(plugin, world);
+			playerList.getActivePlayerList();
+			blockCrawler = new BlockCrawler(settings);
+			cacti = null;
+			canes = null;
+			grass = null;
+			plants = null;
+			grazers = null;
+			moss = null;
+			vines = null;
+			tGrass = null;
+		} else {
+			settings = new Settings("plugins/Vegetation/" + w.getName() + ".ini");
+			playerList = new PlayerList(plugin, world);
+			playerList.getActivePlayerList();
+			blockCrawler = new BlockCrawler(settings);
+			cacti = new Cacti(blockCrawler);
+			canes = new Canes(blockCrawler);
+			grass = new Grass(world, blockCrawler, settings.maxGrassHeight);
+			plants = new Plants(blockCrawler);
+			grazers = new Grazers(world, settings);
+			moss = new Moss(blockCrawler);
+			vines = new Vines(blockCrawler);
+			tGrass = new TallGrass(blockCrawler);
+		}
 
-		logOutput("Settings for world [" + w.getName() + "] loaded.");
+		Vegetation.logOutput("Settings for world [" + w.getName() + "] loaded.");
 	}
 
 	public Settings getSettings() {
@@ -49,7 +61,8 @@ public class VegetationWorld {
 	}
 
 	public void startTimer() {
-		Vegetation.timer.scheduleSyncRepeatingTask(plugin, new Timer(this), 10, 1);
+		if (world.getEnvironment() != Environment.NETHER )
+			Vegetation.timer.scheduleSyncRepeatingTask(plugin, new Timer(this), 10, 1);
 	}
 
 	public World getWorld() {

@@ -101,8 +101,7 @@ public class Vegetation extends JavaPlugin {
 	public void loadWorldSettings() {
 		vWorlds.clear();
 		for (World w : this.getServer().getWorlds()) {
-			if (w.getEnvironment() == Environment.NORMAL)
-				vWorlds.put(w.getName(), new VegetationWorld(this, w));
+			vWorlds.put(w.getName(), new VegetationWorld(this, w));
 		}
 	}
 

@@ -107,27 +107,29 @@ public class VegetationPlayerListener extends PlayerListener {
 		Player player = event.getPlayer();
 		VegetationWorld vWorld = plugin.vWorlds.get(player.getWorld().getName());
 		if (vWorld != null) {
-			boolean trampleGrass = vWorld.getSettings().trampleGrass;
-			if (trampleGrass) {
-				if (!player.isSneaking()) {
-					Block block = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
-					VegetationPlayer vPlayer = vWorld.playerList.getVegetationplayer(player.getName());
-					if (vPlayer.getLastBlockPosition() != null) {
-						if (block != vPlayer.getLastBlockPosition()) {
-							vPlayer.setLastBlockPosition(block);
-							if (block.getType() == Material.GRASS) {
-								byte data = block.getData();
-								// if( data > 0 && data - 2 > 0 )
-								// block.setData((byte)(data - 2));
-								// else block.setData((byte)0);
-								// if( data > 0 ) block.setData((byte)(data -
-								// 1));
-								if (data > 0)
-									block.setTypeIdAndData(Material.GRASS.getId(), (byte) (data - 1), true);
+			if (vWorld.getSettings() != null) {
+				boolean trampleGrass = vWorld.getSettings().trampleGrass;
+				if (trampleGrass) {
+					if (!player.isSneaking()) {
+						Block block = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
+						VegetationPlayer vPlayer = vWorld.playerList.getVegetationplayer(player.getName());
+						if (vPlayer.getLastBlockPosition() != null) {
+							if (block != vPlayer.getLastBlockPosition()) {
+								vPlayer.setLastBlockPosition(block);
+								if (block.getType() == Material.GRASS) {
+									byte data = block.getData();
+									// if( data > 0 && data - 2 > 0 )
+									// block.setData((byte)(data - 2));
+									// else block.setData((byte)0);
+									// if( data > 0 ) block.setData((byte)(data -
+									// 1));
+									if (data > 0)
+										block.setTypeIdAndData(Material.GRASS.getId(), (byte) (data - 1), true);
+								}
 							}
+						} else {
+							vPlayer.setLastBlockPosition(block);
 						}
-					} else {
-						vPlayer.setLastBlockPosition(block);
 					}
 				}
 			}
@@ -148,9 +150,7 @@ public class VegetationPlayerListener extends PlayerListener {
 
 			if (old != null && current != null) {
 				VegetationPlayer vPlayer = old.playerList.getVegetationplayer(player.getName());
-				old.playerList.removePlayer(vPlayer);
-				vPlayer.setLastBlockPosition(player.getLocation().getBlock());
-				current.playerList.addPlayer(vPlayer);
+				PlayerList.transferPlayer(vPlayer, old, current);
 			}
 		}
 	}

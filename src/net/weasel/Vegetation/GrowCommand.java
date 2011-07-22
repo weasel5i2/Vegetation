@@ -2,6 +2,7 @@ package net.weasel.Vegetation;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,10 +22,19 @@ public class GrowCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			Player P = (Player) sender;
-			VegetationWorld vWorld = plugin.vWorlds.get(P.getWorld().getName());
-			Settings settings = vWorld.getSettings();
 
 			if (plugin.hasPermission(P, "vegetation.grow")) {
+				VegetationWorld vWorld = plugin.vWorlds.get(P.getWorld().getName());
+				Settings settings = vWorld.getSettings();
+				if (settings == null) {
+					if (P.getWorld().getEnvironment() == Environment.NETHER) {
+						P.sendMessage("You can't grow anything in a nether world");
+						return true;
+					} else {
+						//TODO: create settings for new World
+					}
+				}
+				
 				// Todo: implement command queue
 				if (vWorld.getActivePlayerCommands() < settings.maxActivePlayerCommands) {
 					if (args.length == 1) {

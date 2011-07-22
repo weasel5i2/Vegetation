@@ -4,6 +4,7 @@ import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,11 +26,19 @@ public class PurgeCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			World world = player.getWorld();
-			VegetationWorld vWorld = plugin.vWorlds.get(world.getName());
-			Settings settings = vWorld.getSettings();
 
 			if (plugin.hasPermission(player, "vegetation.purge")) {
+				World world = player.getWorld();
+				VegetationWorld vWorld = plugin.vWorlds.get(world.getName());
+				Settings settings = vWorld.getSettings();
+				if (settings == null) {
+					if (player.getWorld().getEnvironment() == Environment.NETHER) {
+						player.sendMessage("Nothing to purge from a nether world");
+						return true;
+					} else {
+						//TODO: create settings for new World
+					}
+				}
 				if (vWorld.getActivePlayerCommands() < settings.maxActivePlayerCommands) {
 					if (args.length == 1) {
 						vWorld.increaseActivePlayerCommands();
