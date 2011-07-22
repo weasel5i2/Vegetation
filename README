@@ -9,6 +9,11 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.4.5 22-July-2011
+* fixed playerlist for nether and skylands
+* fixed possible memory leak
+* fixed a lot of NullPointerExceptions
+
 Version 3.4.4 20-July-2011
 * vines will now vanish if a tree burns down
 * implement a log for the plugins player list for debugging (playerlist.log)
