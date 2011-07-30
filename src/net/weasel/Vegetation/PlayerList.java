@@ -26,16 +26,16 @@ public class PlayerList {
 		lock.lock();
 
 		players.clear();
+		posIndex = 0;
+		
 		Vegetation.lf.write("Clearing PlayerList - World [" + world.getName() + "]");
 
 		for (Player player : world.getPlayers()) {
 			VegetationPlayer vPlayer = new VegetationPlayer(player.getName());
 			vPlayer.setLastBlockPosition(player.getLocation().getBlock());
 			players.add(vPlayer);
-			//Vegetation.lf.write("Adding Player [" + vPlayer.getName() + "] - World [" + world.getName() + "]");
+			Vegetation.lf.write("Adding Player [" + vPlayer.getName() + "] - World [" + world.getName() + "]");
 		}
-
-		posIndex = 0;
 
 		lock.unlock();
 	}
