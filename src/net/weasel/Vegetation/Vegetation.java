@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.World;
-import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Event.Type;
@@ -26,18 +25,18 @@ public class Vegetation extends JavaPlugin {
 	protected static BukkitScheduler timer;
 	private VegetationPlayerListener PlayerListener;
 	private VegetationBlockListener BlockListener;
+	private VegetationWorldListener WorldListener;
 	private PluginManager pm;
 
 	// Plugin stuff..
 	private String pluginVersion = "";
 
 	// System stuff
-	protected HashMap<String, VegetationWorld> vWorlds = new HashMap<String, VegetationWorld>();
+	protected HashMap<String, VegetationWorld> vWorlds;
 	public static Random generator = new Random();
-
 	private boolean foundPermissions = false;
-
 	protected static LogFile lf = new LogFile();
+	private Executor ex;
 
 	@Override
 	public void onEnable() {
@@ -45,9 +44,11 @@ public class Vegetation extends JavaPlugin {
 		pm = getServer().getPluginManager();
 		PlayerListener = new VegetationPlayerListener(this);
 		BlockListener = new VegetationBlockListener(this);
+		WorldListener = new VegetationWorldListener(this);
 
 		pluginVersion = this.getDescription().getVersion();
 		timer = getServer().getScheduler();
+		vWorlds = new HashMap<String, VegetationWorld>();
 
 		pm.registerEvent(Type.PLAYER_INTERACT, PlayerListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.PLAYER_QUIT, PlayerListener, Event.Priority.Normal, this);
@@ -58,6 +59,7 @@ public class Vegetation extends JavaPlugin {
 		pm.registerEvent(Type.BLOCK_PHYSICS, BlockListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.LEAVES_DECAY, BlockListener, Event.Priority.Normal, this);
 		pm.registerEvent(Type.BLOCK_BURN, BlockListener, Event.Priority.Normal, this);
+		pm.registerEvent(Type.CHUNK_POPULATED, WorldListener, Event.Priority.Normal, this);
 
 		lf.loadFile("playerlist.log");
 
@@ -81,6 +83,10 @@ public class Vegetation extends JavaPlugin {
 
 		// create VegetationWorld objects for loaded worlds
 		loadWorldSettings();
+		
+		// create Executor for ChunkPopulation Tasks
+		ex = new Executor();
+		timer.scheduleSyncRepeatingTask(this, ex, 10, 1);
 
 		logOutput("Vegetation v" + pluginVersion + " enabled.");
 
@@ -128,5 +134,10 @@ public class Vegetation extends JavaPlugin {
 		} else {
 			return player.isOp();
 		}
+	}
+	
+	public Executor getExecutor()
+	{
+		return ex;
 	}
 }
