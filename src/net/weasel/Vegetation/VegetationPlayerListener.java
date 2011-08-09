@@ -127,8 +127,6 @@ public class VegetationPlayerListener extends PlayerListener {
 										block.setTypeIdAndData(Material.GRASS.getId(), (byte) (data - 1), true);
 								}
 							}
-						} else {
-							vPlayer.setLastBlockPosition(block);
 						}
 					}
 				}
