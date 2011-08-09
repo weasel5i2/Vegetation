@@ -27,7 +27,6 @@ public class ChunkTask implements Runnable {
 						if (snapChunk.getBlockTypeId(x, y - 1, z) == Material.STATIONARY_WATER.getId()
 								|| snapChunk.getBlockTypeId(x, y - 1, z) == Material.SAND.getId()) {
 							chunk.getBlock(x, y, z).setType(Material.AIR);
-							Vegetation.logOutput("Found Tall Grass");
 						}
 					}
 				}

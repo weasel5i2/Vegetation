@@ -19,7 +19,6 @@ public class Executor implements Runnable {
 	public void run() {
 		if(jobs.peek() != null) {
 			jobs.poll().run();
-			Vegetation.logOutput("Running Job, " + jobs.size() + " remaining");
 		}
 	}
 	
