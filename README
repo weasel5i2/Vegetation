@@ -1,6 +1,6 @@
 DESCRIPTION:
 ============
-This plugin implements the functionality of ejhopkins' Wild Grass 11.5.1 server mod, 
+This plugin implements the functionality of ejhopkins' Wild Grass server mod, 
 as well as vines on trees, (partially working) lily pads and mini-cacti on land, 
 mossy growth spreading on cobblestone and surface plant spreading functionality 
 based on Master-Guy's PlantSpreader plugin. **Note that in order for the players 
@@ -9,6 +9,9 @@ and/or plant growth can be disabled. Now supports vines!
 
 CHANGELOG:
 ==========
+Version 3.4.6 09-August-2011
+* fixed Long Grass growing on sand and water upon chunk creation
+
 Version 3.4.5 22-July-2011
 * fixed playerlist for nether and skylands
 * fixed possible memory leak
