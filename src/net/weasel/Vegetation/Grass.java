@@ -2,7 +2,6 @@ package net.weasel.Vegetation;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 
@@ -11,7 +10,6 @@ public class Grass {
 		Vegetation.logOutput(text);
 	}
 
-	private World world;
 	private BlockCrawler blockCrawler;
 	private int maxGrassHeight;
 
@@ -22,8 +20,7 @@ public class Grass {
 	 * 
 	 * @param maxHeight
 	 */
-	public Grass(World world, BlockCrawler blockCrawler, int maxGrassHeight) {
-		this.world = world;
+	public Grass(BlockCrawler blockCrawler, int maxGrassHeight) {
 		this.blockCrawler = blockCrawler;
 		this.maxGrassHeight = maxGrassHeight;
 	}
@@ -49,11 +46,7 @@ public class Grass {
 		} else {
 			data++;
 			if (data < maxGrassHeight + 1) {
-				// block.setData((byte)data, true);
 				block.setTypeIdAndData(Material.GRASS.getId(), (byte) data, true);
-				// we only need to refresh the chunk if the grass is growing
-				// world.refreshChunk(block.getChunk().getX(),
-				// block.getChunk().getZ());
 			}
 		}
 	}
@@ -76,15 +69,11 @@ public class Grass {
 
 				if (currentBlock != null) {
 					if (currentBlock.getType() == Material.GRASS) {
-						// currentBlock.setData((byte)0);
 						currentBlock.setTypeIdAndData(Material.GRASS.getId(), (byte) 0, true);
 					} else if (currentBlock.getType() == Material.RED_ROSE || currentBlock.getType() == Material.YELLOW_FLOWER
 							|| currentBlock.getType() == Material.RED_MUSHROOM || currentBlock.getType() == Material.BROWN_MUSHROOM) {
 						if (currentBlock.getRelative(BlockFace.DOWN).getType() == Material.GRASS)
-							// currentBlock.getRelative(BlockFace.DOWN).setData((byte)0);
 							currentBlock.getRelative(BlockFace.DOWN).setTypeIdAndData(Material.GRASS.getId(), (byte) 0, true);
-						// world.refreshChunk(currentBlock.getChunk().getX(),
-						// currentBlock.getChunk().getZ());
 					}
 				}
 			}

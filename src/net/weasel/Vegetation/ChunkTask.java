@@ -3,7 +3,6 @@ package net.weasel.Vegetation;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.Material;
-import org.bukkit.World;
 
 public class ChunkTask implements Runnable {
 

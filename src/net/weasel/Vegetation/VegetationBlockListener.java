@@ -12,6 +12,7 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 
 public class VegetationBlockListener extends BlockListener {
+	
 	private final Vegetation plugin;
 
 	public VegetationBlockListener(final Vegetation instance) {
