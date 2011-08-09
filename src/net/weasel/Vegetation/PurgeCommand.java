@@ -60,12 +60,11 @@ public class PurgeCommand implements CommandExecutor {
 											if (material == Material.GRASS.getId()) {
 												if (snapChunk.getBlockData(x, y, z) != 0) {
 													chunks[i].getBlock(x, y, z).setData((byte) 0);
-													world.refreshChunk(chunks[i].getX(), chunks[i].getZ());
 													blockCount++;
 												}
 											} else if (material == Material.SUGAR_CANE_BLOCK.getId()) {
 												if (snapChunk.getBlockData(x, y, z) == 15) {
-													chunks[i].getBlock(x, y, z).setTypeId(Material.AIR.getId());
+													chunks[i].getBlock(x, y, z).setType(Material.AIR);
 													blockCount++;
 												}
 											}
@@ -76,6 +75,7 @@ public class PurgeCommand implements CommandExecutor {
 								if (i % 30 == 0) {
 									player.sendMessage("Purge Progress: " + Math.round((count / chunkCount) * 100) + "%");
 								}
+								world.refreshChunk(chunks[i].getX(), chunks[i].getZ());
 							}
 						} else if (args[0].equals("vines")) {
 							for (int i = 0; i < chunkCount; i++) {
@@ -88,7 +88,7 @@ public class PurgeCommand implements CommandExecutor {
 
 											if (material == Material.SUGAR_CANE_BLOCK.getId()) {
 												if (snapChunk.getBlockData(x, y, z) == 15) {
-													chunks[i].getBlock(x, y, z).setTypeId(Material.AIR.getId());
+													chunks[i].getBlock(x, y, z).setType(Material.AIR);
 													blockCount++;
 												}
 											}
@@ -113,7 +113,7 @@ public class PurgeCommand implements CommandExecutor {
 												chunks[i].getBlock(x, y, z).setType(Material.AIR);
 												blockCount++;
 											} else if (material == Material.LONG_GRASS.getId()) {
-												chunks[i].getBlock(x, y, z).setTypeId(Material.AIR.getId());
+												chunks[i].getBlock(x, y, z).setType(Material.AIR);
 												blockCount++;
 											}
 										}
@@ -136,7 +136,7 @@ public class PurgeCommand implements CommandExecutor {
 											if (material == Material.YELLOW_FLOWER.getId() || material == Material.RED_ROSE.getId()) {
 												if (snapChunk.getBlockTypeId(x, y - 1, z) == Material.STATIONARY_WATER.getId()
 														|| snapChunk.getBlockTypeId(x, y - 1, z) == Material.SAND.getId()) {
-													chunks[i].getBlock(x, y, z).setTypeId(Material.AIR.getId());
+													chunks[i].getBlock(x, y, z).setType(Material.AIR);
 													blockCount++;
 												}
 											}
